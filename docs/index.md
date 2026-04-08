@@ -7,23 +7,39 @@
 
 ## � START HERE: INTERACTIVE TESTING TOOL
 
-### ✨ [Interactive QA Tracker - Click to Start](./tracker-interactive.html)
-**Your personal, interactive testing checklist with auto-save**
-
-**What you can do:**
-- ✅ Click checkboxes to track progress
-- 💾 Progress auto-saves (private to your browser)
-- 📊 See real-time completion percentage
-- 📤 Export results as CSV file
-- 🖨️ Print or share your progress
-- 📱 Works on mobile and desktop
-- 🔄 Reset anytime to start fresh
+### ⭐ [Comprehensive QA Tracker - All Tests & Edge Cases](./tracker-comprehensive.html)
+**RECOMMENDED** - Full interactive testing checklist with complete coverage
+- ✅ **All 17 modules** with detailed test sequences
+- ✅ **Complete edge case coverage** (150+ documented cases)
+- ✅ **All 80+ features** with role-specific tests
+- 💾 Auto-save progress to browser
+- 📊 Real-time completion percentage
+- 🚨 Track critical blockers separately
+- 👥 Role completion checkboxes
+- ✍️ QA sign-off section
+- 📤 Export results as CSV
+- 🖨️ Print for reporting
 
 **Perfect for:**
-- QA engineers executing daily tests
-- Tracking 17 modules across 4 roles
-- Signing off on completion
-- Sharing progress with team
+- Comprehensive system testing
+- Role-based acceptance testing
+- Pre-release QA sign-off
+- Audit trail documentation
+
+---
+
+### 📋 [Interactive QA Tracker - Basic](./tracker-interactive.html)
+**Simplified version** - Core testing checklist for quick daily tests
+- ✅ Essential items per module
+- 💾 Auto-save functionality
+- 📊 Progress tracking
+- 📤 Export results
+- 📱 Mobile responsive
+
+**Good for:**
+- Daily smoke testing
+- Quick sanity checks
+- Rapid deployment verification
 
 ---
 

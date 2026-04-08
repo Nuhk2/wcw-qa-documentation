@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCW CRM QA Comprehensive Test Tracker - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+        }
+
+        .progress-section {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .content {
+            padding: 30px;
+            max-height: calc(100vh - 400px);
+            overflow-y: auto;
+        }
+
+        .module {
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .module-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .module-header:hover {
+            background: #e9ecef;
+        }
+
+        .module-header.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .module-title {
+            font-size: 1em;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .module-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            padding: 0;
+            display: none;
+            background: white;
+        }
+
+        .module-content.active {
+            display: block;
+        }
+
+        .test-section {
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .test-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .checklist-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            font-size: 0.95em;
+        }
+
+        .checklist-item:hover {
+            background: #fafafa;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 2px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .role-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .role-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+        }
+
+        .role-checklist {
+            display: grid;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .role-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            transition: all 0.2s;
+        }
+
+        .role-item:hover {
+            background: #f8f9fa;
+        }
+
+        .role-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .role-item label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .role-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .sign-off-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+
+        .sign-off-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field {
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .sign-off-field input,
+        .sign-off-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        .sign-off-field textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .blocker-badge {
+            display: inline-block;
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .success-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .module-header {
+                padding: 10px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 WCW CRM - Comprehensive QA Test Tracker</h1>
+            <p>All Test Cases & Edge Cases - Progress Auto-Saved</p>
+            <div class="controls">
+                <button onclick="resetAll()">🔄 Reset All</button>
+                <button class="secondary" onclick="exportData()">📤 Export Progress</button>
+                <button class="secondary" onclick="printPage()">🖨️ Print</button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            <div class="progress-text">
+                <strong><span id="completed">0</span> / <span id="total">0</span> items completed</strong>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+
+        <div class="content" id="tracker">
+            <!-- Content generated by JavaScript -->
+        </div>
+
+        <div class="footer">
+            <p>💾 Your progress is automatically saved to your browser</p>
+            <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Comprehensive Edition - All test cases & edge cases | Last Updated: April 8, 2026</p>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive test data with all test cases and edge cases
+        const trackerData = {
+            modules: [
+                {
+                    name: '1️⃣ Authentication',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin user can login',
+                            'Sales Rep can login',
+                            'Inside Rep can login',
+                            'Manager can login',
+                            'Invalid email rejected',
+                            'Invalid password rejected',
+                            'Token stored in localStorage',
+                            'Token persists across page refresh'
+                        ],
+                        'Edge Cases': [
+                            'Very long email (1000+ chars) handled correctly',
+                            'Special characters in email validated',
+                            'Rapid login attempts rate-limited',
+                            'Simultaneous logins from multiple locations handled',
+                            'Login with expired credentials rejected',
+                            'Case-insensitive email handling',
+                            'Logout clears all session data',
+                            'Session timeout after inactivity (30+ mins)',
+                            'Account locked after 5 failed attempts',
+                            'CSRF protection working'
+                        ]
+                    }
+                },
+                {
+                    name: '2️⃣ Dashboard',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin sees all data',
+                            'Manager sees team data',
+                            'Sales Rep sees own region',
+                            'Inside Rep sees own region',
+                            'Filters work by role correctly'
+                        ],
+                        'Edge Cases': [
+                            'Large dataset (10k+ records) loads without freeze',
+                            'Filter combinations work (region + data)',
+                            'Rapid filter changes sync correctly',
+                            'Empty result set handled gracefully',
+                            'Refresh updates data accurately',
+                            'Charts render with large numbers',
+                            'Mobile view responsive and readable',
+                            'Pagination works across filters',
+                            'Sorting preserves filters',
+                            'Export includes visible filters'
+                        ]
+                    }
+                },
+                {
+                    name: '3️⃣ Customers',
+                    tests: {
+                        'Basic Tests': [
+                            'View list filtered by role',
+                            'Create customer assigned to user',
+                            'View customer detail',
+                            'Edit customer works',
+                            'Delete restricted by role',
+                            'Search/filter by name works',
+                            'Search/filter by email works'
+                        ],
+                        'Edge Cases': [
+                            'Special characters in company name (@#$%) handled',
+                            'Very long company name (500+ chars) saved correctly',
+                            'Duplicate email detection working',
+                            'International phone numbers validated',
+                            'Pagination with 10k+ customers',
+                            'Rapid create/delete cycles handled',
+                            'Edit by non-owner rejected',
+                            'Delete cascades to contacts/opps',
+                            'Concurrent edits on same record',
+                            'Archive instead of delete option',
+                            'Bulk operations (export/delete)',
+                            'Search across special characters'
+                        ]
+                    }
+                },
+                {
+                    name: '4️⃣ Contacts',
+                    tests: {
+                        'Basic Tests': [
+                            'View contact list by role',
+                            'Create contact for customer',
+                            'View contact detail',
+                            'Edit contact info',
+                            'Delete contact restricted',
+                            'Contact without email works',
+                            'Contact without phone works'
+                        ],
+                        'Edge Cases': [
+                            'Duplicate email per customer rejected',
+                            'Primary contact enforced',
+                            'Delete customer cascade deletes contacts',
+                            'Bulk contact import',
+                            'Contact history/timeline',
+                            'Multiple contacts per customer',
+                            'Contact merge functionality',
+                            'Phone number format validation',
+                            'Email uniqueness across system',
+                            'Deleted contact visibility to admin-only'
+                        ]
+                    }
+                },
+                {
+                    name: '5️⃣ Opportunities',
+                    tests: {
+                        'Basic Tests': [
+                            'View pipeline by role',
+                            'Create opportunity',
+                            'Drag-drop between stages',
+                            'Edit opportunity details',
+                            'Mark won with reason',
+                            'Mark lost with reason',
+                            'Delete opportunity'
+                        ],
+                        'Edge Cases': [
+                            'Amount = $0 handled',
+                            'Probability > 100% rejected',
+                            'Past expected close date allowed',
+                            'Drag-drop stage changes persist',
+                            'Won with $0 commission',
+                            'Lost without reason rejected',
+                            'Reopen closed opportunity',
+                            'Concurrent stage changes',
+                            'Bulk stage update',
+                            'Revenue forecast accuracy',
+                            'Commission calculation correct',
+                            'Activity timeline with opps'
+                        ]
+                    }
+                },
+                {
+                    name: '6️⃣ Tasks',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin cannot view tasks (by design)',
+                            'Admin cannot create tasks',
+                            'Manager sees team tasks + own',
+                            'Manager assigns to team',
+                            'Sales Rep sees own only',
+                            'Create task works',
+                            'Mark task complete'
+                        ],
+                        'Edge Cases': [
+                            'Overdue tasks highlighted',
+                            'Task priority levels',
+                            'Recurring task creation',
+                            'Task dependency handling',
+                            'Bulk task assignment',
+                            'Task search by assignee',
+                            'Task templates',
+                            'Subtasks functionality',
+                            'Task attachments',
+                            'Task notifications',
+                            'Admin restriction confirmed by design',
+                            'Task deletion permissions'
+                        ]
+                    }
+                },
+                {
+                    name: '7️⃣ Commitments',
+                    tests: {
+                        'Basic Tests': [
+                            'View commitments by role',
+                            'Create commitment',
+                            'Add commitment type (call/email/meeting)',
+                            'Set due date',
+                            'Mark complete',
+                            'Edit commitment',
+                            'Delete commitment'
+                        ],
+                        'Edge Cases': [
+                            'Type field works (call, email, meeting, etc)',
+                            'Due date validation against current date',
+                            'Completion notes saved correctly',
+                            'Overdue commitments tracked',
+                            'Associated with customer',
+                            'Concurrent commitment creation',
+                            'Bulk commitment operations',
+                            'Commitment history/audit trail',
+                            'Task to commitment conversion',
+                            'Commitment reminders/notifications'
+                        ]
+                    }
+                },
+                {
+                    name: '8️⃣ Calendar',
+                    tests: {
+                        'Basic Tests': [
+                            '🔴 Hardcoded mock data found (September 2025)',
+                            'Navigate months fails (mock only)',
+                            'Create meeting inaccessible',
+                            'Mobile calendar separate component',
+                            'Backend API not called'
+                        ],
+                        'Edge Cases': [
+                            'Current month/year displays correctly',
+                            'Real meetings show (API pending)',
+                            'Drag-drop functionality',
+                            'All-day events handling',
+                            'Multi-day event spanning',
+                            'Event color coding',
+                            'Time zone handling',
+                            'Recurring events',
+                            'Event reminders',
+                            'Calendar sharing (team view)',
+                            'Print calendar functionality',
+                            'Calendar sync with Outlook/Gmail'
+                        ]
+                    }
+                },
+                {
+                    name: '9️⃣ Schedule',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin cannot view schedule (by design)',
+                            'Admin cannot create entries',
+                            'Manager sees team schedule + own',
+                            'Sales Rep sees own only',
+                            'Inside Rep sees own only',
+                            'Create schedule entry',
+                            'No time conflicts allowed'
+                        ],
+                        'Edge Cases': [
+                            'Recurring schedule entries',
+                            'Multi-day blocking',
+                            'Break time handling',
+                            'Travel time calculations',
+                            'Schedule templates',
+                            'Bulk scheduling',
+                            'Schedule conflict alerts',
+                            'Manager override capability',
+                            'Schedule optimization suggestions',
+                            'Mobile push notifications',
+                            'Concurrent scheduling',
+                            'Schedule reports/analytics'
+                        ]
+                    }
+                },
+                {
+                    name: '🔟 Targets',
+                    tests: {
+                        'Basic Tests': [
+                            'View targets by role',
+                            'Create target (Admin/Manager only)',
+                            'Edit target assignments',
+                            'Monitor progress',
+                            'Target completion tracking',
+                            'Historical targets visible',
+                            'Target reset capabilities'
+                        ],
+                        'Edge Cases': [
+                            'Target amount = $0 handled',
+                            'Over-target achievement (200%)',
+                            'Manual target adjustment',
+                            'Team total calculations',
+                            'Target vs actual comparison',
+                            'Trend analysis',
+                            'Previous period comparison',
+                            'Target forecasting',
+                            'Commission impact calculation',
+                            'Target by product/category',
+                            'Mid-period target changes',
+                            'Target rollover handling'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣1️⃣ Daily Alerts',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin cannot view alerts (by design)',
+                            'Manager sees team alerts',
+                            'Sales Rep sees own alerts',
+                            'Alert categories display',
+                            'Dismiss alert works'
+                        ],
+                        'Edge Cases': [
+                            'Overdue follow-ups highlighted',
+                            'Follow-up needed alerts',
+                            'Opportunity close alerts',
+                            'Task deadline alerts',
+                            'Commitment deadline alerts',
+                            'Snooze alert functionality',
+                            'Alert badge count accurate',
+                            'Multiple alert types combined',
+                            'Alert sorting/filtering',
+                            'Print alert list',
+                            'Performance with 1000+ alerts',
+                            'Alert recurring scheduling'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣2️⃣ Global Settings',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin sees all settings',
+                            'Manager sees limited settings',
+                            'Sales Rep cannot access',
+                            'Inside Rep cannot access',
+                            'Changes apply immediately',
+                            'Invalid values rejected',
+                            'Settings saved to backend'
+                        ],
+                        'Edge Cases': [
+                            'Conflicting settings detected',
+                            'Settings rollback capability',
+                            'Audit trail for setting changes',
+                            'Permission implications tested',
+                            'Default values restore',
+                            'Settings import/export',
+                            'Settings sync across instances',
+                            'Regional settings support',
+                            'Settings versioning',
+                            'Settings backup/restore',
+                            'User notifications on setting changes',
+                            'Settings impact on existing data'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣3️⃣ Regions',
+                    tests: {
+                        'Basic Tests': [
+                            'View regions filtered by role',
+                            'All data filtered by region',
+                            'Manager can modify own regions',
+                            'Admin can modify all regions',
+                            'Create region assignment',
+                            'Assign members to region',
+                            'Team member count accurate'
+                        ],
+                        'Edge Cases': [
+                            'Cross-region data hidden',
+                            'Region hierarchy handling',
+                            'Manager cannot modify other regions',
+                            'Region reassignment impact',
+                            'Team member rebalancing',
+                            'Region merge/split',
+                            'Territory rules enforcement',
+                            'Region-based reporting',
+                            'Concurrent region changes',
+                            'Region data migration',
+                            'Historical region tracking',
+                            'Region performance metrics'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣4️⃣ Groups',
+                    tests: {
+                        'Basic Tests': [
+                            'View groups filtered by role',
+                            'Manager can create groups',
+                            'Add members to group',
+                            'Remove members from group',
+                            'Delete group works',
+                            'Sales Rep cannot manage groups',
+                            'Group permissions enforced'
+                        ],
+                        'Edge Cases': [
+                            'Delete group with 1000+ members',
+                            'Concurrent member add/remove',
+                            'Group with 0 members',
+                            'Group hierarchies',
+                            'Group access control',
+                            'Group member roles',
+                            'Bulk group operations',
+                            'Group templates',
+                            'Group workflows',
+                            'Subgroups support',
+                            'Group nesting limits',
+                            'Group member notifications'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣5️⃣ User Management',
+                    tests: {
+                        'Basic Tests': [
+                            'Admin can view all users',
+                            'Manager can view team users',
+                            'Admin can create user',
+                            'Manager cannot create users',
+                            'Edit user details',
+                            'Deactivate user (Admin only)',
+                            'User role assignment'
+                        ],
+                        'Edge Cases': [
+                            'Duplicate email detection',
+                            'Edit own user profile',
+                            'Cannot change own role',
+                            'Deactivate with pending tasks',
+                            'User data reassignment',
+                            'User status tracking',
+                            'Last login monitoring',
+                            'Password reset workflows',
+                            'Two-factor authentication',
+                            'User audit trail',
+                            'Bulk user import',
+                            '🔴 PBAC permissions not implemented yet'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣6️⃣ Subscription',
+                    tests: {
+                        'Basic Tests': [
+                            '🔴 Email verification disabled',
+                            'View subscription status',
+                            'Plan details displayed',
+                            'Billing information visible',
+                            'Change plan accessible',
+                            'Cancel subscription button available',
+                            'Renewal date shown'
+                        ],
+                        'Edge Cases': [
+                            'Plan upgrade workflow',
+                            'Plan downgrade restrictions',
+                            'Mid-cycle plan changes',
+                            'Proration calculations',
+                            'Free trial handling',
+                            'Expired subscription access',
+                            'Subscription renewal failure',
+                            'Payment method updates',
+                            'Invoice history access',
+                            'Subscription history tracking',
+                            'Multiple subscription support',
+                            'Subscription notifications/reminders'
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣7️⃣ Layout & Navigation',
+                    tests: {
+                        'Basic Tests': [
+                            'Navigation menu displays',
+                            'Role-based menu filtering',
+                            'Header loads correctly',
+                            'Breadcrumbs navigation',
+                            'Sidebar functionality',
+                            'Mobile menu works',
+                            'Responsive layout'
+                        ],
+                        'Edge Cases': [
+                            'No horizontal scroll on any size',
+                            'Touch targets >= 44px (mobile)',
+                            'Keyboard navigation works',
+                            'Screen reader compatible',
+                            'Dark mode support',
+                            'Theme persistence',
+                            'Ultra-wide display (3840px)',
+                            'Very small display (320px)',
+                            'Menu with 50+ items',
+                            'Deeply nested navigation',
+                            'Navigation performance',
+                            'Accessibility WCAG compliance'
+                        ]
+                    }
+                }
+            ],
+            roles: [
+                { id: 'admin', text: '👨‍💼 Admin Role Testing Complete', checked: false },
+                { id: 'manager', text: '👔 Manager Role Testing Complete', checked: false },
+                { id: 'salesrep', text: '📱 Sales Rep Role Testing Complete', checked: false },
+                { id: 'insiderep', text: '🏢 Inside Rep Role Testing Complete', checked: false },
+            ],
+            blockers: [
+                { id: 'blocker1', text: '🔴 Calendar: Hardcoded mock data (Sept 2025)', checked: false },
+                { id: 'blocker2', text: '🔴 Subscription: Email verification disabled', checked: false },
+                { id: 'blocker3', text: '🔴 Auth: Token refresh not implemented', checked: false },
+                { id: 'blocker4', text: '🔴 User Mgmt: PBAC permissions not implemented', checked: false },
+            ],
+            signoff: {
+                qaManager: '',
+                techLead: '',
+                date: '',
+                notes: '',
+            }
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('wcwComprehensiveTracker');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    trackerData.roles = data.roles || trackerData.roles;
+                    trackerData.blockers = data.blockers || trackerData.blockers;
+                    trackerData.modules = data.modules || trackerData.modules;
+                    trackerData.signoff = data.signoff || trackerData.signoff;
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('wcwComprehensiveTracker', JSON.stringify(trackerData));
+            updateProgress();
+        }
+
+        // Render tracker
+        function renderTracker() {
+            const tracker = document.getElementById('tracker');
+            let html = '';
+
+            // Module sections
+            trackerData.modules.forEach((module, moduleIndex) => {
+                html += `
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(this)">
+                            <span class="module-title">${module.name}</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="module-content">
+                `;
+
+                // Each test section within module
+                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
+                    html += `
+                        <div class="test-section">
+                            <div class="section-title">${sectionName}</div>
+                            <ul class="checklist">
+                    `;
+                    tests.forEach((test, testIndex) => {
+                        const itemId = `module_${moduleIndex}_${sectionName}_${testIndex}`;
+                        const isChecked = module.checked?.[sectionName]?.[testIndex] || false;
+                        const isBlocker = test.includes('🔴');
+                        html += `
+                            <li class="checklist-item">
+                                <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''} 
+                                       onchange="updateModule(${moduleIndex}, '${sectionName}', ${testIndex}); saveData();">
+                                <label for="${itemId}">${test}</label>
+                            </li>
+                        `;
+                    });
+                    html += `
+                            </ul>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Blockers section
+            html += `
+                <div class="role-section">
+                    <h3>🚨 Critical Blockers to Track</h3>
+                    <div class="role-checklist">
+            `;
+            trackerData.blockers.forEach(blocker => {
+                html += `
+                    <div class="role-item">
+                        <input type="checkbox" id="${blocker.id}" ${blocker.checked ? 'checked' : ''} 
+                               onchange="updateBlocker('${blocker.id}'); saveData();">
+                        <label for="${blocker.id}">${blocker.text}</label>
+                    </div>
+                `;
+            });
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // Role completion section
+            html += `
+                <div class="role-section" style="margin-top: 20px;">
+                    <h3>👥 Role Testing Completion</h3>
+                    <div class="role-checklist">
+            `;
+            trackerData.roles.forEach(role => {
+                html += `
+                    <div class="role-item">
+                        <input type="checkbox" id="${role.id}" ${role.checked ? 'checked' : ''} 
+                               onchange="updateRole('${role.id}'); saveData();">
+                        <label for="${role.id}">${role.text}</label>
+                    </div>
+                `;
+            });
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // Sign-off section
+            html += `
+                <div class="sign-off-section">
+                    <h3>✍️ QA Sign-Off</h3>
+                    <div class="sign-off-field">
+                        <label for="qaManager">QA Manager Name:</label>
+                        <input type="text" id="qaManager" value="${trackerData.signoff.qaManager}" 
+                               onchange="updateSignoff('qaManager', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="techLead">Tech Lead Name:</label>
+                        <input type="text" id="techLead" value="${trackerData.signoff.techLead}" 
+                               onchange="updateSignoff('techLead', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffDate">Sign-off Date:</label>
+                        <input type="date" id="signoffDate" value="${trackerData.signoff.date}" 
+                               onchange="updateSignoff('date', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffNotes">Sign-off Notes (Blockers, Issues, etc):</label>
+                        <textarea id="signoffNotes" onchange="updateSignoff('notes', this.value); saveData();">${trackerData.signoff.notes}</textarea>
+                    </div>
+                </div>
+            `;
+
+            // Action buttons
+            html += `
+                <div class="action-buttons" style="margin-top: 30px; padding: 0 20px 20px;">
+                    <button class="btn-primary" onclick="exportData()">📤 Export Results</button>
+                    <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
+                    <button class="btn-secondary" onclick="printPage()">🖨️ Print</button>
+                </div>
+            `;
+
+            tracker.innerHTML = html;
+        }
+
+        // Update functions
+        function updateModule(moduleIndex, sectionName, testIndex) {
+            if (!trackerData.modules[moduleIndex].checked) {
+                trackerData.modules[moduleIndex].checked = {};
+            }
+            if (!trackerData.modules[moduleIndex].checked[sectionName]) {
+                trackerData.modules[moduleIndex].checked[sectionName] = {};
+            }
+            const checkbox = document.getElementById(`module_${moduleIndex}_${sectionName}_${testIndex}`);
+            trackerData.modules[moduleIndex].checked[sectionName][testIndex] = checkbox.checked;
+        }
+
+        function updateRole(id) {
+            const role = trackerData.roles.find(r => r.id === id);
+            if (role) {
+                role.checked = !role.checked;
+            }
+        }
+
+        function updateBlocker(id) {
+            const blocker = trackerData.blockers.find(b => b.id === id);
+            if (blocker) {
+                blocker.checked = !blocker.checked;
+            }
+        }
+
+        function updateSignoff(field, value) {
+            trackerData.signoff[field] = value;
+        }
+
+        function toggleModule(header) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+        }
+
+        // Update progress
+        function updateProgress() {
+            let total = 0;
+            let completed = 0;
+
+            // Count module tests
+            trackerData.modules.forEach(module => {
+                Object.values(module.tests).forEach(tests => {
+                    tests.forEach((test, index) => {
+                        total++;
+                        const section = Object.keys(module.tests).find(s => module.tests[s].includes(test));
+                        if (module.checked?.[section]?.[index]) completed++;
+                    });
+                });
+            });
+
+            // Count blockers
+            trackerData.blockers.forEach(blocker => {
+                total++;
+                if (blocker.checked) completed++;
+            });
+
+            // Count roles
+            trackerData.roles.forEach(role => {
+                total++;
+                if (role.checked) completed++;
+            });
+
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressPercent').textContent = percentage + '%';
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('total').textContent = total;
+
+            // Update stats grid
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${completed}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${total - completed}</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${percentage}%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${trackerData.roles.filter(r => r.checked).length}/4</div>
+                    <div class="stat-label">Roles Done</div>
+                </div>
+            `;
+        }
+
+        // Export data
+        function exportData() {
+            let csv = 'WCW CRM Comprehensive QA Tracker Export\n';
+            csv += `Date: ${new Date().toLocaleString()}\n\n`;
+
+            csv += 'MODULES & TEST CASES\n';
+            trackerData.modules.forEach(module => {
+                csv += `\n${module.name}\n`;
+                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
+                    csv += `\n${sectionName}\n`;
+                    tests.forEach((test, index) => {
+                        const checked = module.checked?.[sectionName]?.[index] ? '✓' : '✗';
+                        csv += `${checked},${test}\n`;
+                    });
+                });
+            });
+
+            csv += '\n\nCRITICAL BLOCKERS\n';
+            trackerData.blockers.forEach(blocker => {
+                csv += `${blocker.checked ? '✓' : '✗'},${blocker.text}\n`;
+            });
+
+            csv += '\n\nROLE TESTING\n';
+            trackerData.roles.forEach(role => {
+                csv += `${role.checked ? '✓' : '✗'},${role.text}\n`;
+            });
+
+            csv += '\n\nSIGN-OFF\n';
+            csv += `QA Manager,${trackerData.signoff.qaManager}\n`;
+            csv += `Tech Lead,${trackerData.signoff.techLead}\n`;
+            csv += `Date,${trackerData.signoff.date}\n`;
+            csv += `Notes,"${trackerData.signoff.notes.replace(/"/g, '""')}"\n`;
+
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wcw-comprehensive-qa-tracker-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            showNotification('✅ Comprehensive data exported successfully');
+        }
+
+        function resetAll() {
+            if (confirm('Reset ALL test progress? This cannot be undone!')) {
+                trackerData.modules.forEach(module => module.checked = {});
+                trackerData.roles.forEach(role => role.checked = false);
+                trackerData.blockers.forEach(blocker => blocker.checked = false);
+                localStorage.removeItem('wcwComprehensiveTracker');
+                renderTracker();
+                updateProgress();
+                showNotification('🔄 All items reset - ready for fresh testing');
+            }
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadData();
+            renderTracker();
+            updateProgress();
+        });
+
+        // Save on page close
+        window.addEventListener('beforeunload', saveData);
+    </script>
+</body>
+</html>
