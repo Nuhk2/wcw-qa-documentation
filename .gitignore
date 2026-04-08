@@ -1,0 +1,65 @@
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.atom/
+.sublime-project
+.sublime-workspace
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build & Deploy
+_site/
+.jekyll-cache/
+.jekyll-metadata
+dist/
+build/
+*.tgz
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Logs
+*.log
+logs/
+
+# OS backup files
+*.bak
+*.backup
+*~
+
+# Vim
+.vim
+.viminit
+
+# Ruby Gems
+Gemfile.lock
+.bundle/
+vendor/bundle/
+
+# GitHub Pages
+.gh-pages-deploy.txt
+
+# Keep documentation files tracked
+!*.md
+!_config.yml
+!docs/

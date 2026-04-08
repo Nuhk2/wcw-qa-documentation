@@ -1,0 +1,57 @@
+# Jekyll configuration for GitHub Pages
+# Beautiful markdown rendering with minimal theme
+
+theme: jekyll-theme-minimal
+title: WCW CRM QA Documentation
+description: Complete QA Documentation, Permission Framework, and Feature Matrix for WCW CRM v1.0
+url: https://nuhk2.github.io/wcw-qa-documentation
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-seo-tag
+
+# Logo/branding
+logo: null
+
+# Footer
+footer:
+  display: true
+
+# Show downloads
+show_downloads: true
+
+# Collections
+collections:
+  qa_docs:
+    output: true
+    permalink: /docs/:name
+
+# Navigation
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Permalink structure
+permalink: /:name/
+
+# Build settings
+exclude:
+  - node_modules
+  - .git
+  - Gemfile
+  - Gemfile.lock
+
+sass:
+  sass_dir: _sass
