@@ -5,7 +5,29 @@
 
 ---
 
-## 📚 DOCUMENTATION PACKAGES
+## � START HERE: INTERACTIVE TESTING TOOL
+
+### ✨ [Interactive QA Tracker - Click to Start](./tracker-interactive.html)
+**Your personal, interactive testing checklist with auto-save**
+
+**What you can do:**
+- ✅ Click checkboxes to track progress
+- 💾 Progress auto-saves (private to your browser)
+- 📊 See real-time completion percentage
+- 📤 Export results as CSV file
+- 🖨️ Print or share your progress
+- 📱 Works on mobile and desktop
+- 🔄 Reset anytime to start fresh
+
+**Perfect for:**
+- QA engineers executing daily tests
+- Tracking 17 modules across 4 roles
+- Signing off on completion
+- Sharing progress with team
+
+---
+
+## �📚 DOCUMENTATION PACKAGES
 
 ### 🎯 [QA Documentation Index](../QA_DOCUMENTATION_INDEX.md)
 **START HERE** - Master guide to all documentation  
@@ -34,7 +56,8 @@
 - Field-level examples
 
 ### ✅ [QA Test Execution Tracker](../QA_TEST_EXECUTION_TRACKER.md)
-**TESTING CHECKLIST** - Module-by-module test tracker  
+**TESTING CHECKLIST** - Module-by-module test tracker (markdown version)  
+**💡 Tip:** Use the [Interactive Tracker](./tracker-interactive.html) above instead for checklist functionality  
 **Contains:**
 - Test forms for all 17 modules
 - Edge case tracking per module
@@ -56,20 +79,21 @@
 
 ## 🎓 QUICK START (5 MINUTES)
 
-1. **Choose your role:**
-   - 👨‍💼 [Admin Testing](../QA_DOCUMENTATION_INDEX.md#scenario-2-manager-weekly-oversight)
-   - 👔 [Manager Testing](../QA_DOCUMENTATION_INDEX.md#scenario-2-manager-weekly-oversight)
-   - 📱 [Sales Rep Testing](../QA_DOCUMENTATION_INDEX.md#scenario-1-sales-rep-daily-workflow)
-   - 🏢 [Inside Rep Testing](../QA_DOCUMENTATION_INDEX.md#scenario-1-sales-rep-daily-workflow)
+1. **Start the interactive tracker:**
+   - Click: [Interactive QA Tracker](./tracker-interactive.html)
+   - Choose your role (Admin, Manager, Sales Rep, Inside Rep)
+   - Click checkboxes as you test each module
+   - Progress saves automatically
 
-2. **Open Test Tracker**
-   → [QA_TEST_EXECUTION_TRACKER.md](../QA_TEST_EXECUTION_TRACKER.md)
+2. **Reference the documentation as needed:**
+   - [Master Index](../QA_DOCUMENTATION_INDEX.md) for current testing status
+   - [Feature Checklist](../ROLE_PERMISSIONS_FEATURE_CHECKLIST.md) for feature details
+   - [Permission Matrix](../PERMISSIONS_QUICK_REFERENCE.md) for quick lookups
 
-3. **Reference Permission Matrix**
-   → [PERMISSIONS_QUICK_REFERENCE.md](../PERMISSIONS_QUICK_REFERENCE.md)
-
-4. **Execute Tests**
-   → Follow your module in the tracker
+3. **View your progress:**
+   - See percentage complete in real-time
+   - Export your results when done
+   - Share with your team
 
 ---
 

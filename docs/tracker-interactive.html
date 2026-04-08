@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCW CRM QA Test Execution Tracker - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+        }
+
+        .progress-section {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .module {
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .module-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: all 0.3s;
+        }
+
+        .module-header:hover {
+            background: #e9ecef;
+        }
+
+        .module-header.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .module-title {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .module-stats {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-left: 10px;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .module-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            padding: 20px;
+            display: none;
+        }
+
+        .module-content.active {
+            display: block;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background 0.2s;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item:hover {
+            background: #f8f9fa;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .role-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .role-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+        }
+
+        .role-checklist {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .role-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .role-item:hover {
+            background: #e9ecef;
+        }
+
+        .role-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .role-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .role-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .sign-off-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+
+        .sign-off-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field {
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .sign-off-field input,
+        .sign-off-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        .sign-off-field textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .module-header {
+                padding: 12px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 WCW CRM QA Test Execution Tracker</h1>
+            <p>Interactive Testing Checklist - Your Progress is Auto-Saved</p>
+            <div class="controls">
+                <button onclick="resetAll()">🔄 Reset All</button>
+                <button class="secondary" onclick="exportData()">📤 Export Progress</button>
+                <button class="secondary" onclick="printPage()">🖨️ Print</button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            <div class="progress-text">
+                <strong><span id="completed">0</span> / <span id="total">0</span> items completed</strong>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+
+        <div class="content" id="tracker">
+            <!-- Content will be generated by JavaScript -->
+        </div>
+
+        <div class="footer">
+            <p>💾 Your progress is automatically saved to your browser</p>
+            <p>✅ Check items as you complete testing | 🔄 Reset to start over</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Last Updated: April 8, 2026</p>
+        </div>
+    </div>
+
+    <script>
+        // Data structure for tracker
+        const trackerData = {
+            credentials: [
+                { id: 'cred1', text: 'Create Admin test user', checked: false },
+                { id: 'cred2', text: 'Create Manager test user', checked: false },
+                { id: 'cred3', text: 'Create Sales Rep test user', checked: false },
+                { id: 'cred4', text: 'Create Inside Rep test user', checked: false },
+                { id: 'cred5', text: 'Verify all logins work', checked: false },
+            ],
+            modules: [
+                {
+                    name: '1️⃣ Authentication',
+                    items: [
+                        'Login form displays correctly',
+                        'All 4 roles can login',
+                        'Session persists on refresh',
+                        'Logout clears data',
+                        'Invalid login rejected',
+                    ]
+                },
+                {
+                    name: '2️⃣ Dashboard',
+                    items: [
+                        'Admin sees all data',
+                        'Manager sees team data',
+                        'Sales Rep sees own region',
+                        'Filters work correctly',
+                        'Refresh updates data',
+                    ]
+                },
+                {
+                    name: '3️⃣ Customers',
+                    items: [
+                        'View list by role',
+                        'Create customer works',
+                        'Edit customer works',
+                        'Delete permissions enforced',
+                        'Search/filter works',
+                    ]
+                },
+                {
+                    name: '4️⃣ Contacts',
+                    items: [
+                        'View list by role',
+                        'Create contact works',
+                        'Edit works by ownership',
+                        'Delete restricted properly',
+                        'Duplicate email per customer',
+                    ]
+                },
+                {
+                    name: '5️⃣ Opportunities',
+                    items: [
+                        'View pipeline by role',
+                        'Create opportunity works',
+                        'Edit works by ownership',
+                        'Mark won/lost works',
+                        'Delete restricted',
+                    ]
+                },
+                {
+                    name: '6️⃣ Tasks',
+                    items: [
+                        'Admin restricted (by design)',
+                        'Manager sees team tasks',
+                        'Sales Rep sees own only',
+                        'Create/complete works',
+                        'Delete restricted',
+                    ]
+                },
+                {
+                    name: '7️⃣ Commitments',
+                    items: [
+                        'View by role correct',
+                        'Create works',
+                        'Edit works',
+                        'Mark complete works',
+                        'Type field funcional',
+                    ]
+                },
+                {
+                    name: '8️⃣ Calendar',
+                    items: [
+                        '🔴 BLOCKER: Hardcoded mock data',
+                        'Navigate months works',
+                        'Create meeting accessible',
+                        'Mobile calendar works',
+                        'Issue documented in tracker',
+                    ]
+                },
+                {
+                    name: '9️⃣ Schedule',
+                    items: [
+                        'Admin restricted (by design)',
+                        'Manager sees/edits team',
+                        'Sales Rep sees own only',
+                        'No time conflicts allowed',
+                        'Recurring events work',
+                    ]
+                },
+                {
+                    name: '🔟 Targets',
+                    items: [
+                        'View targets by role',
+                        'Create/edit restricted',
+                        'Progress tracking works',
+                        'Over/under target handled',
+                        'Historical targets visible',
+                    ]
+                },
+                {
+                    name: '1️⃣1️⃣ Daily Alerts',
+                    items: [
+                        'Admin restricted (by design)',
+                        'Manager sees team alerts',
+                        'Sales Rep sees own',
+                        'Dismiss/snooze works',
+                        'Badge count accurate',
+                    ]
+                },
+                {
+                    name: '1️⃣2️⃣ Global Settings',
+                    items: [
+                        'Admin sees full settings',
+                        'Manager sees limited',
+                        'Sales Rep cannot access',
+                        'Changes apply immediately',
+                        'Invalid values rejected',
+                    ]
+                },
+                {
+                    name: '1️⃣3️⃣ Regions',
+                    items: [
+                        'All data filtered by region',
+                        'Manager can only modify own',
+                        'Cross-region data hidden',
+                        'Team member count correct',
+                        'Region assignments work',
+                    ]
+                },
+                {
+                    name: '1️⃣4️⃣ Groups',
+                    items: [
+                        'Manager can create groups',
+                        'Add members works',
+                        'Remove members works',
+                        'Delete group works',
+                        'Sales rep cannot manage',
+                    ]
+                },
+                {
+                    name: '1️⃣5️⃣ User Management',
+                    items: [
+                        'Admin can view all users',
+                        'Admin can create users',
+                        'Manager cannot create',
+                        'Manager can edit team',
+                        '🔴 PBAC not implemented',
+                    ]
+                },
+                {
+                    name: '1️⃣6️⃣ Subscription',
+                    items: [
+                        '🔴 BLOCKER: Email verify disabled',
+                        'View status works',
+                        'Change plan accessible',
+                        'Cancel plan works',
+                        'Issue documented',
+                    ]
+                },
+                {
+                    name: '1️⃣7️⃣ Layout',
+                    items: [
+                        'Navigation menu correct',
+                        'Role-based filtering works',
+                        'Mobile responsive',
+                        'Breadcrumbs navigate',
+                        'No horizontal scroll',
+                    ]
+                },
+            ],
+            roles: [
+                { id: 'admin', text: '👨‍💼 Admin Role Testing Complete', checked: false },
+                { id: 'manager', text: '👔 Manager Role Testing Complete', checked: false },
+                { id: 'salesrep', text: '📱 Sales Rep Role Testing Complete', checked: false },
+                { id: 'insiderep', text: '🏢 Inside Rep Role Testing Complete', checked: false },
+            ],
+            signoff: {
+                qaManager: '',
+                techLead: '',
+                date: '',
+                notes: '',
+            }
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('wcwTrackerData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    trackerData.credentials = data.credentials || trackerData.credentials;
+                    trackerData.roles = data.roles || trackerData.roles;
+                    trackerData.modules = data.modules || trackerData.modules;
+                    trackerData.signoff = data.signoff || trackerData.signoff;
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('wcwTrackerData', JSON.stringify(trackerData));
+            updateProgress();
+            showNotification('✅ Progress saved automatically');
+        }
+
+        // Render tracker
+        function renderTracker() {
+            const tracker = document.getElementById('tracker');
+            let html = '';
+
+            // Credentials section
+            html += `
+                <div class="module">
+                    <div class="module-header active" onclick="toggleModule(this)">
+                        <span class="module-title">🔑 Test Credentials Setup</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="module-content active">
+                        <ul class="checklist">
+                            ${trackerData.credentials.map(item => `
+                                <li class="checklist-item">
+                                    <input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''} 
+                                           onchange="updateCredential('${item.id}'); saveData();">
+                                    <label for="${item.id}">${item.text}</label>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Module sections
+            trackerData.modules.forEach((module, index) => {
+                html += `
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(this)">
+                            <span class="module-title">${module.name}</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="module-content">
+                            <ul class="checklist">
+                                ${module.items.map((item, itemIndex) => {
+                                    const itemId = `module_${index}_${itemIndex}`;
+                                    const isChecked = module.checked?.[itemIndex] || false;
+                                    return `
+                                        <li class="checklist-item">
+                                            <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''} 
+                                                   onchange="updateModule(${index}, ${itemIndex}); saveData();">
+                                            <label for="${itemId}">${item}</label>
+                                        </li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Roles section
+            html += `
+                <div class="role-section">
+                    <h3>👥 Role Testing Completion</h3>
+                    <div class="role-checklist">
+                        ${trackerData.roles.map(role => `
+                            <div class="role-item">
+                                <input type="checkbox" id="${role.id}" ${role.checked ? 'checked' : ''} 
+                                       onchange="updateRole('${role.id}'); saveData();">
+                                <label for="${role.id}">${role.text}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Sign-off section
+            html += `
+                <div class="sign-off-section">
+                    <h3>✍️ QA Sign-Off</h3>
+                    <div class="sign-off-field">
+                        <label for="qaManager">QA Manager Name:</label>
+                        <input type="text" id="qaManager" value="${trackerData.signoff.qaManager}" 
+                               onchange="updateSignoff('qaManager', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="techLead">Tech Lead Name:</label>
+                        <input type="text" id="techLead" value="${trackerData.signoff.techLead}" 
+                               onchange="updateSignoff('techLead', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffDate">Sign-off Date:</label>
+                        <input type="date" id="signoffDate" value="${trackerData.signoff.date}" 
+                               onchange="updateSignoff('date', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffNotes">Sign-off Notes:</label>
+                        <textarea id="signoffNotes" onchange="updateSignoff('notes', this.value); saveData();">${trackerData.signoff.notes}</textarea>
+                    </div>
+                </div>
+            `;
+
+            // Action buttons
+            html += `
+                <div class="action-buttons" style="margin-top: 30px; padding: 0 20px 20px;">
+                    <button class="btn-primary" onclick="exportData()">📤 Export Results</button>
+                    <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
+                    <button class="btn-secondary" onclick="printPage()">🖨️ Print</button>
+                </div>
+            `;
+
+            tracker.innerHTML = html;
+        }
+
+        // Update functions
+        function updateModule(moduleIndex, itemIndex) {
+            if (!trackerData.modules[moduleIndex].checked) {
+                trackerData.modules[moduleIndex].checked = {};
+            }
+            const checkbox = document.getElementById(`module_${moduleIndex}_${itemIndex}`);
+            trackerData.modules[moduleIndex].checked[itemIndex] = checkbox.checked;
+        }
+
+        function updateCredential(id) {
+            const item = trackerData.credentials.find(c => c.id === id);
+            if (item) {
+                item.checked = !item.checked;
+            }
+        }
+
+        function updateRole(id) {
+            const role = trackerData.roles.find(r => r.id === id);
+            if (role) {
+                role.checked = !role.checked;
+            }
+        }
+
+        function updateSignoff(field, value) {
+            trackerData.signoff[field] = value;
+        }
+
+        function toggleModule(header) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+        }
+
+        // Update progress
+        function updateProgress() {
+            let total = 0;
+            let completed = 0;
+
+            // Count credentials
+            trackerData.credentials.forEach(item => {
+                total++;
+                if (item.checked) completed++;
+            });
+
+            // Count modules
+            trackerData.modules.forEach(module => {
+                module.items.forEach((item, index) => {
+                    total++;
+                    if (module.checked?.[index]) completed++;
+                });
+            });
+
+            // Count roles
+            trackerData.roles.forEach(role => {
+                total++;
+                if (role.checked) completed++;
+            });
+
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressPercent').textContent = percentage + '%';
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('total').textContent = total;
+
+            // Update stats grid
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${completed}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${total - completed}</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${percentage}%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${trackerData.roles.filter(r => r.checked).length}/4</div>
+                    <div class="stat-label">Roles Done</div>
+                </div>
+            `;
+        }
+
+        // Export data
+        function exportData() {
+            let csv = 'WCW CRM QA Tracker Export\n';
+            csv += `Date: ${new Date().toLocaleString()}\n\n`;
+
+            csv += 'CREDENTIALS\n';
+            trackerData.credentials.forEach(item => {
+                csv += `${item.checked ? '✓' : '✗'},${item.text}\n`;
+            });
+
+            csv += '\nMODULES\n';
+            trackerData.modules.forEach(module => {
+                csv += `\n${module.name}\n`;
+                module.items.forEach((item, index) => {
+                    const checked = module.checked?.[index] ? '✓' : '✗';
+                    csv += `${checked},${item}\n`;
+                });
+            });
+
+            csv += '\nROLES\n';
+            trackerData.roles.forEach(role => {
+                csv += `${role.checked ? '✓' : '✗'},${role.text}\n`;
+            });
+
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wcw-qa-tracker-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            showNotification('✅ Data exported successfully');
+        }
+
+        function resetAll() {
+            if (confirm('Are you sure? This will reset all checkboxes.')) {
+                trackerData.credentials.forEach(item => item.checked = false);
+                trackerData.modules.forEach(module => module.checked = {});
+                trackerData.roles.forEach(role => role.checked = false);
+                localStorage.removeItem('wcwTrackerData');
+                renderTracker();
+                updateProgress();
+                showNotification('🔄 All items reset');
+            }
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadData();
+            renderTracker();
+            updateProgress();
+        });
+
+        // Save on page close
+        window.addEventListener('beforeunload', saveData);
+    </script>
+</body>
+</html>
