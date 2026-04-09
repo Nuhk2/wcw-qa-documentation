@@ -442,7 +442,7 @@
     <div class="container">
         <div class="header">
             <h1>🧪 WCW CRM - QA Workflow Test Tracker</h1>
-            <p>Flow-Based Testing | Field-Level CRUD | Role-Based Restrictions</p>
+            <p>Flow-Based Testing | Field-Level CRUD | 4-Role Hierarchy (Admin, Manager, Sales Rep, Inside Rep)</p>
             <div class="controls">
                 <button onclick="resetAll()">🔄 Reset All</button>
                 <button class="secondary" onclick="exportData()">📤 Export Progress</button>
@@ -469,7 +469,7 @@
         <div class="footer">
             <p>💾 Your progress is automatically saved to your browser</p>
             <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - Field-Level CRUD Testing | Last Updated: April 9, 2026</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - 4-Role Testing (Admin, Manager, Sales Rep, Inside Rep) | Last Updated: April 9, 2026</p>
         </div>
     </div>
 
@@ -865,33 +865,74 @@
                 {
                     name: '1️⃣2️⃣ Role-Based Access Control',
                     tests: {
-                        'Admin User Access': [
-                            'Admin can access customers',
-                            'Admin can access targets',
-                            'Admin can access opportunities',
-                            'Admin can access commitments',
-                            'Admin can access meetings/daily',
+                        'Admin (A) Access': [
+                            'Admin can access customers (all regions)',
+                            'Admin can access targets (all regions)',
+                            'Admin can access opportunities (all regions)',
+                            'Admin can access commitments (all regions)',
+                            'Admin can access meetings/daily (all regions)',
                             'Admin can access user management',
-                            'Admin cannot access schedules',
-                            'Admin cannot access daily alerts',
-                            'Admin cannot access tasks',
+                            'Admin cannot access schedules (greyed out)',
+                            'Admin cannot access daily alerts (greyed out)',
+                            'Admin cannot access tasks (greyed out)',
+                            'Admin can select any sales rep to view',
+                            'Admin can create/edit/delete any user data',
                         ],
-                        'Sales Rep Access': [
-                            'Sales rep can access customers',
-                            'Sales rep can access targets',
-                            'Sales rep can access opportunities',
-                            'Sales rep can access commitments',
-                            'Sales rep can access meetings/daily',
+                        'Manager Access & Restrictions': [
+                            'Manager can access customers (own region team)',
+                            'Manager can access targets (own region team)',
+                            'Manager can access opportunities (own region team)',
+                            'Manager can access commitments (own region team)',
+                            'Manager can access meetings/daily (own region team)',
+                            'Manager can access user management (view/limited)',
+                            'Manager cannot access schedules (greyed out)',
+                            'Manager cannot access daily alerts (greyed out)',
+                            'Manager cannot access tasks (greyed out)',
+                            'Manager sees only own region team data',
+                            'Manager can create/edit team members data',
+                            'Manager cannot create new users',
+                            'Manager cannot deactivate users',
+                            'Manager cannot modify admin users',
+                        ],
+                        'Sales Rep (B) Access': [
+                            'Sales rep can access customers (own only)',
+                            'Sales rep can access targets (own only)',
+                            'Sales rep can access opportunities (own only)',
+                            'Sales rep can access commitments (own only)',
+                            'Sales rep can access meetings/daily (own only)',
                             'Sales rep can access schedules',
                             'Sales rep can access daily alerts',
                             'Sales rep can access tasks',
                             'Sales rep cannot access user management',
+                            'Sales rep can only select self in rep selector',
+                            'Sales rep cannot view manager data',
                         ],
-                        'Data Visibility': [
+                        'Inside Sales Rep Access': [
+                            'Inside rep can access customers (assigned ones)',
+                            'Inside rep can access targets (own only)',
+                            'Inside rep can access opportunities (own only)',
+                            'Inside rep can access commitments (own only)',
+                            'Inside rep can access meetings/daily (own only)',
+                            'Inside rep can access schedules',
+                            'Inside rep can access daily alerts',
+                            'Inside rep can access tasks',
+                            'Inside rep cannot access user management',
+                            'Inside rep can only view assigned contacts',
+                            'Inside rep cannot manage rep territories',
+                        ],
+                        'Regional Data Visibility': [
                             'Admin sees all regional data',
+                            'Manager sees own region team data only',
                             'Sales rep sees only own data',
-                            'Sales rep cannot edit other rep data',
-                            'Admin can edit any rep data',
+                            'Inside rep sees only assigned customer data',
+                            'Data isolation enforced across regions',
+                        ],
+                        'Edit & Delete Permissions': [
+                            'Admin can edit all users data',
+                            'Manager can edit own region team data',
+                            'Sales rep can edit only own data',
+                            'Inside rep can edit only own created items',
+                            'Cannot cross-region edits',
                         ]
                     }
                 },
@@ -968,11 +1009,71 @@
                             'Button text visible and clear',
                         ]
                     }
+                },
+                {
+                    name: '1️⃣6️⃣ Multi-Role Permission Scenarios',
+                    tests: {
+                        'Cross-Role Data Isolation': [
+                            'Admin A views all customers (No restriction)',
+                            'Manager B cannot view customers from other regions',
+                            'Sales Rep C cannot view Sales Rep D customers',
+                            'Inside Rep E cannot view inside rep F customers',
+                            'Manager cannot modify other manager team data',
+                        ],
+                        'Hierarchical Access Levels': [
+                            'Admin > Manager > Sales Rep hierarchy enforced',
+                            'Admin can override all permissions',
+                            'Manager can override sales rep permissions (in own region)',
+                            'Sales rep has leaf-level access only',
+                            'Inside rep has leaf-level access only',
+                        ],
+                        'Regional Restrictions': [
+                            'North region manager cannot access South region',
+                            'Region assignment enforced in all modules',
+                            'Cross-region edits blocked',
+                            'Multi-region admins see all regions',
+                        ],
+                        'Team Member Operations': [
+                            'Manager sees own team members',
+                            'Manager can create targets for team',
+                            'Manager can assign opportunities to team',
+                            'Manager cannot create new users',
+                            'Sales rep creates own customers only',
+                            'Inside rep assigned customers by manager',
+                        ],
+                        'Quick Action Availability': [
+                            'Admin sees all quick actions',
+                            'Manager sees team quick actions',
+                            'Sales rep sees all quick actions (personal)',
+                            'Inside rep sees limited quick actions',
+                            'Schedule/Alerts/Tasks greyed out for Admin',
+                            'Schedule/Alerts/Tasks available for Sales Rep',
+                        ],
+                        'Dashboard View Permissions': [
+                            'Admin dashboard shows all regions',
+                            'Admin can select any sales rep',
+                            'Manager dashboard shows own region',
+                            'Manager can select own team reps',
+                            'Sales rep dashboard shows own metrics',
+                            'Sales rep can only select self',
+                            'Inside rep dashboard shows own metrics',
+                        ],
+                        'Editing Restrictions': [
+                            'Admin can edit customer created by anyone',
+                            'Manager can edit team member customers',
+                            'Manager cannot edit other manager customers',
+                            'Sales rep can only edit own customers',
+                            'Inside rep can edit assigned customers only',
+                            'Deleted data attribution preserved by role',
+                        ]
+                    }
                 }
             ],
             roles: [
                 { id: 'adminFullTest', text: '👨‍💼 Admin Role - Full Testing Complete (A)', checked: false },
+                { id: 'managerFullTest', text: '👔 Manager Role - Full Testing Complete', checked: false },
                 { id: 'salesrepFullTest', text: '📱 Sales Rep Role - Full Testing Complete (B)', checked: false },
+                { id: 'insiderepFullTest', text: '🏢 Inside Sales Rep Role - Full Testing Complete', checked: false },
                 { id: 'dataValidation', text: '✅ All Form Validations Tested', checked: false },
                 { id: 'searchFilter', text: '🔍 Search & Filter Verified', checked: false },
             ],
