@@ -498,14 +498,14 @@
                             'Profile dropdown visible in header',
                             'User profile name and email display',
                             'User logout button accessible',
-                            'Logout redirects to login page
                             'Logout redirects to login page',
                         ]
                     }
                 },
                 {
                     name: '2️⃣ Dashboard & Navigation',
-                    tests: { - Regions View': [
+                    tests: {
+                        'Regions View': [
                             'Regions list displays all regions with metrics',
                             'Regional sales rep list shows under each region',
                             'Column 1: Region name displays',
@@ -520,40 +520,6 @@
                             'Columns: City name, Customers, 4-Week Net New, 4-Week GM Growth, Last Week GM, GM %',
                             'Click city/sales rep navigates to rep details',
                             'Back navigation returns to regions view',
-                        ],
-                        'Drill-Down: Sales Rep Details': [
-                            'Clicking sales rep navigates to detailed view',
-                            'Rep name and profile information displays',
-                            'Sales metrics show: Customers, Targets, Opportunities, Commitments',
-                            'Quick action buttons to jump to rep data',
-                            'Back button returns to city/regions view',
-                            'Tab-based interface for future content',
-                        ],
-                        'Sales Rep Dashboard': [
-                            'Sales rep sees own data only',
-                            'Cannot navigate to other reps deep views',
-                            'Dashboard shows own metrics cards',
-                            'Cannot select admin all-regions view',
-                        ],
-                        'Dashboard Permissions': [
-                            'Admin can access all levels (regions/cities/reps)',
-                            'Manager can filter by own region',
-                            'Sales rep sees only own dashboard',
-                            'Inside rep sees own dashboard only',
-                        ],
-                        'Sales Rep Selection': [
-                            'Dropdown selector for sales reps (admin/manager)',
-                            'Admin can select any sales rep',
-                            'Manager can select own team reps',
-                            'Sales rep only sees self option',
-                            'Selection filters all data across modules',
-                        ],
-                        'Regional Filter': [
-                            'Region dropdown available (if applicable)',
-                            'Admin can select any region',
-                            'Manager filtered to own region',
-                            'Filter applies to dashboard metrics',
-                            'Filter persists across page navigas view',
                         ],
                         'Drill-Down: Sales Rep Details': [
                             'Clicking sales rep navigates to detailed view',
@@ -934,7 +900,7 @@
                             'Show draft save status',
                             'Discard draft removes unsaved changes',
                             'Submit post-meeting completes workflow',
-                        ],
+                        ],,
                         'Audio Recording Feature': [
                             'Start recording button in post-meeting form',
                             'Microphone permission check on load',
@@ -952,7 +918,11 @@
                             'Display hover time indicators on timeline',
                         ],
                         'Recording Draft Modes': [
-                            'ly Schedule View': [
+                            'Open post-meeting after draft expires',
+                            'Convert recording to text summary',
+                            'Save recording with meeting',
+                        ],
+                        'Weekly Schedule View': [
                             'Calendar grid displays full week (Monday-Sunday)',
                             'Time slots show 30-min increments',
                             'Previous week button navigates correctly',
@@ -1011,6 +981,7 @@
                             'By type breakdown shows',
                             'By associated entity shows',
                             'Completed count shows',
+                        ],
                         'Task Integration in Schedule': [
                             'Tasks display on calendar on due date',
                             'Click date header shows tasks for day',
