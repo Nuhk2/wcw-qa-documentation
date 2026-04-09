@@ -469,7 +469,7 @@
         <div class="footer">
             <p>💾 Your progress is automatically saved to your browser</p>
             <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - 4-Role Testing (Admin, Manager, Sales Rep, Inside Rep) | Last Updated: April 9, 2026</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - 4-Role Testing (Admin, Manager, Sales Rep, Inside Rep) | Last Updated: April 10, 2026</p>
         </div>
     </div>
 
@@ -830,6 +830,67 @@
                             'Confirm removes meeting from schedule',
                             'Cancel keeps meeting',
                         ],
+                        'Pre-Meeting Preparation': [
+                            'Open pre-meeting preparation before meeting date',
+                            'Add agenda items (checklist)',
+                            'Add objectives field',
+                            'Add preparation notes textarea',
+                            'Mark agenda items as ready (checkboxes)',
+                            'Remove agenda items',
+                            'Remove objectives items',
+                            'Pre-meeting draft auto-saves',
+                            'Show draft save status (auto-saving, saved, error)',
+                            'Discard draft button removes draft',
+                            'Confirm discard removes all unsaved changes',
+                            'Submit preparation completes pre-meeting',
+                            'Pre-meeting status indicators show completion',
+                        ],
+                        'Post-Meeting Completion': [
+                            'Open post-meeting after meeting date/time',
+                            'View pre-meeting agenda items for checking off',
+                            'Check off completed agenda items',
+                            'Check off completed objectives',
+                            'Add post-meeting notes field',
+                            'Schedule follow-up meeting checkbox',
+                            'If follow-up needed: show follow-up fields',
+                            'Add follow-up actions list',
+                            'Track follow-up actions',
+                            'Post-meeting draft auto-saves',
+                            'Show draft save status',
+                            'Discard draft removes unsaved changes',
+                            'Submit post-meeting completes workflow',
+                        ],
+                        'Audio Recording Feature': [
+                            'Start recording button in post-meeting form',
+                            'Microphone permission check on load',
+                            'Recording requires HTTPS (show error if not)',
+                            'Show microphone access denied error if denied',
+                            'Start/Stop recording buttons',
+                            'Display recording timer while recording',
+                            'Show recording progress bar',
+                            'Pause/Resume recording functionality',
+                            'Cancel recording without saving',
+                            'Stop recording and save audio',
+                            'Playback controls for recorded audio (play/pause)',
+                            'Show audio timeline and duration',
+                            'Audio playback progress bar with scrubbing',
+                            'Display hover time indicators on timeline',
+                        ],
+                        'Recording Draft Modes': [
+                            'Record audio in post-meeting form',
+                            'Recording saved as draft locally (not uploaded yet)',
+                            'Show recording draft status (unsaved)',
+                            'Multiple recordings can be saved per meeting',
+                            'View list of draft recordings',
+                            'Delete individual draft recordings',
+                            'Auto-upload recordings on form save',
+                            'Show upload progress for each recording',
+                            'Handle upload failures gracefully',
+                            'Retry upload failed recordings',
+                            'Show syncing indicator while uploading',
+                            'Clear recordings after successful upload',
+                            'Preserve recording URL from API after upload',
+                        ],
                         'Meeting Conclusions & Completion': [
                             'Mark meeting as complete',
                             'Add meeting conclusion/outcome',
@@ -1163,7 +1224,7 @@
                     }
                 },
                 {
-                    name: '1️⃣4️⃣ Forms & Validation',
+                    name: '1️⃣6️⃣ Forms & Validation',
                     tests: {
                         'Email Validation': [
                             'Invalid email format rejected',
@@ -1190,7 +1251,7 @@
                     }
                 },
                 {
-                    name: '1️⃣5️⃣ Responsiveness & UI',
+                    name: '1️⃣7️⃣ Responsiveness & UI',
                     tests: {
                         'Mobile Display': [
                             'Layout responsive on mobile view',
@@ -1213,7 +1274,7 @@
                     }
                 },
                 {
-                    name: '1️⃣6️⃣ Multi-Role Permission Scenarios',
+                    name: '1️⃣8️⃣ Multi-Role Permission Scenarios',
                     tests: {
                         'Cross-Role Data Isolation': [
                             'Admin A views all customers (No restriction)',
