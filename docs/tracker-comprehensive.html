@@ -487,13 +487,7 @@
                             'Invalid password rejected with error message',
                             'User session persists on page refresh',
                             'Logout clears session and redirects to login',
-                        ],
-                        'Sign Up & Reset Flow': [
-                            'Sign Up form displays all required fields',
-                            'Invalid email format rejected',
-                            'Password validation rules enforced',
-                            'Forget Password link works',
-                        ],
+                        ],                    
                         'Universal Header': [
                             'Profile dropdown visible in header',
                             'User profile name and email display',
@@ -509,7 +503,7 @@
                             'Regions list displays all regions with metrics',
                             'Regional sales rep list shows under each region',
                             'Column 1: Region name displays',
-                            'Metrics columns: Appointments on Guides, GM Cyclone, Total Customers, Total GM, Growth %',
+                            'Metrics columns: Total Customers, Total GM, Growth %',
                             'Click region/city navigates to drill-down',
                             'Metrics calculations display correctly',
                             'Back button returns to regions view',
@@ -574,20 +568,6 @@
                             'Manager can filter by own region',
                             'Sales rep sees only own dashboard',
                             'Inside rep sees own dashboard only',
-                        ],
-                        'Sales Rep Selection': [
-                            'Dropdown selector for sales reps (admin/manager)',
-                            'Admin can select any sales rep',
-                            'Manager can select own team reps',
-                            'Sales rep only sees self option',
-                            'Selection filters all data across modules',
-                        ],
-                        'Regional Filter': [
-                            'Region dropdown available (if applicable)',
-                            'Admin can select any region',
-                            'Manager filtered to own region',
-                            'Filter applies to dashboard metrics',
-                            'Filter persists across page navigation',
                         ]
                     }
                 },
@@ -740,8 +720,7 @@
                             'Sort by closing date works',
                         ],
                         'Create Opportunity': [
-                            'Add opportunity form displays all fields',
-                            'Auto-generate opportunity title from customer + type',
+                            'Add opportunity form displays all fields',                            
                             'Fill opportunity type field',
                             'Select associated customer',
                             'Fill gross margin (number field)',
@@ -938,7 +917,6 @@
                         'Audio Recording Feature': [
                             'Start recording button in post-meeting form',
                             'Microphone permission check on load',
-                            'Recording requires HTTPS (show error if not)',
                             'Show microphone access denied error if denied',
                             'Start/Stop recording buttons',
                             'Display recording timer while recording',
@@ -948,104 +926,6 @@
                             'Stop recording and save audio',
                             'Playback controls for recorded audio (play/pause)',
                             'Show audio timeline and duration',
-                            'Audio playback progress bar with scrubbing',
-                            'Display hover time indicators on timeline',
-                        ],
-                            'Weely Schedule View': [
-                            'Calendar grid displays full week (Monday-Sunday)',
-                            'Time slots show 30-min increments',
-                            'Previous week button navigates correctly',
-                            'Next week button navigates correctly',
-                            'Current week indicator highlights today',
-                            'Today button jumps to current date',
-                            'View shows 7 days horizontally',
-                            'Time labels from 8 AM to 5 PM (auto-expand for events)',
-                        ],
-                        'Daily Schedule View': [
-                            'Calendar switches to day view on mobile (<1024px)',
-                            'Desktop can toggle between week/day view',
-                            'Day header shows date and day of week',
-                            'Navigation buttons move by 1 day in day view',
-                            'All day events appear at top',
-                            'Time slots show 30-min blocks',
-                        ],
-                        'Create Schedule Entry': [
-                            'Click empty time slot opens meeting creation',
-                            'Fill meeting title field',
-                            'Select meeting type from global settings',
-                            'Set meeting date using slot selection',
-                            'Set meeting time from selected slot',
-                            'Fill meeting duration with validation',
-                            'Add meeting notes/description',
-                            'Submit saves and updates calendar',
-                            'Cancel closes form without saving',
-                            'Created entry appears in calendar',
-                        ],
-                        'Meeting Drag-and-Drop': [
-                            'Desktop: Drag meeting to new time slot',
-                            'Desktop: Drag meeting to different day',
-                            'Drag updates meeting time on save',
-                            'Mobile: Long-press to drag (300ms hold)',
-                            'Mobile: Drag feedback shows target time',
-                            'Mobile: Drop confirms time change',
-                            'Permissions prevent drag if read-only',
-                        ],
-                        'Meeting Details': [
-                            'Click meeting opens meeting view modal',
-                            'Display meeting title, time, duration',
-                            'Show associated customer/opportunity',
-                            'Show attendees list',
-                            'Edit button available if permissions allow',
-                            'Delete button with confirmation',
-                            'Open pre-meeting preparation',
-                            'Open post-meeting completion',
-                        
-                        'Schedule Conflict Detecions',
-                            'Record action items from meeting',
-                            'Save conclusion updates',
-                            'Completed status shows in daily view',
-                        ],
-                        'Daily Metrics': [
-                            'Total meetings count shows',
-                            'By type breakdown shows',
-                            'By associated entity shows',
-                            'Completed count shows',
-                        'Task Integration in Schedule',
-                            'Tasks display on calendar on due date',
-                            'Click date header shows tasks for day',
-                            'Task modal shows all tasks for selected date',
-                            'Can create task from schedule',
-                            'Task color differs from meeting color',
-                            'Task count badge shows next to date',
-                            'Tasks sorted by priority',
-                        ],
-                        'Search & Filter': [
-                            'Search box filters meetings by name/details',
-                            'Debounced search (500ms delay)',
-                            'Search results update calendar',
-                            'Clear search shows all meetings',
-                            'Search works across week and day views',
-                        ],
-                        'Outlook Integration': [
-                            'Microsoft Sign-In button available',
-                            'Can authorize Outlook account',
-                            'Sync Outlook Tasks button functional',
-                            'Synced tasks appear on calendar',
-                            'Sync status indicator shows',
-                            'Authorization persists across sessions',
-                        ],
-                        'Mobile Responsiveness': [
-                            'Auto-switches to day view on mobile',
-                            'Touch interactions work (scroll, drag)',
-                            'Time slots visible and tappable',
-                            'Navigation buttons responsive',
-                            'Modal/forms fit mobile screen',
-                            'Proper spacing on small screens',
-                        ],
-                        'Admin Restrictions': [
-                            'Admin cannot access schedule module',
-                            'Schedule greyed out in admin menu',
-                            'Attempting access redirects to dashboard',
                         ]
                         
                     }
@@ -1168,7 +1048,6 @@
                             'Completion rate percentage shows',
                         ],
                         'Alert Management': [
-                            'Dismiss alert removes from list',
                             'Mark alert complete updates count',
                         ],
                         'Admin & Manager Restrictions': [
@@ -1325,11 +1204,11 @@
                             'Update button saves changes',
                             'Cancel closes form',
                         ],
-                        'Deactivate User': [
-                            'Deactivate button shows confirmation',
-                            'Confirm deactivates user',
-                            'Deactivated user status updates',
-                            'Deactivated user data preserved',
+                        'Delete User': [
+                            'Delete button shows confirmation',
+                            'Confirm delete user',
+                            'Deleted user status updates',
+                            'Deleted user data preserved',
                         ],
                         'Sales Rep Restrictions': [
                             'Sales rep cannot access user management',
@@ -1462,31 +1341,31 @@
                         ]
                     }
                 },
+                // {
+                //     name: '1️⃣7️⃣ Responsiveness & UI',
+                //     tests: {
+                //         'Mobile Display': [
+                //             'Layout responsive on mobile view',
+                //             'Touch targets minimum 44px size',
+                //             'Forms readable on mobile',
+                //             'Tables scrollable on mobile',
+                //         ],
+                //         'Tablet Display': [
+                //             'Layout optimized for tablet',
+                //             'Multi-column layout works',
+                //         ],
+                //         'Desktop Display': [
+                //             'Full layout displays correctly',
+                //             'No horizontal scrolling needed',
+                //         ],
+                //         'Button Usability': [
+                //             'All buttons clickable and responsive',
+                //             'Button text visible and clear',
+                //         ]
+                //     }
+                // },
                 {
-                    name: '1️⃣7️⃣ Responsiveness & UI',
-                    tests: {
-                        'Mobile Display': [
-                            'Layout responsive on mobile view',
-                            'Touch targets minimum 44px size',
-                            'Forms readable on mobile',
-                            'Tables scrollable on mobile',
-                        ],
-                        'Tablet Display': [
-                            'Layout optimized for tablet',
-                            'Multi-column layout works',
-                        ],
-                        'Desktop Display': [
-                            'Full layout displays correctly',
-                            'No horizontal scrolling needed',
-                        ],
-                        'Button Usability': [
-                            'All buttons clickable and responsive',
-                            'Button text visible and clear',
-                        ]
-                    }
-                },
-                {
-                    name: '1️⃣8️⃣ Multi-Role Permission Scenarios',
+                    name: '1️⃣7️⃣ Multi-Role Permission Scenarios',
                     tests: {
                         'Cross-Role Data Isolation': [
                             'Admin A views all customers (No restriction)',
@@ -1516,14 +1395,6 @@
                             'Sales rep creates own customers only',
                             'Inside rep assigned customers by manager',
                         ],
-                        'Quick Action Availability': [
-                            'Admin sees all quick actions',
-                            'Manager sees team quick actions',
-                            'Sales rep sees all quick actions (personal)',
-                            'Inside rep sees limited quick actions',
-                            'Schedule/Alerts/Tasks greyed out for Admin',
-                            'Schedule/Alerts/Tasks available for Sales Rep',
-                        ],
                         'Dashboard View Permissions': [
                             'Admin dashboard shows all regions',
                             'Admin can select any sales rep',
@@ -1552,12 +1423,7 @@
                 { id: 'dataValidation', text: '✅ All Form Validations Tested', checked: false },
                 { id: 'searchFilter', text: '🔍 Search & Filter Verified', checked: false },
             ],
-            blockers: [
-                { id: 'authBlocker', text: '🔐 Authentication Issues Blocking Testing', checked: false },
-                { id: 'dataBlocker', text: '💾 Data Loading/Storage Problems', checked: false },
-                { id: 'uiBlocker', text: '🎨 UI/UX Issues Preventing Test Execution', checked: false },
-                { id: 'performanceBlocker', text: '⚡ Performance Issues Affecting Tests', checked: false },
-            ],
+            
             signoff: {
                 qaManager: '',
                 techLead: '',
