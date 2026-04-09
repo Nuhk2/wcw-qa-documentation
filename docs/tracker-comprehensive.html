@@ -1069,10 +1069,7 @@
                             'Desktop can toggle between week/day view',
                             'Day header shows date and day of week',
                             'Navigation buttons move by 1 day in day view',
-                            'Al& Manager Restrictions': [
-                            'Admin cannot access daily alerts module',
-                            'Daily Alerts option greyed out in menu for admin',
-                            'Attempting access redirects to dashboard
+                        ],
                         'Create Schedule Entry': [
                             'Click empty time slot opens meeting creation',
                             'Fill meeting title field',
@@ -1114,6 +1111,7 @@
                         ],
                         'Admin Restrictions': [
                             'Admin cannot access schedule module',
+                        ],
                         'Task Integration in Schedule': [
                             'Tasks display on calendar on due date',
                             'Click date header shows tasks for day',
@@ -1150,7 +1148,6 @@
                             'Admin cannot access schedule module',
                             'Schedule greyed out in admin menu',
                             'Attempting access redirects to dashboard',
-                        ],
                         ]
                     }
                 },
@@ -1876,6 +1873,12 @@
                 { id: 'insiderepFullTest', text: '🏢 Inside Sales Rep Role - Full Testing Complete', checked: false },
                 { id: 'dataValidation', text: '✅ All Form Validations Tested', checked: false },
                 { id: 'searchFilter', text: '🔍 Search & Filter Verified', checked: false },
+            ],
+            blockers: [
+                { id: 'blocker1', text: '🔴 Calendar: Hardcoded mock data (Sept 2025)', checked: false },
+                { id: 'blocker2', text: '🔴 Tasks: Admin cannot access (by design)', checked: false },
+                { id: 'blocker3', text: '🔴 Schedule: Admin cannot access (by design)', checked: false },
+                { id: 'blocker4', text: '🔴 Daily Alerts: Admin cannot access (by design)', checked: false },
             ],
             signoff: {
                 qaManager: '',
