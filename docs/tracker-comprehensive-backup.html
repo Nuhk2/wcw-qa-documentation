@@ -568,59 +568,7 @@
                     }
                 },
                 {
-                    name: '4️⃣ Contacts Module',
-                    tests: {
-                        'View Contacts': [
-                            'Contact list displays',
-                            'Search by contact name works',
-                            'Search by email works',
-                            'Search clears and resets list',
-                        ],
-                        'Create Contact': [
-                            'Add contact form displays all fields',
-                            'Fill contact name field (required)',
-                            'Fill phone number field',
-                            'Select country code (+1, +44, +91, +42)',
-                            'Select contact role from dropdown',
-                            'Add customer association',
-                            'Select assigned customer',
-                            'Assign role for customer',
-                            'Add multiple customer associations',
-                            'Submit button saves contact',
-                            'Cancel button closes without saving',
-                            'Created contact appears in list',
-                        ],
-                        'Edit Contact': [
-                            'Edit button opens contact form',
-                            'Form pre-fills with existing data',
-                            'Modify contact name',
-                            'Modify phone number',
-                            'Modify country code',
-                            'Change contact role',
-                            'Add new customer association',
-                            'Remove customer association',
-                            'Modify customer-specific role',
-                            'Update button saves changes',
-                            'Cancel button closes without saving',
-                            'Changes reflect in contact list',
-                        ],
-                        'Delete Contact': [
-                            'Delete button shows confirmation',
-                            'Confirm delete removes contact',
-                            'Cancel delete keeps contact',
-                            'Deleted contact removed from list',
-                        ],
-                        'Contact Details & Engagement': [
-                            'View contact engagements/history',
-                            'View opportunities associated with contact',
-                            'View commitments associated with contact',
-                            'View meetings with contact',
-                            'Contact activity timeline',
-                        ]
-                    }
-                },
-                {
-                    name: '5️⃣ Targets Module',
+                    name: '4️⃣ Targets Module',
                     tests: {
                         'View Targets': [
                             'Target list shows all active targets',
@@ -659,28 +607,22 @@
                     }
                 },
                 {
-                    name: '6️⃣ Opportunities Module',
+                    name: '5️⃣ Opportunities Module',
                     tests: {
                         'View Opportunities': [
                             'Opportunity list displays',
                             'Search by opportunity name works',
-                            'Filter by opportunity type works',
-                            'Filter by stage/status works',
-                            'Filter by customer works',
+                            'Filter by stage works',
                             'Filter functionality clears correctly',
-                            'Sort by amount works',
-                            'Sort by closing date works',
                         ],
                         'Create Opportunity': [
-                            'Add opportunity form displays all fields',
-                            'Auto-generate opportunity title from customer + type',
-                            'Fill opportunity type field',
+                            'Add opportunity form displays fields',
+                            'Fill opportunity name field',
                             'Select associated customer',
-                            'Fill gross margin (number field)',
-                            'Fill description field',
-                            'Set closing/expected date',
-                            'Opportunity type pulls from global settings',
-                            'Type deadline shows in form',
+                            'Fill opportunity amount field',
+                            'Set probability percentage',
+                            'Set expected close date',
+                            'Select opportunity stage',
                             'Submit button saves opportunity',
                             'Cancel button closes form',
                             'New opportunity appears in list',
@@ -688,12 +630,11 @@
                         'Edit Opportunity': [
                             'Edit button opens opportunity form',
                             'Form pre-fills with existing data',
-                            'Modify opportunity title',
-                            'Modify opportunity type',
-                            'Modify associated customer',
-                            'Modify gross margin',
-                            'Modify description',
-                            'Modify closing date',
+                            'Modify opportunity name',
+                            'Modify opportunity amount',
+                            'Modify probability',
+                            'Modify expected close date',
+                            'Change opportunity stage',
                             'Update button saves changes',
                             'Cancel closes without saving',
                             'Changes reflect in list',
@@ -702,89 +643,49 @@
                             'Delete button shows confirmation',
                             'Confirm delete removes opportunity',
                             'Cancel keeps opportunity',
-                        ],
-                        'Link Meeting to Opportunity': [
-                            'Create meeting button from opportunity',
-                            'Select meeting type and dates',
-                            'Confirm meeting saves to opportunity',
-                            'Meeting appears in opportunity meetings section',
-                        ],
-                        'Link Task/Commitment': [
-                            'Create commitment button in opportunity',
-                            'Set departments for commitment',
-                            'Set estimated revenue',
-                            'Select products',
-                            'Set frequency (Weekly/Monthly)',
-                            'Commitment appears in opportunity',
                         ]
                     }
                 },
                 {
-                    name: '7️⃣ Commitments Module',
+                    name: '6️⃣ Commitments Module',
                     tests: {
                         'View Commitments': [
                             'Commitment list displays',
-                            'Commitments show associated customer/opportunity',
-                            'Show department field',
-                            'Show estimated revenue',
-                            'Show frequency (Weekly/Monthly)',
-                            'Show status (Pending/In Progress/Completed/Lost)',
-                            'Filter by status works',
-                            'Filter by department works',
-                            'Search by commitment name works',
+                            'Commitments show associated customer',
+                            'Commitment type displays correctly',
+                            'Due date shows correctly',
                         ],
                         'Create Commitment': [
                             'Add commitment form opens',
-                            'Select departments (multiple selection)',
-                            'Fill estimated revenue field',
-                            'Set frequency (Weekly or Monthly)',
-                            'Set starting date field',
-                            'Add products to commitment',
-                            'Select product from list',
-                            'Set product revenue amount',
-                            'Set product status (Pending/In Progress/Completed/Lost)',
-                            'Add additional product',
-                            'Remove product from commitment',
-                            'Set overall commitment status',
+                            'Select commitment type (call/email/meeting)',
+                            'Select associated customer',
+                            'Set due date field',
+                            'Add commitment notes field',
                             'Submit button saves commitment',
                             'Cancel button closes form',
-                            'Created commitment appears in list',
+                            'New commitment appears in list',
                         ],
                         'Edit Commitment': [
                             'Edit button opens commitment form',
                             'Form pre-fills with data',
-                            'Modify departments',
-                            'Modify estimated revenue',
-                            'Modify frequency',
-                            'Modify starting date',
-                            'Add new product',
-                            'Edit existing product revenue',
-                            'Change product status',
-                            'Remove product',
-                            'Update commitment status',
+                            'Modify commitment type',
+                            'Modify due date',
+                            'Modify notes field',
                             'Update button saves changes',
-                            'Cancel closes without saving',
+                            'Cancel closes form',
                         ],
                         'Delete Commitment': [
-                            'Delete button shows confirmation',
-                            'Confirm delete removes commitment',
-                            'Cancel keeps commitment',
+                            'Delete option removes commitment',
+                            'Deletion reflects in list',
                         ],
-                        'Commitment Product Status': [
-                            'Product shows individual status',
-                            'Change product status updates total',
-                            'Track completion status per product',
-                        ],
-                        'Commitment Revenue Tracking': [
-                            'Total revenue shows',
-                            'Other revenue field available',
-                            'Manual revenue adjustment works',
-                            'Revenue updates on product change',
+                        'Mark Complete': [
+                            'Complete button marks commitment done',
+                            'Completed status shows in list',
                         ]
                     }
                 },
                 {
-                    name: '8️⃣ Meetings & Daily Activities',
+                    name: '7️⃣ Meetings & Daily Activities',
                     tests: {
                         'Daily View': [
                             'Daily view shows date selector',
@@ -794,61 +695,36 @@
                         'Create Meeting': [
                             'Add meeting form opens',
                             'Fill meeting title field',
-                            'Select meeting type from global settings',
-                            'Select meeting can relate to: Opportunity, Customer, User, or Target',
-                            'Select related opportunity/customer/user/target',
-                            'Set meeting date and time fields',
-                            'Check for schedule conflicts',
-                            'Handle conflict resolution if needed',
-                            'Fill meeting objectives field (multiple lines)',
-                            'Set meeting duration with validation (1h, 30m, 1h 30m)',
-                            'Add meeting attendees list',
-                            'Add meeting summary field',
-                            'Mark as flexible meeting (optional)',
-                            'If flexible: set task start date',
-                            'If flexible: set task due date',
+                            'Select associated customer',
+                            'Set meeting date and time',
+                            'Add meeting duration field',
+                            'Add meeting notes field',
+                            'Add meeting attendees field',
+                            'Select meeting conclusion (if completed)',
                             'Submit saves meeting',
                             'Cancel closes form',
-                            'Created meeting appears in daily view',
                         ],
                         'Edit Meeting': [
-                            'Edit button opens meeting form with data',
+                            'Edit button opens meeting form',
                             'Modify meeting title',
-                            'Modify meeting type',
                             'Modify meeting date/time',
-                            'Modify duration with validation',
-                            'Modify objectives',
-                            'Modify attendees',
-                            'Modify summary',
-                            'Change flexible meeting setting',
-                            'Modify task dates if flexible',
-                            'Update button saves changes',
-                            'Cancel closes form',
+                            'Modify meeting duration',
+                            'Modify meeting notes',
+                            'Update button saves',
                         ],
                         'Delete Meeting': [
-                            'Delete shows confirmation',
-                            'Confirm removes meeting from schedule',
-                            'Cancel keeps meeting',
-                        ],
-                        'Meeting Conclusions & Completion': [
-                            'Mark meeting as complete',
-                            'Add meeting conclusion/outcome',
-                            'Record meeting decisions',
-                            'Record action items from meeting',
-                            'Save conclusion updates',
-                            'Completed status shows in daily view',
+                            'Delete removes meeting',
                         ],
                         'Daily Metrics': [
                             'Total meetings count shows',
-                            'By type breakdown shows',
-                            'By associated entity shows',
+                            'In progress count shows',
                             'Completed count shows',
                             'Upcoming count shows',
                         ]
                     }
                 },
                 {
-                    name: '9️⃣ Schedule Module (Sales Rep Only)',
+                    name: '8️⃣ Schedule Module (Sales Rep Only)',
                     tests: {
                         'Week Schedule View': [
                             'Calendar grid displays week',
@@ -882,7 +758,7 @@
                     }
                 },
                 {
-                    name: '1️⃣0️⃣ Daily Alerts (Sales Rep Only)',
+                    name: '9️⃣ Daily Alerts (Sales Rep Only)',
                     tests: {
                         'Alert Display': [
                             'Alerts list displays',
@@ -906,85 +782,7 @@
                     }
                 },
                 {
-                    name: '1️⃣1️⃣ Global Settings Module',
-                    tests: {
-                        'Tab Visibility by Role': [
-                            'All users: Customers tab visible',
-                            'All users: Contacts tab visible',
-                            'All users: Groups tab visible',
-                            'Management only: Meeting tab (if authorized)',
-                            'Management only: Opportunities tab (if authorized)',
-                            'Admin/Manager see Meeting tab',
-                            'Sales Rep cannot see Meeting tab',
-                            'Sales Rep cannot see Opportunities tab',
-                        ],
-                        'Customers Tab (All Users)': [
-                            'View custom customer properties',
-                            'Edit customer loyalty flag values',
-                            'Edit customer value focus settings',
-                            'Edit customer engagement preferences',
-                            'Add new customer property',
-                            'Delete customer property',
-                            'Cancel removes form without saving',
-                        ],
-                        'Contacts Tab (All Users)': [
-                            'View all contact roles',
-                            'Search contact roles by name',
-                            'Create new contact role',
-                            'Enter contact role name',
-                            'Submit creates role (appears in contacts)',
-                            'Edit contact role name',
-                            'Delete contact role',
-                            'Confirm delete removes role',
-                            'Deleted role cannot be assigned to new contacts',
-                        ],
-                        'Groups Tab (All Users)': [
-                            'View all groups',
-                            'Create new group',
-                            'Fill group name field',
-                            'Fill group description field',
-                            'Assign group members',
-                            'Submit saves group',
-                            'Edit group name',
-                            'Edit group members',
-                            'Delete group',
-                            'Changes reflect in related features',
-                        ],
-                        'Meeting Tab (Management Only)': [
-                            'Only Admin/Manager see tab',
-                            'View all meeting types',
-                            'Create new meeting type',
-                            'Enter meeting type name',
-                            'Set default meeting duration',
-                            'Add meeting type objectives template',
-                            'Edit meeting type',
-                            'Delete meeting type',
-                            'Changes apply to meeting creation',
-                            'Meeting form uses configured types',
-                        ],
-                        'Opportunities Tab (Management Only)': [
-                            'Only Admin/Manager see tab',
-                            'View all opportunity types',
-                            'Create new opportunity type',
-                            'Enter opportunity type name',
-                            'Set deadline (days to close) for type',
-                            'Edit opportunity type',
-                            'Edit type deadline values',
-                            'Delete opportunity type',
-                            'Type appears in opportunity form',
-                            'Deadline shows in opportunity creation',
-                        ],
-                        'Permission Enforcement': [
-                            'Unauthorized role sees gray out tab',
-                            'Attempt to access blocked features fails',
-                            'Admin can access all tabs',
-                            'Manager can access Management tabs',
-                            'Sales Rep cannot modify settings',
-                        ]
-                    }
-                },
-                {
-                    name: '1️⃣2️⃣ Tasks Module',
+                    name: '🔟 Tasks Module',
                     tests: {
                         'View Tasks': [
                             'Task list displays',
@@ -1025,7 +823,7 @@
                     }
                 },
                 {
-                    name: '1️⃣3️⃣ User Management (Admin Only)',
+                    name: '1️⃣1️⃣ User Management (Admin Only)',
                     tests: {
                         'User List': [
                             'All users list displays',
@@ -1065,7 +863,7 @@
                     }
                 },
                 {
-                    name: '1️⃣4️⃣ Role-Based Access Control',
+                    name: '1️⃣2️⃣ Role-Based Access Control',
                     tests: {
                         'Admin (A) Access': [
                             'Admin can access customers (all regions)',
@@ -1139,7 +937,7 @@
                     }
                 },
                 {
-                    name: '1️⃣5️⃣ Search & Filter Operations',
+                    name: '1️⃣3️⃣ Search & Filter Operations',
                     tests: {
                         'Customer Search': [
                             'Search by name returns matching results',
