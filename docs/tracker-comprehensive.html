@@ -3,6 +3,1274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCW CRM QA Test Tracker - Workflow Based</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+        }
+
+        .progress-section {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .content {
+            padding: 30px;
+            max-height: calc(100vh - 400px);
+            overflow-y: auto;
+        }
+
+        .module {
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .module-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .module-header:hover {
+            background: #e9ecef;
+        }
+
+        .module-header.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .module-title {
+            font-size: 1em;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .module-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            padding: 0;
+            display: none;
+            background: white;
+        }
+
+        .module-content.active {
+            display: block;
+        }
+
+        .test-section {
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .test-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .checklist-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            font-size: 0.95em;
+        }
+
+        .checklist-item:hover {
+            background: #fafafa;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 2px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            flex-shrink: 0;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .role-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .role-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+        }
+
+        .role-checklist {
+            display: grid;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .role-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            transition: all 0.2s;
+        }
+
+        .role-item:hover {
+            background: #f8f9fa;
+        }
+
+        .role-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .role-item label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95em;
+        }
+
+        .role-item input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .sign-off-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+
+        .sign-off-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field {
+            margin-bottom: 15px;
+        }
+
+        .sign-off-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .sign-off-field input,
+        .sign-off-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        .sign-off-field textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .module-header {
+                padding: 10px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 WCW CRM - QA Workflow Test Tracker</h1>
+            <p>Flow-Based Testing | Field-Level CRUD | Role-Based Restrictions</p>
+            <div class="controls">
+                <button onclick="resetAll()">🔄 Reset All</button>
+                <button class="secondary" onclick="exportData()">📤 Export Progress</button>
+                <button class="secondary" onclick="printPage()">🖨️ Print</button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            <div class="progress-text">
+                <strong><span id="completed">0</span> / <span id="total">0</span> items completed</strong>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+
+        <div class="content" id="tracker">
+            <!-- Content generated by JavaScript -->
+        </div>
+
+        <div class="footer">
+            <p>💾 Your progress is automatically saved to your browser</p>
+            <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - Field-Level CRUD Testing | Last Updated: April 9, 2026</p>
+        </div>
+    </div>
+
+    <script>
+        // Workflow-based test data
+        const trackerData = {
+            modules: [
+                {
+                    name: '1️⃣ Authentication & Landing',
+                    tests: {
+                        'Login Flow': [
+                            'Login page displays correctly',
+                            'Valid email + password logs in successfully',
+                            'Invalid email rejected with error message',
+                            'Invalid password rejected with error message',
+                            'User session persists on page refresh',
+                            'Logout clears session and redirects to login',
+                        ],
+                        'Sign Up & Reset Flow': [
+                            'Sign Up form displays all required fields',
+                            'Invalid email format rejected',
+                            'Password validation rules enforced',
+                            'Forget Password link works',
+                        ],
+                        'Universal Header': [
+                            'Profile dropdown visible in header',
+                            'User logout button accessible',
+                            'Notifications icon displays count',
+                        ]
+                    }
+                },
+                {
+                    name: '2️⃣ Dashboard & Navigation',
+                    tests: {
+                        'Admin Dashboard': [
+                            'Regional performance metrics display',
+                            'City metrics visible',
+                            'Sales rep list displays correctly',
+                            'Can filter by region',
+                        ],
+                        'Sales Rep Dashboard': [
+                            'Sales rep can only see own data',
+                            'Cannot access other reps data',
+                            'Metrics cards populate correctly',
+                        ],
+                        'City & Rep Selection': [
+                            'Select city filters data correctly',
+                            'Admin can select any sales rep',
+                            'Sales rep only sees self option',
+                            'Performance data updates on selection',
+                        ]
+                    }
+                },
+                {
+                    name: '3️⃣ Customers Module',
+                    tests: {
+                        'View Customers': [
+                            'Customer list loads',
+                            'Search by customer name works',
+                            'Search by email works',
+                            'Search clears and resets list',
+                        ],
+                        'Create Customer': [
+                            'Add customer form displays all fields',
+                            'Fill customer name field',
+                            'Fill email field with validation',
+                            'Fill phone field',
+                            'Submit button saves customer',
+                            'Cancel button closes without saving',
+                            'Created customer appears in list',
+                        ],
+                        'Edit Customer': [
+                            'Edit button opens customer form',
+                            'Form pre-fills with existing data',
+                            'Modify customer name',
+                            'Modify customer email',
+                            'Modify customer phone',
+                            'Update button saves changes',
+                            'Cancel button closes without saving',
+                            'Changes reflect in customer list',
+                        ],
+                        'Delete Customer': [
+                            'Delete button shows confirmation',
+                            'Confirm delete removes customer',
+                            'Cancel delete keeps customer',
+                            'Deleted customer removed from list',
+                        ],
+                        'Customer Detail View': [
+                            'View opportunities for customer',
+                            'Create opportunity from customer view',
+                            'View commitments for customer',
+                            'Create commitment from customer view',
+                            'View meetings for customer',
+                            'Create meeting from customer view',
+                        ]
+                    }
+                },
+                {
+                    name: '4️⃣ Targets Module',
+                    tests: {
+                        'View Targets': [
+                            'Target list shows all active targets',
+                            'Search by target name works',
+                            'Target details display correctly',
+                        ],
+                        'Create Target': [
+                            'Add target form shows all fields',
+                            'Fill target name field',
+                            'Fill target amount field',
+                            'Set target start date',
+                            'Set target end date',
+                            'Select target owner (Admin only)',
+                            'Submit saves target',
+                            'Cancel closes without saving',
+                            'New target appears in list',
+                        ],
+                        'Edit Target': [
+                            'Edit button opens target form with data',
+                            'Modify target name',
+                            'Modify target amount',
+                            'Modify target dates',
+                            'Update button saves changes',
+                            'Cancel button closes form',
+                            'Changes reflect in list',
+                        ],
+                        'Delete Target': [
+                            'Delete button shows confirmation',
+                            'Confirm delete removes target',
+                            'Cancel keeps target',
+                        ],
+                        'Make Customer (From Target)': [
+                            'Make Customer option converts target to customer',
+                            'Customer created with target data',
+                        ]
+                    }
+                },
+                {
+                    name: '5️⃣ Opportunities Module',
+                    tests: {
+                        'View Opportunities': [
+                            'Opportunity list displays',
+                            'Search by opportunity name works',
+                            'Filter by stage works',
+                            'Filter functionality clears correctly',
+                        ],
+                        'Create Opportunity': [
+                            'Add opportunity form displays fields',
+                            'Fill opportunity name field',
+                            'Select associated customer',
+                            'Fill opportunity amount field',
+                            'Set probability percentage',
+                            'Set expected close date',
+                            'Select opportunity stage',
+                            'Submit button saves opportunity',
+                            'Cancel button closes form',
+                            'New opportunity appears in list',
+                        ],
+                        'Edit Opportunity': [
+                            'Edit button opens opportunity form',
+                            'Form pre-fills with existing data',
+                            'Modify opportunity name',
+                            'Modify opportunity amount',
+                            'Modify probability',
+                            'Modify expected close date',
+                            'Change opportunity stage',
+                            'Update button saves changes',
+                            'Cancel closes without saving',
+                            'Changes reflect in list',
+                        ],
+                        'Delete Opportunity': [
+                            'Delete button shows confirmation',
+                            'Confirm delete removes opportunity',
+                            'Cancel keeps opportunity',
+                        ]
+                    }
+                },
+                {
+                    name: '6️⃣ Commitments Module',
+                    tests: {
+                        'View Commitments': [
+                            'Commitment list displays',
+                            'Commitments show associated customer',
+                            'Commitment type displays correctly',
+                            'Due date shows correctly',
+                        ],
+                        'Create Commitment': [
+                            'Add commitment form opens',
+                            'Select commitment type (call/email/meeting)',
+                            'Select associated customer',
+                            'Set due date field',
+                            'Add commitment notes field',
+                            'Submit button saves commitment',
+                            'Cancel button closes form',
+                            'New commitment appears in list',
+                        ],
+                        'Edit Commitment': [
+                            'Edit button opens commitment form',
+                            'Form pre-fills with data',
+                            'Modify commitment type',
+                            'Modify due date',
+                            'Modify notes field',
+                            'Update button saves changes',
+                            'Cancel closes form',
+                        ],
+                        'Delete Commitment': [
+                            'Delete option removes commitment',
+                            'Deletion reflects in list',
+                        ],
+                        'Mark Complete': [
+                            'Complete button marks commitment done',
+                            'Completed status shows in list',
+                        ]
+                    }
+                },
+                {
+                    name: '7️⃣ Meetings & Daily Activities',
+                    tests: {
+                        'Daily View': [
+                            'Daily view shows date selector',
+                            'List shows meetings/activities for date',
+                            'Today indicator shows current date',
+                        ],
+                        'Create Meeting': [
+                            'Add meeting form opens',
+                            'Fill meeting title field',
+                            'Select associated customer',
+                            'Set meeting date and time',
+                            'Add meeting duration field',
+                            'Add meeting notes field',
+                            'Add meeting attendees field',
+                            'Select meeting conclusion (if completed)',
+                            'Submit saves meeting',
+                            'Cancel closes form',
+                        ],
+                        'Edit Meeting': [
+                            'Edit button opens meeting form',
+                            'Modify meeting title',
+                            'Modify meeting date/time',
+                            'Modify meeting duration',
+                            'Modify meeting notes',
+                            'Update button saves',
+                        ],
+                        'Delete Meeting': [
+                            'Delete removes meeting',
+                        ],
+                        'Daily Metrics': [
+                            'Total meetings count shows',
+                            'In progress count shows',
+                            'Completed count shows',
+                            'Upcoming count shows',
+                        ]
+                    }
+                },
+                {
+                    name: '8️⃣ Schedule Module (Sales Rep Only)',
+                    tests: {
+                        'Week Schedule View': [
+                            'Calendar grid displays week',
+                            'Time slots show in calendar',
+                            'Previous week button works',
+                            'Next week button works',
+                            'Current week indicator shows',
+                        ],
+                        'Create Schedule Entry': [
+                            'Add schedule form opens',
+                            'Select schedule date field',
+                            'Select time slot field',
+                            'Fill schedule duration field',
+                            'Add schedule notes/title',
+                            'Submit saves schedule entry',
+                            'Cancel closes form',
+                            'Entry appears in calendar',
+                        ],
+                        'Schedule Conflict Prevention': [
+                            'Cannot create overlapping schedules',
+                            'Warning shown for time conflict',
+                        ],
+                        'Day Schedule View': [
+                            'Day view shows hourly breakdown',
+                            'Meetings appear in schedule',
+                        ],
+                        'Admin Restrictions': [
+                            'Admin cannot access schedule module',
+                            'Schedule option greyed out for admin',
+                        ]
+                    }
+                },
+                {
+                    name: '9️⃣ Daily Alerts (Sales Rep Only)',
+                    tests: {
+                        'Alert Display': [
+                            'Alerts list displays',
+                            'Alert count badge shows',
+                            'Alert categories show correctly',
+                        ],
+                        'Alert Analytics': [
+                            'Total alerts count shows',
+                            'In progress count shows',
+                            'Completed count shows',
+                            'Completion rate percentage shows',
+                        ],
+                        'Alert Management': [
+                            'Dismiss alert removes from list',
+                            'Mark alert complete updates count',
+                        ],
+                        'Admin Restrictions': [
+                            'Admin cannot access daily alerts module',
+                            'Daily Alerts option greyed out for admin',
+                        ]
+                    }
+                },
+                {
+                    name: '🔟 Tasks Module',
+                    tests: {
+                        'View Tasks': [
+                            'Task list displays',
+                            'Search tasks by name works',
+                            'Filter by category works',
+                            'Task status shows correctly',
+                        ],
+                        'Create Task': [
+                            'Add task form shows all fields',
+                            'Fill task title field',
+                            'Select task category field',
+                            'Select associated item (customer/opp/contact)',
+                            'Set task due date',
+                            'Add task description field',
+                            'Set task priority level',
+                            'Submit saves task',
+                            'Cancel closes form',
+                            'New task appears in list',
+                        ],
+                        'Edit Task': [
+                            'Edit button opens task form',
+                            'Modify task title',
+                            'Modify task category',
+                            'Modify task due date',
+                            'Modify task description',
+                            'Modify task priority',
+                            'Update button saves changes',
+                            'Cancel closes form',
+                        ],
+                        'Delete Task': [
+                            'Delete removes task',
+                            'Deleted task gone from list',
+                        ],
+                        'Mark Complete': [
+                            'Complete button marks task done',
+                            'Completed status reflects in list',
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣1️⃣ User Management (Admin Only)',
+                    tests: {
+                        'User List': [
+                            'All users list displays',
+                            'User status shows (active/inactive)',
+                            'User roles show correctly',
+                        ],
+                        'Create User': [
+                            'Add user form shows fields',
+                            'Fill user email field',
+                            'Set user first name field',
+                            'Set user last name field',
+                            'Select user role field',
+                            'Assign user to region',
+                            'Set user password',
+                            'Submit saves user',
+                            'Cancel closes form',
+                            'New user appears in list',
+                        ],
+                        'Edit User': [
+                            'Edit button opens user form',
+                            'Modify user name',
+                            'Modify user role',
+                            'Modify user region assignment',
+                            'Update button saves changes',
+                            'Cancel closes form',
+                        ],
+                        'Deactivate User': [
+                            'Deactivate button shows confirmation',
+                            'Confirm deactivates user',
+                            'Deactivated user status updates',
+                            'Deactivated user data preserved',
+                        ],
+                        'Sales Rep Restrictions': [
+                            'Sales rep cannot access user management',
+                            'User management not visible in menu',
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣2️⃣ Role-Based Access Control',
+                    tests: {
+                        'Admin User Access': [
+                            'Admin can access customers',
+                            'Admin can access targets',
+                            'Admin can access opportunities',
+                            'Admin can access commitments',
+                            'Admin can access meetings/daily',
+                            'Admin can access user management',
+                            'Admin cannot access schedules',
+                            'Admin cannot access daily alerts',
+                            'Admin cannot access tasks',
+                        ],
+                        'Sales Rep Access': [
+                            'Sales rep can access customers',
+                            'Sales rep can access targets',
+                            'Sales rep can access opportunities',
+                            'Sales rep can access commitments',
+                            'Sales rep can access meetings/daily',
+                            'Sales rep can access schedules',
+                            'Sales rep can access daily alerts',
+                            'Sales rep can access tasks',
+                            'Sales rep cannot access user management',
+                        ],
+                        'Data Visibility': [
+                            'Admin sees all regional data',
+                            'Sales rep sees only own data',
+                            'Sales rep cannot edit other rep data',
+                            'Admin can edit any rep data',
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣3️⃣ Search & Filter Operations',
+                    tests: {
+                        'Customer Search': [
+                            'Search by name returns matching results',
+                            'Search by email returns matching results',
+                            'Clear search resets to full list',
+                        ],
+                        'Opportunity Search': [
+                            'Search by opportunity name works',
+                            'Filter by stage works',
+                        ],
+                        'Task Search': [
+                            'Search by task title works',
+                            'Filter by category works',
+                            'Filter by status works',
+                        ],
+                        'User Search': [
+                            'Search by user name works',
+                            'Filter by role works',
+                            'Filter by status works',
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣4️⃣ Forms & Validation',
+                    tests: {
+                        'Email Validation': [
+                            'Invalid email format rejected',
+                            'Required email fields enforced',
+                        ],
+                        'Required Fields': [
+                            'Form prevents submit with empty required fields',
+                            'Error message shows for missing fields',
+                        ],
+                        'Phone Number Field': [
+                            'Phone field accepts numbers',
+                        ],
+                        'Date Fields': [
+                            'Date picker opens on click',
+                            'End date after start date enforced',
+                        ],
+                        'Amount Fields': [
+                            'Only numbers accepted',
+                            'Decimal values handled',
+                        ],
+                        'Percentage Fields': [
+                            'Only 0-100 values accepted',
+                        ]
+                    }
+                },
+                {
+                    name: '1️⃣5️⃣ Responsiveness & UI',
+                    tests: {
+                        'Mobile Display': [
+                            'Layout responsive on mobile view',
+                            'Touch targets minimum 44px size',
+                            'Forms readable on mobile',
+                            'Tables scrollable on mobile',
+                        ],
+                        'Tablet Display': [
+                            'Layout optimized for tablet',
+                            'Multi-column layout works',
+                        ],
+                        'Desktop Display': [
+                            'Full layout displays correctly',
+                            'No horizontal scrolling needed',
+                        ],
+                        'Button Usability': [
+                            'All buttons clickable and responsive',
+                            'Button text visible and clear',
+                        ]
+                    }
+                }
+            ],
+            roles: [
+                { id: 'adminFullTest', text: '👨‍💼 Admin Role - Full Testing Complete (A)', checked: false },
+                { id: 'salesrepFullTest', text: '📱 Sales Rep Role - Full Testing Complete (B)', checked: false },
+                { id: 'dataValidation', text: '✅ All Form Validations Tested', checked: false },
+                { id: 'searchFilter', text: '🔍 Search & Filter Verified', checked: false },
+            ],
+            signoff: {
+                qaManager: '',
+                techLead: '',
+                date: '',
+                notes: '',
+            }
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('wcwQATracker');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    trackerData.roles = data.roles || trackerData.roles;
+                    trackerData.modules = data.modules || trackerData.modules;
+                    trackerData.signoff = data.signoff || trackerData.signoff;
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('wcwQATracker', JSON.stringify(trackerData));
+            updateProgress();
+        }
+
+        // Render tracker
+        function renderTracker() {
+            const tracker = document.getElementById('tracker');
+            let html = '';
+
+            // Module sections
+            trackerData.modules.forEach((module, moduleIndex) => {
+                html += `
+                    <div class="module">
+                        <div class="module-header" onclick="toggleModule(this)">
+                            <span class="module-title">${module.name}</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="module-content">
+                `;
+
+                // Each test section within module
+                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
+                    html += `
+                        <div class="test-section">
+                            <div class="section-title">${sectionName}</div>
+                            <ul class="checklist">
+                    `;
+                    tests.forEach((test, testIndex) => {
+                        const itemId = `module_${moduleIndex}_${sectionName}_${testIndex}`;
+                        const isChecked = module.checked?.[sectionName]?.[testIndex] || false;
+                        html += `
+                            <li class="checklist-item">
+                                <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''} 
+                                       onchange="updateModule(${moduleIndex}, '${sectionName}', ${testIndex}); saveData();">
+                                <label for="${itemId}">${test}</label>
+                            </li>
+                        `;
+                    });
+                    html += `
+                            </ul>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Role completion section
+            html += `
+                <div class="role-section" style="margin-top: 20px;">
+                    <h3>✅ Testing Sign-Off Status</h3>
+                    <div class="role-checklist">
+            `;
+            trackerData.roles.forEach(role => {
+                html += `
+                    <div class="role-item">
+                        <input type="checkbox" id="${role.id}" ${role.checked ? 'checked' : ''} 
+                               onchange="updateRole('${role.id}'); saveData();">
+                        <label for="${role.id}">${role.text}</label>
+                    </div>
+                `;
+            });
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // Sign-off section
+            html += `
+                <div class="sign-off-section">
+                    <h3>✍️ QA Sign-Off</h3>
+                    <div class="sign-off-field">
+                        <label for="qaManager">QA Manager Name:</label>
+                        <input type="text" id="qaManager" value="${trackerData.signoff.qaManager}" 
+                               onchange="updateSignoff('qaManager', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="techLead">Tech Lead Name:</label>
+                        <input type="text" id="techLead" value="${trackerData.signoff.techLead}" 
+                               onchange="updateSignoff('techLead', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffDate">Sign-off Date:</label>
+                        <input type="date" id="signoffDate" value="${trackerData.signoff.date}" 
+                               onchange="updateSignoff('date', this.value); saveData();">
+                    </div>
+                    <div class="sign-off-field">
+                        <label for="signoffNotes">Issues Found & Recommendations:</label>
+                        <textarea id="signoffNotes" onchange="updateSignoff('notes', this.value); saveData();">${trackerData.signoff.notes}</textarea>
+                    </div>
+                </div>
+            `;
+
+            // Action buttons
+            html += `
+                <div class="action-buttons" style="margin-top: 30px; padding: 0 20px 20px;">
+                    <button class="btn-primary" onclick="exportData()">📤 Export Results</button>
+                    <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
+                    <button class="btn-secondary" onclick="printPage()">🖨️ Print</button>
+                </div>
+            `;
+
+            tracker.innerHTML = html;
+        }
+
+        // Update functions
+        function updateModule(moduleIndex, sectionName, testIndex) {
+            if (!trackerData.modules[moduleIndex].checked) {
+                trackerData.modules[moduleIndex].checked = {};
+            }
+            if (!trackerData.modules[moduleIndex].checked[sectionName]) {
+                trackerData.modules[moduleIndex].checked[sectionName] = {};
+            }
+            const checkbox = document.getElementById(`module_${moduleIndex}_${sectionName}_${testIndex}`);
+            trackerData.modules[moduleIndex].checked[sectionName][testIndex] = checkbox.checked;
+        }
+
+        function updateRole(id) {
+            const role = trackerData.roles.find(r => r.id === id);
+            if (role) {
+                role.checked = !role.checked;
+            }
+        }
+
+        function updateSignoff(field, value) {
+            trackerData.signoff[field] = value;
+        }
+
+        function toggleModule(header) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+        }
+
+        // Update progress
+        function updateProgress() {
+            let total = 0;
+            let completed = 0;
+
+            // Count module tests
+            trackerData.modules.forEach(module => {
+                Object.values(module.tests).forEach(tests => {
+                    tests.forEach((test, index) => {
+                        total++;
+                        const section = Object.keys(module.tests).find(s => module.tests[s].includes(test));
+                        if (module.checked?.[section]?.[index]) completed++;
+                    });
+                });
+            });
+
+            // Count roles
+            trackerData.roles.forEach(role => {
+                total++;
+                if (role.checked) completed++;
+            });
+
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressPercent').textContent = percentage + '%';
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('total').textContent = total;
+
+            // Update stats grid
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${completed}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${total - completed}</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${percentage}%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${trackerData.roles.filter(r => r.checked).length}/4</div>
+                    <div class="stat-label">Sign-offs</div>
+                </div>
+            `;
+        }
+
+        // Export data
+        function exportData() {
+            let csv = 'WCW CRM QA Test Results\n';
+            csv += `Date Exported: ${new Date().toLocaleString()}\n\n`;
+
+            csv += 'TEST MODULES & CASES\n';
+            trackerData.modules.forEach(module => {
+                csv += `\n${module.name}\n`;
+                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
+                    csv += `\n${sectionName}\n`;
+                    tests.forEach((test, index) => {
+                        const checked = module.checked?.[sectionName]?.[index] ? '✓ PASS' : '✗ PENDING';
+                        csv += `${checked},"${test}"\n`;
+                    });
+                });
+            });
+
+            csv += '\n\nTESTING SIGN-OFF\n';
+            trackerData.roles.forEach(role => {
+                csv += `${role.checked ? '✓' : '✗'},"${role.text}"\n`;
+            });
+
+            csv += '\n\nQA SIGN-OFF INFORMATION\n';
+            csv += `QA Manager,"${trackerData.signoff.qaManager}"\n`;
+            csv += `Tech Lead,"${trackerData.signoff.techLead}"\n`;
+            csv += `Sign-off Date,"${trackerData.signoff.date}"\n`;
+            csv += `Issues & Recommendations,"${trackerData.signoff.notes.replace(/"/g, '""')}"\n`;
+
+            // Download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wcw-qa-results-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            showNotification('✅ Results exported successfully');
+        }
+
+        function resetAll() {
+            if (confirm('Reset ALL test progress? This cannot be undone!')) {
+                trackerData.modules.forEach(module => module.checked = {});
+                trackerData.roles.forEach(role => role.checked = false);
+                localStorage.removeItem('wcwQATracker');
+                renderTracker();
+                updateProgress();
+                showNotification('🔄 All items reset');
+            }
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadData();
+            renderTracker();
+            updateProgress();
+        });
+
+        // Save on page close
+        window.addEventListener('beforeunload', saveData);
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WCW CRM QA Comprehensive Test Tracker - Interactive</title>
     <style>
         * {
@@ -463,8 +1731,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🧪 WCW CRM - Comprehensive QA Test Tracker</h1>
-            <p>All Test Cases & Edge Cases - Progress Auto-Saved</p>
+            <h1>🧪 WCW CRM - Workflow-Based QA Test Tracker</h1>
+            <p>16 Modules - Field-Level Testing & Role-Based Flows - Progress Auto-Saved</p>
             <div class="controls">
                 <button onclick="resetAll()">🔄 Reset All</button>
                 <button class="secondary" onclick="exportData()">📤 Export Progress</button>
@@ -491,7 +1759,7 @@
         <div class="footer">
             <p>💾 Your progress is automatically saved to your browser</p>
             <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Comprehensive Edition - All test cases & edge cases | Last Updated: April 8, 2026</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - Field-level testing with role-based access | Last Updated: April 8, 2026</p>
         </div>
     </div>
 
@@ -502,463 +1770,476 @@
                 {
                     name: '1️⃣ Authentication',
                     tests: {
-                        'Basic Tests': [
-                            'Admin user can login',
-                            'Sales Rep can login',
-                            'Inside Rep can login',
-                            'Manager can login',
-                            'Invalid email rejected',
-                            'Invalid password rejected',
-                            'Token stored in localStorage',
-                            'Token persists across page refresh'
+                        'User Login Flow': [
+                            'Admin can login with valid credentials',
+                            'Manager can login with valid credentials',
+                            'Sales Rep can login with valid credentials',
+                            'Inside Rep can login with valid credentials',
+                            'Invalid email shows error message',
+                            'Incorrect password shows error message',
+                            'Logout from dashboard works'
                         ],
                         'Edge Cases': [
-                            'Very long email (1000+ chars) handled correctly',
-                            'Special characters in email validated',
-                            'Rapid login attempts rate-limited',
-                            'Simultaneous logins from multiple locations handled',
-                            'Login with expired credentials rejected',
-                            'Case-insensitive email handling',
-                            'Logout clears all session data',
-                            'Session timeout after inactivity (30+ mins)',
-                            'Account locked after 5 failed attempts',
-                            'CSRF protection working'
+                            'Empty email field validation',
+                            'Empty password field validation',
+                            'Whitespace trimming on email input',
+                            'Multiple failed login attempts',
+                            'Login after logout cycles correctly',
+                            'Tab key navigation through form fields'
                         ]
                     }
                 },
                 {
                     name: '2️⃣ Dashboard',
                     tests: {
-                        'Basic Tests': [
-                            'Admin sees all data',
-                            'Manager sees team data',
-                            'Sales Rep sees own region',
-                            'Inside Rep sees own region',
-                            'Filters work by role correctly'
+                        'Dashboard Display': [
+                            'Admin sees all regions data',
+                            'Manager sees own region data',
+                            'Sales Rep sees own assigned data',
+                            'Inside Rep sees own assigned data',
+                            'Dashboard loads without errors',
+                            'All widgets display correctly'
                         ],
-                        'Edge Cases': [
-                            'Large dataset (10k+ records) loads without freeze',
-                            'Filter combinations work (region + data)',
-                            'Rapid filter changes sync correctly',
-                            'Empty result set handled gracefully',
-                            'Refresh updates data accurately',
-                            'Charts render with large numbers',
-                            'Mobile view responsive and readable',
-                            'Pagination works across filters',
-                            'Sorting preserves filters',
-                            'Export includes visible filters'
+                        'Filters & Interaction': [
+                            'Region filter works by role',
+                            'Refresh data button updates all cards',
+                            'Empty data states display gracefully',
+                            'Numbers format correctly with commas',
+                            'Mobile view reorganizes layout',
+                            'Page responsive on all screen sizes'
                         ]
                     }
                 },
                 {
                     name: '3️⃣ Customers',
                     tests: {
-                        'Basic Tests': [
-                            'View list filtered by role',
-                            'Create customer assigned to user',
-                            'View customer detail',
-                            'Edit customer works',
-                            'Delete restricted by role',
-                            'Search/filter by name works',
-                            'Search/filter by email works'
+                        'Create & View': [
+                            'Create new customer form displays all fields',
+                            'Company name field accepts input',
+                            'Email field validates format',
+                            'Phone field accepts formatting',
+                            'Address fields populate correctly',
+                            'Customer assigned to creator by role',
+                            'Customer appears in list after creation'
                         ],
-                        'Edge Cases': [
-                            'Special characters in company name (@#$%) handled',
-                            'Very long company name (500+ chars) saved correctly',
-                            'Duplicate email detection working',
-                            'International phone numbers validated',
-                            'Pagination with 10k+ customers',
-                            'Rapid create/delete cycles handled',
-                            'Edit by non-owner rejected',
-                            'Delete cascades to contacts/opps',
-                            'Concurrent edits on same record',
-                            'Archive instead of delete option',
-                            'Bulk operations (export/delete)',
-                            'Search across special characters'
+                        'Edit & Delete': [
+                            'Edit customer opens form with existing data',
+                            'All fields can be edited and saved',
+                            'Changes persist after page refresh',
+                            'Manager can only edit own customers',
+                            'Admin can edit all customers',
+                            'Delete customer by role permissions checked',
+                            'Deleted customer removed from list'
+                        ],
+                        'Search & Filter': [
+                            'Search by company name returns results',
+                            'Search by email returns results',
+                            'Search with no matches shows empty state',
+                            'Clear search filter shows all customers',
+                            'Search is case-insensitive'
                         ]
                     }
                 },
                 {
                     name: '4️⃣ Contacts',
                     tests: {
-                        'Basic Tests': [
-                            'View contact list by role',
-                            'Create contact for customer',
-                            'View contact detail',
-                            'Edit contact info',
-                            'Delete contact restricted',
-                            'Contact without email works',
-                            'Contact without phone works'
+                        'Create & Link': [
+                            'Add contact form displays for customer',
+                            'First name field accepts input',
+                            'Last name field accepts input',
+                            'Email field validates format',
+                            'Phone field accepts formatting',
+                            'Title/Role field selectable',
+                            'Contact linked to correct customer'
                         ],
-                        'Edge Cases': [
-                            'Duplicate email per customer rejected',
-                            'Primary contact enforced',
-                            'Delete customer cascade deletes contacts',
-                            'Bulk contact import',
-                            'Contact history/timeline',
-                            'Multiple contacts per customer',
-                            'Contact merge functionality',
-                            'Phone number format validation',
-                            'Email uniqueness across system',
-                            'Deleted contact visibility to admin-only'
+                        'Edit & Delete': [
+                            'Edit contact opens form with existing data',
+                            'Update contact info saves changes',
+                            'Delete contact by role permissions',
+                            'Deleted contact removed from customer',
+                            'Multiple edits maintain data integrity'
+                        ],
+                        'Field Validation': [
+                            'Email uniqueness per customer enforced',
+                            'Optional phone field allows empty',
+                            'Optional email field allows empty',
+                            'Contact without email can be created',
+                            'Contact without phone can be created'
                         ]
                     }
                 },
                 {
                     name: '5️⃣ Opportunities',
                     tests: {
-                        'Basic Tests': [
-                            'View pipeline by role',
-                            'Create opportunity',
-                            'Drag-drop between stages',
-                            'Edit opportunity details',
-                            'Mark won with reason',
-                            'Mark lost with reason',
-                            'Delete opportunity'
+                        'Create & Fields': [
+                            'Create opportunity form shows all fields',
+                            'Opportunity name field required',
+                            'Customer linked automatically',
+                            'Amount field accepts numeric input',
+                            'Close probability field ranges 0-100%',
+                            'Expected close date set correctly',
+                            'Initial stage set correctly'
                         ],
-                        'Edge Cases': [
-                            'Amount = $0 handled',
-                            'Probability > 100% rejected',
-                            'Past expected close date allowed',
-                            'Drag-drop stage changes persist',
-                            'Won with $0 commission',
-                            'Lost without reason rejected',
-                            'Reopen closed opportunity',
-                            'Concurrent stage changes',
-                            'Bulk stage update',
-                            'Revenue forecast accuracy',
-                            'Commission calculation correct',
-                            'Activity timeline with opps'
+                        'Stage Management': [
+                            'Opportunities display in pipeline view',
+                            'Drag opportunity to next stage updates it',
+                            'Drag opportunity to previous stage works',
+                            'Stage change persists on refresh',
+                            'All role-based stages visible'
+                        ],
+                        'Win/Loss & Edit': [
+                            'Mark opportunity as Won shows amount',
+                            'Mark opportunity as Lost requires reason',
+                            'Edit opportunity updates all fields',
+                            'Delete opportunity removes from pipeline',
+                            'Deleted opportunity not recoverable'
                         ]
                     }
                 },
                 {
                     name: '6️⃣ Tasks',
                     tests: {
-                        'Basic Tests': [
-                            'Admin cannot view tasks (by design)',
-                            'Admin cannot create tasks',
-                            'Manager sees team tasks + own',
-                            'Manager assigns to team',
-                            'Sales Rep sees own only',
-                            'Create task works',
-                            'Mark task complete'
+                        'Access & Create': [
+                            'Admin has no tasks section (by design)',
+                            'Manager sees own tasks and team tasks',
+                            'Manager can create tasks',
+                            'Manager can assign to team members',
+                            'Sales Rep sees only own tasks',
+                            'Sales Rep cannot create tasks'
                         ],
-                        'Edge Cases': [
-                            'Overdue tasks highlighted',
-                            'Task priority levels',
-                            'Recurring task creation',
-                            'Task dependency handling',
-                            'Bulk task assignment',
-                            'Task search by assignee',
-                            'Task templates',
-                            'Subtasks functionality',
-                            'Task attachments',
-                            'Task notifications',
-                            'Admin restriction confirmed by design',
-                            'Task deletion permissions'
+                        'Task Operations': [
+                            'Create task form displays all fields',
+                            'Task title field required',
+                            'Task description field accepts text',
+                            'Due date picker shows calendar',
+                            'Priority dropdown selectable (High/Medium/Low)',
+                            'Edit task updates all fields',
+                            'Mark task complete checkbox',
+                            'Remove completed task works'
+                        ],
+                        'Role Permissions': [
+                            'Manager cannot see sales rep assigned tasks',
+                            'Team member can edit own tasks',
+                            'Team member cannot delete tasks',
+                            'Manager can delete team tasks',
+                            'Delete shows confirmation dialog'
                         ]
                     }
                 },
                 {
                     name: '7️⃣ Commitments',
                     tests: {
-                        'Basic Tests': [
-                            'View commitments by role',
-                            'Create commitment',
-                            'Add commitment type (call/email/meeting)',
-                            'Set due date',
-                            'Mark complete',
-                            'Edit commitment',
-                            'Delete commitment'
+                        'Create & Types': [
+                            'Create commitment form displays',
+                            'Type dropdown shows Call, Email, Meeting options',
+                            'Call type creates commitment correctly',
+                            'Email type creates commitment correctly',
+                            'Meeting type creates commitment correctly',
+                            'Commitment linked to customer',
+                            'Due date field required and validated'
                         ],
-                        'Edge Cases': [
-                            'Type field works (call, email, meeting, etc)',
-                            'Due date validation against current date',
-                            'Completion notes saved correctly',
-                            'Overdue commitments tracked',
-                            'Associated with customer',
-                            'Concurrent commitment creation',
-                            'Bulk commitment operations',
-                            'Commitment history/audit trail',
-                            'Task to commitment conversion',
-                            'Commitment reminders/notifications'
+                        'Edit & Complete': [
+                            'Edit commitment opens form with data',
+                            'Update commitment saves changes',
+                            'Mark commitment complete works',
+                            'Add completion notes on completion',
+                            'Completed date timestamps automatically',
+                            'Delete commitment removes from list'
+                        ],
+                        'Workflow': [
+                            'Overdue commitments show visual indicator',
+                            'Filter by type works',
+                            'Filter by status (pending/completed) works',
+                            'List shows all required columns',
+                            'Sort by due date works'
                         ]
                     }
                 },
                 {
                     name: '8️⃣ Calendar',
                     tests: {
-                        'Basic Tests': [
-                            '🔴 Hardcoded mock data found (September 2025)',
-                            'Navigate months fails (mock only)',
-                            'Create meeting inaccessible',
-                            'Mobile calendar separate component',
-                            'Backend API not called'
+                        'Calendar Display': [
+                            'Calendar view shows current month',
+                            'Previous/Next month navigation works',
+                            'Current date highlighted',
+                            'Day view toggles correctly',
+                            'Week view toggles correctly'
                         ],
-                        'Edge Cases': [
-                            'Current month/year displays correctly',
-                            'Real meetings show (API pending)',
-                            'Drag-drop functionality',
-                            'All-day events handling',
-                            'Multi-day event spanning',
-                            'Event color coding',
-                            'Time zone handling',
-                            'Recurring events',
-                            'Event reminders',
-                            'Calendar sharing (team view)',
-                            'Print calendar functionality',
-                            'Calendar sync with Outlook/Gmail'
+                        'Create Meeting': [
+                            'Create meeting form displays',
+                            'Meeting title field required',
+                            'Date picker selects date correctly',
+                            'Start time field accepts time',
+                            'End time field accepts time',
+                            'Location field accepts text',
+                            'Description/notes field editable',
+                            'Meeting appears on calendar after creation'
+                        ],
+                        'Edit & Delete': [
+                            'Edit meeting opens form with existing data',
+                            'Update meeting fields save changes',
+                            'Changed meeting displays on calendar',
+                            'Delete meeting by role permission',
+                            'Deleted meeting removed from calendar',
+                            'Deletion shows confirmation dialog'
                         ]
                     }
                 },
                 {
                     name: '9️⃣ Schedule',
                     tests: {
-                        'Basic Tests': [
-                            'Admin cannot view schedule (by design)',
-                            'Admin cannot create entries',
-                            'Manager sees team schedule + own',
-                            'Sales Rep sees own only',
-                            'Inside Rep sees own only',
-                            'Create schedule entry',
-                            'No time conflicts allowed'
+                        'Access & Create': [
+                            'Admin has no schedule section (by design)',
+                            'Manager sees own schedule and team schedule',
+                            'Sales Rep sees only own schedule',
+                            'Inside Rep sees only own schedule',
+                            'Create schedule entry form displays'
                         ],
-                        'Edge Cases': [
-                            'Recurring schedule entries',
-                            'Multi-day blocking',
-                            'Break time handling',
-                            'Travel time calculations',
-                            'Schedule templates',
-                            'Bulk scheduling',
-                            'Schedule conflict alerts',
-                            'Manager override capability',
-                            'Schedule optimization suggestions',
-                            'Mobile push notifications',
-                            'Concurrent scheduling',
-                            'Schedule reports/analytics'
+                        'Schedule Fields': [
+                            'Date picker selects date correctly',
+                            'Start time field required',
+                            'End time field required',
+                            'Activity type dropdown (available/training/meeting)',
+                            'Notes field accepts text',
+                            'Schedule saved after creation'
+                        ],
+                        'Edit & Delete': [
+                            'Edit schedule entry opens form with data',
+                            'Update entry saves changes',
+                            'Delete schedule entry removes from calendar',
+                            'Deletion shows confirmation',
+                            'Schedule updates display immediately'
+                        ],
+                        'Validation': [
+                            'Overlapping schedules prevented',
+                            'End time must be after start time',
+                            'Past dates allowed for historical entry',
+                            'Business hours enforcement'
                         ]
                     }
                 },
                 {
                     name: '🔟 Targets',
                     tests: {
-                        'Basic Tests': [
-                            'View targets by role',
-                            'Create target (Admin/Manager only)',
-                            'Edit target assignments',
-                            'Monitor progress',
-                            'Target completion tracking',
-                            'Historical targets visible',
-                            'Target reset capabilities'
+                        'View & Create': [
+                            'Admin can view all targets',
+                            'Manager sees own team targets',
+                            'Sales Rep sees own targets only',
+                            'Create target form displays (authorized users)',
+                            'Target period field selectable',
+                            'Target amount field accepts numbers'
                         ],
-                        'Edge Cases': [
-                            'Target amount = $0 handled',
-                            'Over-target achievement (200%)',
-                            'Manual target adjustment',
-                            'Team total calculations',
-                            'Target vs actual comparison',
-                            'Trend analysis',
-                            'Previous period comparison',
-                            'Target forecasting',
-                            'Commission impact calculation',
-                            'Target by product/category',
-                            'Mid-period target changes',
-                            'Target rollover handling'
+                        'Assign & Edit': [
+                            'Assign target to team member works',
+                            'Edit existing target saves changes',
+                            'Target effective date set correctly',
+                            'Multiple targets per person allowed',
+                            'Delete target removes from list'
+                        ],
+                        'Progress Tracking': [
+                            'Current progress displays against target',
+                            'Progress percentage calculated correctly',
+                            'Variance calculation shown (actual vs target)',
+                            'Historical targets remain visible',
+                            'Reset period prompts when needed'
+                        ],
+                        'Permissions': [
+                            'Non-admin cannot create targets',
+                            'Non-manager cannot assign to others',
+                            'User can view but not edit own target',
+                            'Admin can edit all targets'
                         ]
                     }
                 },
                 {
                     name: '1️⃣1️⃣ Daily Alerts',
                     tests: {
-                        'Basic Tests': [
-                            'Admin cannot view alerts (by design)',
-                            'Manager sees team alerts',
+                        'Access & Display': [
+                            'Admin has no alerts section (by design)',
+                            'Manager sees team member alerts',
                             'Sales Rep sees own alerts',
-                            'Alert categories display',
-                            'Dismiss alert works'
+                            'Inside Rep sees own alerts',
+                            'Alerts display in chronological order',
+                            'Alert count badge shows correctly'
                         ],
-                        'Edge Cases': [
-                            'Overdue follow-ups highlighted',
-                            'Follow-up needed alerts',
-                            'Opportunity close alerts',
-                            'Task deadline alerts',
-                            'Commitment deadline alerts',
-                            'Snooze alert functionality',
-                            'Alert badge count accurate',
-                            'Multiple alert types combined',
-                            'Alert sorting/filtering',
-                            'Print alert list',
-                            'Performance with 1000+ alerts',
-                            'Alert recurring scheduling'
+                        'Alert Types': [
+                            'Overdue follow-up alert displays',
+                            'Upcoming commitment alert displays',
+                            'Opportunity close reminder alert displays',
+                            'Task deadline alert displays',
+                            'Each alert shows relevant details'
+                        ],
+                        'Interactions': [
+                            'Click alert navigates to item',
+                            'Dismiss alert removes from list',
+                            'Snooze alert hides for time period',
+                            'Mark as read changes styling',
+                            'Multiple alerts toggling works'
                         ]
                     }
                 },
                 {
                     name: '1️⃣2️⃣ Global Settings',
                     tests: {
-                        'Basic Tests': [
-                            'Admin sees all settings',
-                            'Manager sees limited settings',
-                            'Sales Rep cannot access',
-                            'Inside Rep cannot access',
-                            'Changes apply immediately',
-                            'Invalid values rejected',
-                            'Settings saved to backend'
+                        'Access & Navigation': [
+                            'Admin can access all settings',
+                            'Manager sees limited settings page',
+                            'Sales Rep cannot access settings',
+                            'Inside Rep cannot access settings',
+                            'Settings page displays all available options'
                         ],
-                        'Edge Cases': [
-                            'Conflicting settings detected',
-                            'Settings rollback capability',
-                            'Audit trail for setting changes',
-                            'Permission implications tested',
-                            'Default values restore',
-                            'Settings import/export',
-                            'Settings sync across instances',
-                            'Regional settings support',
-                            'Settings versioning',
-                            'Settings backup/restore',
-                            'User notifications on setting changes',
-                            'Settings impact on existing data'
+                        'Modify Settings': [
+                            'Update timezone field saves',
+                            'Update date format saves',
+                            'Update notification preferences saves',
+                            'Update company details saves',
+                            'Changes apply immediately after save'
+                        ],
+                        'Field Operations': [
+                            'Text fields accept input',
+                            'Dropdown fields show options',
+                            'Toggle switches switch on/off',
+                            'Invalid values show error message',
+                            'Save button enabled when changes made'
+                        ],
+                        'Confirmation': [
+                            'Reset button clears unsaved changes',
+                            'Save shows confirmation message',
+                            'Cancel discards changes'
                         ]
                     }
                 },
                 {
                     name: '1️⃣3️⃣ Regions',
                     tests: {
-                        'Basic Tests': [
-                            'View regions filtered by role',
-                            'All data filtered by region',
-                            'Manager can modify own regions',
-                            'Admin can modify all regions',
-                            'Create region assignment',
-                            'Assign members to region',
-                            'Team member count accurate'
+                        'View & Access': [
+                            'Admin sees all regions',
+                            'Manager sees own region(s)',
+                            'Sales Rep sees assigned region',
+                            'Regions list displays with members',
+                            'Region details show attached users'
                         ],
-                        'Edge Cases': [
-                            'Cross-region data hidden',
-                            'Region hierarchy handling',
-                            'Manager cannot modify other regions',
-                            'Region reassignment impact',
-                            'Team member rebalancing',
-                            'Region merge/split',
-                            'Territory rules enforcement',
-                            'Region-based reporting',
-                            'Concurrent region changes',
-                            'Region data migration',
-                            'Historical region tracking',
-                            'Region performance metrics'
+                        'Create & Edit': [
+                            'Create region form displays',
+                            'Region name field required',
+                            'Region code field accepts text',
+                            'Assign members to region works',
+                            'Edit region saves changes',
+                            'Remove member from region works'
+                        ],
+                        'Permissions': [
+                            'Manager can only edit own regions',
+                            'Admin can edit all regions',
+                            'Non-admin cannot create regions',
+                            'Delete region removes from list'
+                        ],
+                        'Data Filtering': [
+                            'All data filtered by user region',
+                            'Cross-region data hidden correctly',
+                            'Role-based access enforced'
                         ]
                     }
                 },
                 {
                     name: '1️⃣4️⃣ Groups',
                     tests: {
-                        'Basic Tests': [
-                            'View groups filtered by role',
+                        'Access & Create': [
+                            'Admin sees all groups',
                             'Manager can create groups',
-                            'Add members to group',
-                            'Remove members from group',
-                            'Delete group works',
-                            'Sales Rep cannot manage groups',
-                            'Group permissions enforced'
+                            'Manager sees own groups',
+                            'Sales Rep cannot create groups',
+                            'Sales Rep sees assigned groups only',
+                            'Create group form displays'
                         ],
-                        'Edge Cases': [
-                            'Delete group with 1000+ members',
-                            'Concurrent member add/remove',
-                            'Group with 0 members',
-                            'Group hierarchies',
-                            'Group access control',
-                            'Group member roles',
-                            'Bulk group operations',
-                            'Group templates',
-                            'Group workflows',
-                            'Subgroups support',
-                            'Group nesting limits',
-                            'Group member notifications'
+                        'Manage Members': [
+                            'Group name field required',
+                            'Add members dropdown displays users',
+                            'Add member to group works',
+                            'Remove member from group works',
+                            'Multiple members can be added',
+                            'Member list updates after changes'
+                        ],
+                        'Edit & Delete': [
+                            'Edit group name saves changes',
+                            'Edit group description saves changes',
+                            'Delete empty group works',
+                            'Delete group with members shows warning'
+                        ],
+                        'Permissions': [
+                            'Creator can edit own group',
+                            'Admin can edit any group',
+                            'Non-creator cannot edit others groups',
+                            'Non-manager cannot manage group members'
                         ]
                     }
                 },
                 {
                     name: '1️⃣5️⃣ User Management',
                     tests: {
-                        'Basic Tests': [
+                        'Access & View': [
                             'Admin can view all users',
                             'Manager can view team users',
-                            'Admin can create user',
-                            'Manager cannot create users',
-                            'Edit user details',
-                            'Deactivate user (Admin only)',
-                            'User role assignment'
+                            'Sales Rep cannot access user management',
+                            'User list shows names and roles',
+                            'User status (active/inactive) displays'
                         ],
-                        'Edge Cases': [
-                            'Duplicate email detection',
-                            'Edit own user profile',
-                            'Cannot change own role',
-                            'Deactivate with pending tasks',
-                            'User data reassignment',
-                            'User status tracking',
-                            'Last login monitoring',
-                            'Password reset workflows',
-                            'Two-factor authentication',
-                            'User audit trail',
-                            'Bulk user import',
-                            '🔴 PBAC permissions not implemented yet'
+                        'Create & Edit': [
+                            'Create user form displays all fields',
+                            'First name field required',
+                            'Last name field required',
+                            'Email field validates format',
+                            'Unique email enforced',
+                            'Role dropdown shows all roles',
+                            'User created successfully'
+                        ],
+                        'User Details Edit': [
+                            'Edit user opens form with existing data',
+                            'Update name saves changes',
+                            'Update email (if allowed) saves',
+                            'Cannot edit own role',
+                            'Admin can change user role',
+                            'Manager cannot change user role'
+                        ],
+                        'Deactivate & Delete': [
+                            'Deactivate user removes from access',
+                            'Deactivated user data preserved',
+                            'Reactivate user restores access',
+                            'Delete user option restricted to admin',
+                            'Delete shows confirmation dialog'
                         ]
                     }
                 },
                 {
-                    name: '1️⃣6️⃣ Subscription',
+                    name: '1️⃣6️⃣ Layout & Navigation',
                     tests: {
-                        'Basic Tests': [
-                            '🔴 Email verification disabled',
-                            'View subscription status',
-                            'Plan details displayed',
-                            'Billing information visible',
-                            'Change plan accessible',
-                            'Cancel subscription button available',
-                            'Renewal date shown'
+                        'Navigation Elements': [
+                            'Navigation menu displays correctly',
+                            'Menu items show for authorized roles',
+                            'Admin menu shows all modules',
+                            'Manager menu shows manager modules',
+                            'Sales Rep menu shows rep modules',
+                            'Header displays branding/logo'
                         ],
-                        'Edge Cases': [
-                            'Plan upgrade workflow',
-                            'Plan downgrade restrictions',
-                            'Mid-cycle plan changes',
-                            'Proration calculations',
-                            'Free trial handling',
-                            'Expired subscription access',
-                            'Subscription renewal failure',
-                            'Payment method updates',
-                            'Invoice history access',
-                            'Subscription history tracking',
-                            'Multiple subscription support',
-                            'Subscription notifications/reminders'
-                        ]
-                    }
-                },
-                {
-                    name: '1️⃣7️⃣ Layout & Navigation',
-                    tests: {
-                        'Basic Tests': [
-                            'Navigation menu displays',
-                            'Role-based menu filtering',
-                            'Header loads correctly',
-                            'Breadcrumbs navigation',
-                            'Sidebar functionality',
-                            'Mobile menu works',
-                            'Responsive layout'
+                        'Navigation Flow': [
+                            'Click menu item navigates correctly',
+                            'Breadcrumbs show current location',
+                            'Back button works as expected',
+                            'Active page highlighted in menu',
+                            'Logout option appears in header'
                         ],
-                        'Edge Cases': [
-                            'No horizontal scroll on any size',
-                            'Touch targets >= 44px (mobile)',
-                            'Keyboard navigation works',
-                            'Screen reader compatible',
-                            'Dark mode support',
-                            'Theme persistence',
-                            'Ultra-wide display (3840px)',
-                            'Very small display (320px)',
-                            'Menu with 50+ items',
-                            'Deeply nested navigation',
-                            'Navigation performance',
-                            'Accessibility WCAG compliance'
+                        'Layout Responsiveness': [
+                            'Mobile menu icon visible on small screens',
+                            'Mobile menu opens/closes correctly',
+                            'No horizontal scrolling at any size',
+                            'Content adapts to screen width',
+                            'Touch targets appropriate for mobile'
+                        ],
+                        'User Interface': [
+                            'Color scheme consistent throughout',
+                            'Buttons clearly clickable',
+                            'Form labels clear and associated',
+                            'Error messages display prominently',
+                            'Success messages appear after actions'
                         ]
                     }
                 }
@@ -971,9 +2252,9 @@
             ],
             blockers: [
                 { id: 'blocker1', text: '🔴 Calendar: Hardcoded mock data (Sept 2025)', checked: false },
-                { id: 'blocker2', text: '🔴 Subscription: Email verification disabled', checked: false },
-                { id: 'blocker3', text: '🔴 Auth: Token refresh not implemented', checked: false },
-                { id: 'blocker4', text: '🔴 User Mgmt: PBAC permissions not implemented', checked: false },
+                { id: 'blocker2', text: '🔴 Tasks: Admin cannot access (by design)', checked: false },
+                { id: 'blocker3', text: '🔴 Schedule: Admin cannot access (by design)', checked: false },
+                { id: 'blocker4', text: '🔴 Daily Alerts: Admin cannot access (by design)', checked: false },
             ],
             signoff: {
                 qaManager: '',

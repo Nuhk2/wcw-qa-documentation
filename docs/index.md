@@ -7,24 +7,27 @@
 
 ## � START HERE: INTERACTIVE TESTING TOOL
 
-### ⭐ [Comprehensive QA Tracker - All Tests & Edge Cases](./tracker-comprehensive.html)
-**RECOMMENDED** - Full interactive testing checklist with complete coverage
-- ✅ **All 17 modules** with detailed test sequences
-- ✅ **Complete edge case coverage** (150+ documented cases)
-- ✅ **All 80+ features** with role-specific tests
+### ⭐ [WCW QA Workflow Tracker](./tracker-comprehensive.html)
+**RECOMMENDED** - Flow-based testing with field-level CRUD operations
+- ✅ **Workflow-based testing** (follows actual user flows from diagram)
+- ✅ **Field-level CRUD validation** (Create, Read, Update, Delete)
+- ✅ **Role-based access control** (Admin vs Sales Rep restrictions)
+- ✅ **All 15 modules** with practical test cases
 - 💾 Auto-save progress to browser
 - 📊 Real-time completion percentage
-- 🚨 Track critical blockers separately
-- 👥 Role completion checkboxes
-- ✍️ QA sign-off section
+- 👥 Role testing status (Admin + Sales Rep)
+- ✍️ QA sign-off with issue tracking
 - 📤 Export results as CSV
 - 🖨️ Print for reporting
 
 **Perfect for:**
-- Comprehensive system testing
-- Role-based acceptance testing
-- Pre-release QA sign-off
-- Audit trail documentation
+- End-to-end workflow validation
+- Role-based permission testing
+- Form field validation testing
+- Pre-release QA handoff
+- Audit trail & compliance
+
+**Use Case:** User A (Admin) and User B (Sales Rep) testing complete workflows
 
 ---
 
