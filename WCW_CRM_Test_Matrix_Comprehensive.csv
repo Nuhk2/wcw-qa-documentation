@@ -1,0 +1,389 @@
+Module,Type,Category,Test Case
+1. Authentication & Landing,Workflow / Functional,Login Flow,Login page displays correctly
+1. Authentication & Landing,Workflow / Functional,Login Flow,Valid email + password logs in successfully
+1. Authentication & Landing,Workflow / Functional,Login Flow,Invalid email rejected with error message
+1. Authentication & Landing,Workflow / Functional,Login Flow,Invalid password rejected with error message
+1. Authentication & Landing,Workflow / Functional,Login Flow,User session persists on page refresh
+1. Authentication & Landing,Workflow / Functional,Login Flow,Logout clears session and redirects to login
+1. Authentication & Landing,Workflow / Functional,Universal Header,Profile dropdown visible in header
+1. Authentication & Landing,Workflow / Functional,Universal Header,User profile name and email display
+1. Authentication & Landing,Workflow / Functional,Universal Header,User logout button accessible
+1. Authentication & Landing,Workflow / Functional,Universal Header,Logout redirects to login page
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Regions list displays all regions with metrics
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Regional sales rep list shows under each region
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Column 1: Region name displays
+2. Dashboard & Navigation,Workflow / Functional,Regions View,"Metrics columns: Total Customers, Total GM, Growth %"
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Click region/city navigates to drill-down
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Metrics calculations display correctly
+2. Dashboard & Navigation,Workflow / Functional,Regions View,Back button returns to regions view
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Cities View,Clicking region navigates to city detail view
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Cities View,City list shows metrics for selected region
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Cities View,"Columns: City name, Customers, 4-Week Net New, 4-Week GM Growth, Last Week GM, GM %"
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Cities View,Click city/sales rep navigates to rep details
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Cities View,Back navigation returns to regions view
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,Clicking sales rep navigates to detailed view
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,Rep name and profile information displays
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,"Sales metrics show: Customers, Targets, Opportunities, Commitments"
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,Quick action buttons to jump to rep data
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,Back button returns to city/regions view
+2. Dashboard & Navigation,Workflow / Functional,Drill-Down: Sales Rep Details,Tab-based interface for future content
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Dashboard,Sales rep sees own data only
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Dashboard,Cannot navigate to other reps deep views
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Dashboard,Dashboard shows own metrics cards
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Dashboard,Cannot select admin all-regions view
+2. Dashboard & Navigation,Workflow / Functional,Dashboard Permissions,Admin can access all levels (regions/cities/reps)
+2. Dashboard & Navigation,Workflow / Functional,Dashboard Permissions,Manager can filter by own region
+2. Dashboard & Navigation,Workflow / Functional,Dashboard Permissions,Sales rep sees only own dashboard
+2. Dashboard & Navigation,Workflow / Functional,Dashboard Permissions,Inside rep can access all regions dashboard
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Selection,Dropdown selector for sales reps (admin/manager)
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Selection,Admin can select any sales rep
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Selection,Manager can select own team reps
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Selection,Sales rep only sees self option
+2. Dashboard & Navigation,Workflow / Functional,Sales Rep Selection,Selection filters all data across modules
+3. Customers Module,Workflow / Functional,View Customers,Customer list loads
+3. Customers Module,Workflow / Functional,View Customers,Search by customer name works
+3. Customers Module,Workflow / Functional,View Customers,Search by email works
+3. Customers Module,Workflow / Functional,View Customers,Search clears and resets list
+3. Customers Module,Workflow / Functional,Create Customer,Add customer form displays all fields
+3. Customers Module,Workflow / Functional,Create Customer,Fill customer name field
+3. Customers Module,Workflow / Functional,Create Customer,Fill email field with validation
+3. Customers Module,Workflow / Functional,Create Customer,Fill phone field
+3. Customers Module,Workflow / Functional,Create Customer,Submit button saves customer
+3. Customers Module,Workflow / Functional,Create Customer,Cancel button closes without saving
+3. Customers Module,Workflow / Functional,Create Customer,Created customer appears in list
+3. Customers Module,Workflow / Functional,Edit Customer,Edit button opens customer form
+3. Customers Module,Workflow / Functional,Edit Customer,Form pre-fills with existing data
+3. Customers Module,Workflow / Functional,Edit Customer,Modify customer name
+3. Customers Module,Workflow / Functional,Edit Customer,Modify customer email
+3. Customers Module,Workflow / Functional,Edit Customer,Modify customer phone
+3. Customers Module,Workflow / Functional,Edit Customer,Update button saves changes
+3. Customers Module,Workflow / Functional,Edit Customer,Cancel button closes without saving
+3. Customers Module,Workflow / Functional,Edit Customer,Changes reflect in customer list
+3. Customers Module,Workflow / Functional,Delete Customer,Delete button shows confirmation
+3. Customers Module,Workflow / Functional,Delete Customer,Confirm delete removes customer
+3. Customers Module,Workflow / Functional,Delete Customer,Cancel delete keeps customer
+3. Customers Module,Workflow / Functional,Delete Customer,Deleted customer removed from list
+3. Customers Module,Workflow / Functional,Customer Detail View,View opportunities for customer
+3. Customers Module,Workflow / Functional,Customer Detail View,Create opportunity from customer view
+3. Customers Module,Workflow / Functional,Customer Detail View,View commitments for customer
+3. Customers Module,Workflow / Functional,Customer Detail View,Create commitment from customer view
+3. Customers Module,Workflow / Functional,Customer Detail View,View meetings for customer
+3. Customers Module,Workflow / Functional,Customer Detail View,Create meeting from customer view
+4. Contacts Module,Workflow / Functional,View Contacts,Contact list displays
+4. Contacts Module,Workflow / Functional,View Contacts,Search by contact name works
+4. Contacts Module,Workflow / Functional,View Contacts,Search by email works
+4. Contacts Module,Workflow / Functional,View Contacts,Search clears and resets list
+4. Contacts Module,Workflow / Functional,Create Contact,Add contact form displays all fields
+4. Contacts Module,Workflow / Functional,Create Contact,Fill contact name field (required)
+4. Contacts Module,Workflow / Functional,Create Contact,Fill phone number field
+4. Contacts Module,Workflow / Functional,Create Contact,"Select country code (+1, +44, +91, +42)"
+4. Contacts Module,Workflow / Functional,Create Contact,Select contact role from dropdown
+4. Contacts Module,Workflow / Functional,Create Contact,Add customer association
+4. Contacts Module,Workflow / Functional,Create Contact,Select assigned customer
+4. Contacts Module,Workflow / Functional,Create Contact,Assign role for customer
+4. Contacts Module,Workflow / Functional,Create Contact,Add multiple customer associations
+4. Contacts Module,Workflow / Functional,Create Contact,Submit button saves contact
+4. Contacts Module,Workflow / Functional,Create Contact,Cancel button closes without saving
+4. Contacts Module,Workflow / Functional,Create Contact,Created contact appears in list
+4. Contacts Module,Workflow / Functional,Create Contact,Can associate contact with a Target (Prospect)
+4. Contacts Module,Workflow / Functional,Create Contact,Tabbed selection UI works (Customer vs Target)
+4. Contacts Module,Workflow / Functional,Create Contact,Preferred Visit Days can be selected and saved
+4. Contacts Module,Workflow / Functional,Edit Contact,Edit button opens contact form
+4. Contacts Module,Workflow / Functional,Edit Contact,Form pre-fills with existing data
+4. Contacts Module,Workflow / Functional,Edit Contact,Modify contact name
+4. Contacts Module,Workflow / Functional,Edit Contact,Modify phone number
+4. Contacts Module,Workflow / Functional,Edit Contact,Modify country code
+4. Contacts Module,Workflow / Functional,Edit Contact,Change contact role
+4. Contacts Module,Workflow / Functional,Edit Contact,Add new customer association
+4. Contacts Module,Workflow / Functional,Edit Contact,Remove customer association
+4. Contacts Module,Workflow / Functional,Edit Contact,Modify customer-specific role
+4. Contacts Module,Workflow / Functional,Edit Contact,Update button saves changes
+4. Contacts Module,Workflow / Functional,Edit Contact,Cancel button closes without saving
+4. Contacts Module,Workflow / Functional,Edit Contact,Changes reflect in contact list
+4. Contacts Module,Workflow / Functional,Delete Contact,Delete button shows confirmation
+4. Contacts Module,Workflow / Functional,Delete Contact,Confirm delete removes contact
+4. Contacts Module,Workflow / Functional,Delete Contact,Cancel delete keeps contact
+4. Contacts Module,Workflow / Functional,Delete Contact,Deleted contact removed from list
+4. Contacts Module,Workflow / Functional,Contacts Role Permissions,Admin: Can associate contact with any Target
+4. Contacts Module,Workflow / Functional,Contacts Role Permissions,Manager: Can associate contact with Team Targets
+4. Contacts Module,Workflow / Functional,Contacts Role Permissions,Sales Rep: Can associate contact with Own Targets
+4. Contacts Module,Workflow / Functional,Contacts Role Permissions,Inside Rep: Can associate contact with Any Target
+5. Targets Module,Workflow / Functional,View Targets,Target list shows all active targets
+5. Targets Module,Workflow / Functional,View Targets,Search by target name works
+5. Targets Module,Workflow / Functional,View Targets,Target details display correctly
+5. Targets Module,Workflow / Functional,Create Target,Add target form shows all fields
+5. Targets Module,Workflow / Functional,Create Target,Fill target name field
+5. Targets Module,Workflow / Functional,Create Target,Fill target amount field
+5. Targets Module,Workflow / Functional,Create Target,Set target start date
+5. Targets Module,Workflow / Functional,Create Target,Set target end date
+5. Targets Module,Workflow / Functional,Create Target,Select target owner (Admin only)
+5. Targets Module,Workflow / Functional,Create Target,Submit saves target
+5. Targets Module,Workflow / Functional,Create Target,Cancel closes without saving
+5. Targets Module,Workflow / Functional,Create Target,New target appears in list
+5. Targets Module,Workflow / Functional,Edit Target,Edit button opens target form with data
+5. Targets Module,Workflow / Functional,Edit Target,Modify target name
+5. Targets Module,Workflow / Functional,Edit Target,Modify target amount
+5. Targets Module,Workflow / Functional,Edit Target,Modify target dates
+5. Targets Module,Workflow / Functional,Edit Target,Update button saves changes
+5. Targets Module,Workflow / Functional,Edit Target,Cancel button closes form
+5. Targets Module,Workflow / Functional,Edit Target,Changes reflect in list
+5. Targets Module,Workflow / Functional,Delete Target,Delete button shows confirmation
+5. Targets Module,Workflow / Functional,Delete Target,Confirm delete removes target
+5. Targets Module,Workflow / Functional,Delete Target,Cancel keeps target
+5. Targets Module,Workflow / Functional,Make Customer (From Target),Make Customer option converts target to customer
+5. Targets Module,Workflow / Functional,Make Customer (From Target),Customer created with target data
+5. Targets Module,Workflow / Functional,Import Prospects,Upload prospect list
+5. Targets Module,Workflow / Functional,Import Prospects,Verify Import upload error text is clear
+5. Targets Module,Workflow / Functional,Import Prospects,Verify Import download button is hidden
+5. Targets Module,Workflow / Functional,Import Prospects,Verify permissions across all 4 roles
+5. Targets Module,Workflow / Functional,Import Prospects Role Permissions,Admin: Can import prospects globally
+5. Targets Module,Workflow / Functional,Import Prospects Role Permissions,Manager: Can import prospects for Team
+5. Targets Module,Workflow / Functional,Import Prospects Role Permissions,Sales Rep: Can import prospects to Own list
+5. Targets Module,Workflow / Functional,Import Prospects Role Permissions,Inside Rep: Can import prospects globally
+6. Opportunities Module,Workflow / Functional,View Opportunities,Opportunity list displays
+6. Opportunities Module,Workflow / Functional,View Opportunities,Search by opportunity name works
+6. Opportunities Module,Workflow / Functional,View Opportunities,Filter by stage/status works
+6. Opportunities Module,Workflow / Functional,View Opportunities,Sort by amount works
+6. Opportunities Module,Workflow / Functional,View Opportunities,Sort by closing date works
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Add opportunity form displays all fields
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Fill opportunity type field
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Select associated customer
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Fill gross margin (number field)
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Fill description field
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Set closing/expected date
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Opportunity type pulls from global settings
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Submit button saves opportunity
+6. Opportunities Module,Workflow / Functional,Create Opportunity,Cancel button closes form
+6. Opportunities Module,Workflow / Functional,Create Opportunity,New opportunity appears in list
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Edit button opens opportunity form
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Form pre-fills with existing data
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Modify opportunity title
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Update button saves changes
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Cancel closes without saving
+6. Opportunities Module,Workflow / Functional,Edit Opportunity,Changes reflect in list
+6. Opportunities Module,Workflow / Functional,Link Meeting to Opportunity,Create meeting button from opportunity
+6. Opportunities Module,Workflow / Functional,Link Meeting to Opportunity,Select meeting type and dates
+6. Opportunities Module,Workflow / Functional,Link Meeting to Opportunity,Confirm meeting saves to opportunity
+6. Opportunities Module,Workflow / Functional,Link Meeting to Opportunity,Meeting appears in opportunity meetings section
+7. Commitments Module,Workflow / Functional,View Commitments,Commitment list displays
+7. Commitments Module,Workflow / Functional,View Commitments,Commitments show associated customer/opportunity
+7. Commitments Module,Workflow / Functional,View Commitments,Show department field
+7. Commitments Module,Workflow / Functional,View Commitments,Show estimated revenue
+7. Commitments Module,Workflow / Functional,View Commitments,Show status (Pending/In Progress/Completed/Lost)
+7. Commitments Module,Workflow / Functional,Create Commitment,Add commitment form opens
+7. Commitments Module,Workflow / Functional,Create Commitment,Select departments (multiple selection)
+7. Commitments Module,Workflow / Functional,Create Commitment,Fill estimated revenue field
+7. Commitments Module,Workflow / Functional,Create Commitment,Set frequency (Weekly or Monthly)
+7. Commitments Module,Workflow / Functional,Create Commitment,Set starting date field
+7. Commitments Module,Workflow / Functional,Create Commitment,Add products to commitment
+7. Commitments Module,Workflow / Functional,Create Commitment,Submit button saves commitment
+7. Commitments Module,Workflow / Functional,Create Commitment,Cancel button closes form
+7. Commitments Module,Workflow / Functional,Create Commitment,Created commitment appears in list
+7. Commitments Module,Workflow / Functional,Edit Commitment,Edit button opens commitment form
+7. Commitments Module,Workflow / Functional,Edit Commitment,Update button saves changes
+7. Commitments Module,Workflow / Functional,Edit Commitment,Cancel closes without saving
+7. Commitments Module,Workflow / Functional,Commitment Product Status,Product shows individual status
+7. Commitments Module,Workflow / Functional,Commitment Product Status,Change product status updates total
+7. Commitments Module,Workflow / Functional,Commitment Product Status,Track completion status per product
+8. Meetings & Daily Activities,Workflow / Functional,Daily View,Daily view shows date selector
+8. Meetings & Daily Activities,Workflow / Functional,Daily View,List shows meetings/activities for date
+8. Meetings & Daily Activities,Workflow / Functional,Daily View,Today indicator shows current date
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Add meeting form opens
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Select meeting type from global settings
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Select related opportunity/customer/user/target
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Set meeting date and time fields
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Backend schedule conflict check handled
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Fill meeting objectives field
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Set meeting duration with validation
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Add meeting attendees list
+8. Meetings & Daily Activities,Workflow / Functional,Create Meeting,Submit saves meeting
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Open pre-meeting preparation
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Add custom agenda items with validation
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Add custom objectives with validation
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Add preparation notes textarea
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Pre-meeting draft auto-saves changes
+8. Meetings & Daily Activities,Workflow / Functional,Pre-Meeting Preparation,Submit preparation completes pre-meeting
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Open post-meeting completion
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Check off completed agenda items/objectives
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Add post-meeting notes field
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Schedule follow-up meeting checkbox
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Add follow-up actions list
+8. Meetings & Daily Activities,Workflow / Functional,Post-Meeting Completion,Submit post-meeting completes workflow
+8. Meetings & Daily Activities,Workflow / Functional,Audio Recording Feature,Start recording button in post-meeting form
+8. Meetings & Daily Activities,Workflow / Functional,Audio Recording Feature,Microphone permission check on load
+8. Meetings & Daily Activities,Workflow / Functional,Audio Recording Feature,Start/Stop/Pause/Resume recording functionality
+8. Meetings & Daily Activities,Workflow / Functional,Audio Recording Feature,Stop recording and save audio
+8. Meetings & Daily Activities,Workflow / Functional,Audio Recording Feature,Playback controls for recorded audio
+8. Meetings & Daily Activities,Workflow / Functional,Meeting Conflict Role Permissions,Admin: Can view conflicts across all regions
+8. Meetings & Daily Activities,Workflow / Functional,Meeting Conflict Role Permissions,Manager: Can view schedule conflicts for Team
+8. Meetings & Daily Activities,Workflow / Functional,Meeting Conflict Role Permissions,Sales Rep: Receives conflict warnings for own schedule
+8. Meetings & Daily Activities,Workflow / Functional,Meeting Conflict Role Permissions,Inside Rep: Can view conflicts across all regions
+9. Schedule Module,Workflow / Functional,Weekly Schedule View,Calendar grid displays full week
+9. Schedule Module,Workflow / Functional,Weekly Schedule View,Time slots show 30-min increments
+9. Schedule Module,Workflow / Functional,Weekly Schedule View,Previous/Next week navigation
+9. Schedule Module,Workflow / Functional,Weekly Schedule View,Current week indicator highlights today
+9. Schedule Module,Workflow / Functional,Create Schedule Entry,Click empty time slot opens meeting creation
+9. Schedule Module,Workflow / Functional,Create Schedule Entry,Fill meeting title and type
+9. Schedule Module,Workflow / Functional,Create Schedule Entry,Set meeting date using slot selection
+9. Schedule Module,Workflow / Functional,Create Schedule Entry,Submit saves and updates calendar
+9. Schedule Module,Workflow / Functional,Meeting Drag-and-Drop,Desktop: Drag meeting to new time slot/day
+9. Schedule Module,Workflow / Functional,Meeting Drag-and-Drop,Drag updates meeting time on save
+9. Schedule Module,Workflow / Functional,Meeting Drag-and-Drop,Mobile: Long-press to drag support
+9. Schedule Module,Workflow / Functional,Task Integration in Schedule,Tasks display on calendar on due date
+9. Schedule Module,Workflow / Functional,Task Integration in Schedule,Click date header shows tasks for day
+9. Schedule Module,Workflow / Functional,Task Integration in Schedule,Task count badge shows next to date
+9. Schedule Module,Workflow / Functional,Outlook Integration,Microsoft Sign-In button available
+9. Schedule Module,Workflow / Functional,Outlook Integration,Can authorize Outlook account
+9. Schedule Module,Workflow / Functional,Outlook Integration,Sync Outlook Tasks button functional
+9. Schedule Module,Workflow / Functional,Admin Restrictions,Admin cannot access schedule module
+9. Schedule Module,Workflow / Functional,Admin Restrictions,Schedule greyed out in admin menu
+10. Daily Alerts,Workflow / Functional,Alert Display,Alerts list displays with badge count
+10. Daily Alerts,Workflow / Functional,Alert Display,Alert categories show correctly
+10. Daily Alerts,Workflow / Functional,Alert Analytics,Total/In-progress/Completed counts show
+10. Daily Alerts,Workflow / Functional,Alert Analytics,Completion rate percentage shows
+10. Daily Alerts,Workflow / Functional,Admin & Manager Restrictions,Admin cannot access daily alerts module
+10. Daily Alerts,Workflow / Functional,Admin & Manager Restrictions,Daily Alerts option greyed out in menu for admin
+11. Global Settings Module,Workflow / Functional,Tab Visibility by Role,Admin/Manager see Meeting/Opportunities tabs
+11. Global Settings Module,Workflow / Functional,Tab Visibility by Role,Sales Rep cannot see Meeting/Opportunities tabs
+11. Global Settings Module,Workflow / Functional,Customers Tab (All Users),Edit customer loyalty flag values
+11. Global Settings Module,Workflow / Functional,Customers Tab (All Users),Edit customer value focus settings
+11. Global Settings Module,Workflow / Functional,Customers Tab (All Users),Add/Delete custom customer properties
+11. Global Settings Module,Workflow / Functional,Meeting Tab (Management Only),Create/Edit/Delete meeting types
+11. Global Settings Module,Workflow / Functional,Meeting Tab (Management Only),Set default meeting duration
+11. Global Settings Module,Workflow / Functional,Meeting Tab (Management Only),Add meeting type objectives template
+11. Global Settings Module,Workflow / Functional,Opportunities Tab (Management Only),Create/Edit/Delete opportunity types
+11. Global Settings Module,Workflow / Functional,Opportunities Tab (Management Only),Set deadline (days to close) for type
+12. Tasks Module,Workflow / Functional,Create Task,Add task form shows all fields
+12. Tasks Module,Workflow / Functional,Create Task,Select associated item (customer/opp/contact)
+12. Tasks Module,Workflow / Functional,Create Task,Set task due date and priority
+12. Tasks Module,Workflow / Functional,Create Task,Submit saves task
+12. Tasks Module,Workflow / Functional,Mark Complete,Complete button marks task done
+12. Tasks Module,Workflow / Functional,Mark Complete,Completed status reflects in list
+13. User Management,Workflow / Functional,Create User,Add user form shows all required fields
+13. User Management,Workflow / Functional,Create User,Assign user to role and region
+13. User Management,Workflow / Functional,Create User,Submit saves user
+13. User Management,Workflow / Functional,Sales Rep Restrictions,Sales rep cannot access user management
+13. User Management,Workflow / Functional,Sales Rep Restrictions,User management not visible in menu
+14. Role-Based Access Control,Workflow / Functional,Admin Access,Admin can access all operational data (all regions)
+14. Role-Based Access Control,Workflow / Functional,Admin Access,Admin can select any sales rep to view
+14. Role-Based Access Control,Workflow / Functional,Admin Access,Admin cannot access schedules/alerts/tasks (greyed out)
+14. Role-Based Access Control,Workflow / Functional,Manager Access,Manager sees only own region team data
+14. Role-Based Access Control,Workflow / Functional,Manager Access,Manager can create/edit team members data
+14. Role-Based Access Control,Workflow / Functional,Manager Access,Manager cannot create new users
+14. Role-Based Access Control,Workflow / Functional,Sales Rep Access,Sales rep can access own data only
+14. Role-Based Access Control,Workflow / Functional,Sales Rep Access,Sales rep can access schedules/alerts/tasks
+14. Role-Based Access Control,Workflow / Functional,Sales Rep Access,Sales rep cannot access user management
+14. Role-Based Access Control,Workflow / Functional,Regional Data Isolation,Data isolation enforced across regions
+14. Role-Based Access Control,Workflow / Functional,Regional Data Isolation,Cannot perform cross-region edits
+15. Search & Filter Operations,Workflow / Functional,Functional Checks,Customer search by name/email
+15. Search & Filter Operations,Workflow / Functional,Functional Checks,Opportunity filter by stage
+15. Search & Filter Operations,Workflow / Functional,Functional Checks,Task filter by category/status
+16. Forms & Validation,Workflow / Functional,Validation Checks,Invalid email format rejected
+16. Forms & Validation,Workflow / Functional,Validation Checks,Required fields enforced on all forms
+16. Forms & Validation,Workflow / Functional,Validation Checks,End date after start date enforcement
+16. Forms & Validation,Workflow / Functional,Validation Checks,Numeric fields accept only numbers
+17. Multi-Role Scenarios,Workflow / Functional,Complexity Checks,Cross-Role Data Isolation enforced
+17. Multi-Role Scenarios,Workflow / Functional,Complexity Checks,Hierarchical Access Levels verified
+17. Multi-Role Scenarios,Workflow / Functional,Complexity Checks,Regional Restrictions enforced in all modules
+17. Multi-Role Scenarios,Workflow / Functional,Complexity Checks,Manager team member operations verified
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,Admin/Manager can select ANY rep (Global)
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,Sales Rep restricted to OWN region reps
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,"Impersonated actions have ""Done by"" tag"
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,Activity Log details performer identity
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,Global View shows all org-level data
+18. Cross-User Management,Workflow / Functional,Impersonation & Global View,Manager restricted from editing Global Settings
+1. Authentication,Edge Case / Boundary,General Edge Case,Very long email (1000+ chars) - reject or trim
+1. Authentication,Edge Case / Boundary,General Edge Case,Special characters in email - validate format
+1. Authentication,Edge Case / Boundary,General Edge Case,Rapid login attempts - rate limit check
+1. Authentication,Edge Case / Boundary,General Edge Case,Simultaneous logins from multiple locations
+1. Authentication,Edge Case / Boundary,General Edge Case,Login with expired credentials - reject
+1. Authentication,Edge Case / Boundary,General Edge Case,Case-insensitive email handling
+1. Authentication,Edge Case / Boundary,General Edge Case,Logout clears all session data
+1. Authentication,Edge Case / Boundary,General Edge Case,Session timeout after inactivity (30+ mins)
+1. Authentication,Edge Case / Boundary,General Edge Case,Token manipulation - reject invalid JWT
+1. Authentication,Edge Case / Boundary,General Edge Case,Logout during active API request - cancellation
+1. Authentication,Edge Case / Boundary,General Edge Case,Logout with unsaved form data - warning prompt
+2. Dashboard,Edge Case / Boundary,General Edge Case,Dashboard with no data - placeholder check
+2. Dashboard,Edge Case / Boundary,General Edge Case,Extreme large datasets (10k+ records) - pagination
+2. Dashboard,Edge Case / Boundary,General Edge Case,Switching regions rapidly - debouncing check
+2. Dashboard,Edge Case / Boundary,General Edge Case,Network offline - cached data display
+2. Dashboard,Edge Case / Boundary,General Edge Case,Permissions change while viewing - live refresh
+2. Dashboard,Edge Case / Boundary,General Edge Case,Filter combination with 0 results handling
+2. Dashboard,Edge Case / Boundary,General Edge Case,Invalid date range input in filters
+2. Dashboard,Edge Case / Boundary,General Edge Case,Refresh with network latency (3s+ simulation)
+3. Customers,Edge Case / Boundary,General Edge Case,"Search with special characters (@, #, %)"
+3. Customers,Edge Case / Boundary,General Edge Case,Search with very long query (500+ chars)
+3. Customers,Edge Case / Boundary,General Edge Case,Sort with null/empty value handling
+3. Customers,Edge Case / Boundary,General Edge Case,"Export 10,000+ customers - memory check"
+3. Customers,Edge Case / Boundary,General Edge Case,Create with very long company name (255+ chars)
+3. Customers,Edge Case / Boundary,General Edge Case,International phone number format validation
+3. Customers,Edge Case / Boundary,General Edge Case,Duplicate email rejection per organization
+3. Customers,Edge Case / Boundary,General Edge Case,Form cancel prompt for unsaved changes
+3. Customers,Edge Case / Boundary,General Edge Case,Edit customer while another user is editing
+3. Customers,Edge Case / Boundary,General Edge Case,Delete customer with 1000+ related records
+4. Contacts,Edge Case / Boundary,General Edge Case,Contact without email/phone - display handling
+4. Contacts,Edge Case / Boundary,General Edge Case,Contact associated with deleted customer
+4. Contacts,Edge Case / Boundary,General Edge Case,Bulk operations on 1000+ contacts
+4. Contacts,Edge Case / Boundary,General Edge Case,Duplicate email per customer/target check
+4. Contacts,Edge Case / Boundary,General Edge Case,Primary contact toggle - single primary enforcement
+4. Contacts,Edge Case / Boundary,General Edge Case,Contact role assignment - multiple role handling
+4. Contacts,Edge Case / Boundary,General Edge Case,Delete last contact for a major customer
+5. Opportunities,Edge Case / Boundary,General Edge Case,Opportunity with $0 amount handling
+5. Opportunities,Edge Case / Boundary,General Edge Case,"Extremely large amount (999,999,999) display"
+5. Opportunities,Edge Case / Boundary,General Edge Case,Probability > 100% or < 0% validation
+5. Opportunities,Edge Case / Boundary,General Edge Case,Expected close date in the past handling
+5. Opportunities,Edge Case / Boundary,General Edge Case,Drag-drop between pipeline stages validation
+5. Opportunities,Edge Case / Boundary,General Edge Case,Edit closed/won opportunity restrictions
+5. Opportunities,Edge Case / Boundary,General Edge Case,"Revenue recognition on ""Won"" status"
+6. Tasks,Edge Case / Boundary,General Edge Case,Task without due date display
+6. Tasks,Edge Case / Boundary,General Edge Case,Overdue task highlighting and alerts
+6. Tasks,Edge Case / Boundary,General Edge Case,Task assigned to multiple users (team task)
+6. Tasks,Edge Case / Boundary,General Edge Case,"Create task with 10,000 character description"
+6. Tasks,Edge Case / Boundary,General Edge Case,Edit closed task - lock check
+6. Tasks,Edge Case / Boundary,General Edge Case,Delete task with related activity notes
+7. Commitments,Edge Case / Boundary,General Edge Case,Commitment spanning multiple fiscal years
+7. Commitments,Edge Case / Boundary,General Edge Case,"List view with 10,000+ active commitments"
+7. Commitments,Edge Case / Boundary,General Edge Case,Past due commitment alert trigger
+7. Commitments,Edge Case / Boundary,General Edge Case,Marking already completed commitment again
+7. Commitments,Edge Case / Boundary,General Edge Case,Completion date validation (cannot be future)
+8. Calendar,Edge Case / Boundary,General Edge Case,Leap year (Feb 29) display and logic
+8. Calendar,Edge Case / Boundary,General Edge Case,Daylight Savings Time (DST) transition handling
+8. Calendar,Edge Case / Boundary,General Edge Case,Overlapping meetings conflict detection
+8. Calendar,Edge Case / Boundary,General Edge Case,All-day event rendering in grid
+8. Calendar,Edge Case / Boundary,General Edge Case,Calendar view in different timezones
+9. Schedule,Edge Case / Boundary,General Edge Case,Overlapping time slots validation
+9. Schedule,Edge Case / Boundary,General Edge Case,Recurring event series management
+9. Schedule,Edge Case / Boundary,General Edge Case,Day view vs Week view data consistency
+9. Schedule,Edge Case / Boundary,General Edge Case,Assigning schedule entry to another rep
+10. Targets,Edge Case / Boundary,General Edge Case,Target with $0 goal amount
+10. Targets,Edge Case / Boundary,General Edge Case,Over-target (100%+) progress bar display
+10. Targets,Edge Case / Boundary,General Edge Case,Historical target viewing (past periods)
+10. Targets,Edge Case / Boundary,General Edge Case,Retroactive target amount modification
+10. Targets,Edge Case / Boundary,General Edge Case,Import prospect file with invalid formats
+10. Targets,Edge Case / Boundary,General Edge Case,Network interruption during large import
+11. Daily Alerts,Edge Case / Boundary,General Edge Case,Large alert volume (1000+) performance
+11. Daily Alerts,Edge Case / Boundary,General Edge Case,Stale alerts (10+ days old) auto-archival
+11. Daily Alerts,Edge Case / Boundary,General Edge Case,Snooze alert then immediate dismiss
+11. Daily Alerts,Edge Case / Boundary,General Edge Case,Re-alert trigger after snooze period expires
+12. Global Settings,Edge Case / Boundary,General Edge Case,Large configuration set (1000+ fields)
+12. Global Settings,Edge Case / Boundary,General Edge Case,Conflicting settings validation logic
+12. Global Settings,Edge Case / Boundary,General Edge Case,Invalid type input for numeric settings
+12. Global Settings,Edge Case / Boundary,General Edge Case,Settings update sync across active sessions
+13. Regions,Edge Case / Boundary,General Edge Case,Region with 1000+ team members load
+13. Regions,Edge Case / Boundary,General Edge Case,Delete region with active customers
+13. Regions,Edge Case / Boundary,General Edge Case,Reassigning members during region deletion
+13. Regions,Edge Case / Boundary,General Edge Case,Region overlap check for territories
+14. Groups,Edge Case / Boundary,General Edge Case,Delete group with 1000+ active members
+14. Groups,Edge Case / Boundary,General Edge Case,Concurrent member additions to same group
+14. Groups,Edge Case / Boundary,General Edge Case,Empty group display and removal logic
+14. Groups,Edge Case / Boundary,General Edge Case,Group name uniqueness check
+15. User Management,Edge Case / Boundary,General Edge Case,"List view with 10,000+ active users"
+15. User Management,Edge Case / Boundary,General Edge Case,Create user with duplicate email/username
+15. User Management,Edge Case / Boundary,General Edge Case,Self-role modification restrictions
+15. User Management,Edge Case / Boundary,General Edge Case,Deactivate user with 50+ pending tasks
+15. User Management,Edge Case / Boundary,General Edge Case,Granting permissions to self escalation
+17. Access Control,Edge Case / Boundary,General Edge Case,Impersonate rep from another region (blocker)
+17. Access Control,Edge Case / Boundary,General Edge Case,"Verify ""Done by"" tag on all created items"
+17. Access Control,Edge Case / Boundary,General Edge Case,Activity log link verification from tag
+17. Access Control,Edge Case / Boundary,General Edge Case,Accessing global settings during impersonation
+17. Access Control,Edge Case / Boundary,General Edge Case,Target rep data modification during session

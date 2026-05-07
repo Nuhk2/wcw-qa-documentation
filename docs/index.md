@@ -60,6 +60,12 @@
 - ✅ **Validation checklist** for all major permissions
 - 📊 Progress tracking by role
 
+### 📊 [Comprehensive Test Matrix (CSV/Excel)](../WCW_CRM_Test_Matrix_Comprehensive.csv)
+**Full List** - Master list of all 380+ functional and edge cases
+- ✅ **Downloadable Excel-ready file**
+- ✅ **Module-wise organization**
+- ✅ **Workflow & Edge case mapping**
+
 ---
 
 ## �📚 DOCUMENTATION PACKAGES

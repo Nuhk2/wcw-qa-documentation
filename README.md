@@ -29,6 +29,7 @@ This repository contains **comprehensive QA documentation** for testing the WCW 
 - [⭐ Workflow Tracker](https://nuhk2.github.io/wcw-qa-documentation/docs/tracker-comprehensive.html)
 - [🔍 Edge Case Tracker](https://nuhk2.github.io/wcw-qa-documentation/docs/tracker-edge-cases.html)
 - [👥 Role Access Tracker](https://nuhk2.github.io/wcw-qa-documentation/docs/tracker-roles.html)
+- [📊 Comprehensive Test Matrix (CSV/Excel)](./WCW_CRM_Test_Matrix_Comprehensive.csv)
 
 ## 📊 What's Included
 
