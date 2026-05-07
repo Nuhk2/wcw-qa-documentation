@@ -140,85 +140,37 @@
 ## FEATURE AVAILABILITY BY ROLE
 
 ### 👨‍💼 ADMIN (Role ID: 1)
-**Type:** Super Access | **Primary:** System Administration
-
-**All Modules Accessible:**
-- ✅ Dashboard (all data)
-- ✅ Customers (create, read, update, delete)
-- ✅ Contacts (full access)
-- ✅ Opportunities (full access)
-- ❌ Tasks (restricted by design)
-- ✅ Commitments (full)
-- 🟠 Calendar (mock data issue)
-- ❌ Schedule (restricted)
-- ✅ Targets (create for others)
-- ❌ Daily Alerts (restricted)
-- ✅ User Management (full)
-- ✅ Permissions (framework ready)
-- ✅ Regions (manage all)
-- ✅ Groups (manage all)
-- ✅ Settings (all settings)
-
-**Restrictions:**
-- Cannot view Tasks (by design)
-- Cannot view Schedule (by design)
-- Cannot view Daily Alerts (by design)
-- Cannot manage own permissions (prevent privilege escalation)
+**Type:** Super Access | **Scope:** Global / All Regions
+**Codebase Access:**
+- ✅ **Global Settings:** The ONLY role with access to `GLOBAL_SETTINGS_MANAGEMENT_ROLES`.
+- ✅ **User Management:** Full CRUD (View, Create, Edit, Delete).
+- ✅ **Regional Data:** Bypasses all regional filters in `UserAccessPolicy.php`.
+- ✅ **Modules:** Dashboard, Customers, Contacts, Opportunities, Meetings, Tasks, Team Requests, Calendar, Commitments, Targets, Users.
+- ✅ **Permissions:** Managed via `ADMIN_PERMISSIONS` in `rolePermissions.config.ts`.
 
 ---
 
 ### 👔 MANAGER (Role ID: 4)
-**Type:** Super Access | **Primary:** Team Oversight & Approval
-
-**All Modules Accessible (with team scope):**
-- ✅ Dashboard (team + regional data)
-- ✅ Customers (team customers, can assign)
-- ✅ Contacts (team customers' contacts)
-- ✅ Opportunities (team opps)
-- ✅ Tasks (view team + own)
-- ✅ Commitments (team)
-- 🟠 Calendar (team meetings - mock data)
-- ✅ Schedule (view team + own)
-- ✅ Targets (assign to team)
-- ✅ Daily Alerts (team alert dashboard)
-- 🟠 User Management (view/edit team users)
-- 🔴 Permissions (framework ready, not fully implemented)
-- 🟠 Regions (manage own regions)
-- 🟠 Groups (manage team groups)
-- 🟠 Settings (limited settings)
-
-**Restrictions:**
-- Cannot create users
-- Cannot delete teammates
-- Cannot modify own role
-- Cannot access competitor data (if regional filtering enforced)
+**Type:** Super Access | **Scope:** Broad / Team-Wide
+**Codebase Access:**
+- ✅ **Dashboard:** Broad access (Super Access Role ID).
+- ❌ **Global Settings:** Explicitly restricted (not in `GLOBAL_SETTINGS_MANAGEMENT_ROLES`).
+- 🟠 **User Management:** Can **View** users but cannot Create, Edit, or Delete (restricted in `MANAGER_PERMISSIONS`).
+- ✅ **Regional Data:** Bypasses regional filters in `UserAccessPolicy.php` (Global scope).
+- ✅ **Modules:** All operational modules except User CRUD.
+- ✅ **Team Coordination:** Can assign tasks and view team schedules.
 
 ---
 
 ### 📱 SALES REP (Role ID: 2)
-**Type:** Standard | **Primary:** Field Sales Operations
-
-**Modules with Limited Access:**
-- ✅ Dashboard (own region only)
-- ✅ Customers (own customers)
-- ✅ Contacts (own customers' contacts)
-- ✅ Opportunities (own opportunities)
-- ✅ Tasks (own tasks only)
-- ✅ Commitments (own commitments)
-- 🟠 Calendar (own meetings - mock data)
-- ✅ Schedule (own schedule)
-- ✅ Targets (view own targets)
-- ✅ Daily Alerts (own alerts)
-
-**No Access:**
-- ❌ User Management
-- ❌ Permission Management
-- ❌ Region Management
-- ❌ Groups Management
-- ❌ Global Settings
-- ❌ Cannot delete anything
-- ❌ Cannot create users
-- ❌ Cannot view team members' data (by design)
+**Type:** Standard | **Scope:** STRICTLY Regional (Own Only)
+**Codebase Access:**
+- ❌ **Global Access:** Blocked by `UserAccessPolicy.php` if region doesn't match.
+- ❌ **User/Role Management:** No access to User list or Role configuration.
+- ✅ **Dashboard:** Filtered to own region metrics only.
+- ✅ **Operational Modules:** Customers, Contacts, Opportunities, Meetings, Tasks, Commitments, Targets.
+- ✅ **Personal Tools:** Weekly/Daily Schedule, Daily Alerts (Own data only).
+- 🟠 **Targets:** View own targets; create/edit limited to own customer associations.
 
 **Can Manage:**
 - Own Customers (create, edit, not delete)

@@ -9,12 +9,12 @@
 
 ## System Roles Overview
 
-| Role ID | Role Name | Access Level | Type | Description |
-|---------|-----------|--------------|------|-------------|
-| 1 | **Admin** | Super | Administrative | Full system access, all modules, global region access |
-| 2 | **Sales Rep** | Standard | Operational | Field sales, restricted to own region and own customers |
-| 3 | **Inside Rep** | Standard | Operational | Office sales, broad regional access, manages all customers |
-| 4 | **Manager** | Super | Administrative | Team oversight, broad regional access, reporting |
+| Role ID | Role Name | Allowed Scope | Regional Filter | Key Restrictions |
+|---------|-----------|---------------|-----------------|------------------|
+| 1 | **Admin** | Global | ✅ Bypassed | None (Full System CRUD) |
+| 4 | **Manager** | Global | ✅ Bypassed | Cannot Create/Edit/Delete Users |
+| 3 | **Inside Rep** | Global | ✅ Bypassed | No User Management / No Global Settings |
+| 2 | **Sales Rep** | Restricted | ❌ Own Region Only | Own Data Only; No Admin/User access |
 
 **Super Access Roles:** Admin, Manager  
 **Standard Roles:** Sales Rep, Inside Rep
@@ -542,9 +542,9 @@
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | Admin | ✓ Yes | opportunity.delete | ✅ Working | |
-| Manager | ✓ Yes | opportunity.delete | 🟠 Partial | Team only |
-| Sales Rep | ✗ No | opportunity.delete | ❌ No Access | |
-| Inside Rep | ✗ No | opportunity.delete | ❌ No Access | |
+| Manager | ✓ Yes | opportunity.delete | ✅ Working | |
+| Sales Rep | ✓ Yes | opportunity.delete | ✅ Working | Own only |
+| Inside Rep | ✓ Yes | opportunity.delete | ✅ Working | |
 
 **Checklist:**
 - [ ] **PASS:** Can mark as won
@@ -568,10 +568,10 @@
 #### 6.1 View Tasks
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
-| Admin | ✗ No | task.view | 🟠 Restricted | Cannot view (by policy) |
-| Manager | ✓ Yes | task.view | ✅ Working | Team + own |
+| Admin | ✓ Yes | task.view | ✅ Working | Global |
+| Manager | ✓ Yes | task.view | ✅ Working | Global |
 | Sales Rep | ✓ Yes | task.view | ✅ Working | Own only |
-| Inside Rep | ✓ Yes | task.view | ✅ Working | Own only |
+| Inside Rep | ✓ Yes | task.view | ✅ Working | Global |
 
 **Checklist:**
 - [ ] **PASS:** Manager sees team tasks
@@ -592,10 +592,10 @@
 #### 6.2 Create Task
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
-| Admin | ✗ No | task.create | 🟠 Restricted | |
-| Manager | ✓ Yes | task.create | ✅ Working | Assign to team |
+| Admin | ✓ Yes | task.create | ✅ Working | |
+| Manager | ✓ Yes | task.create | ✅ Working | |
 | Sales Rep | ✓ Yes | task.create | ✅ Working | Own only |
-| Inside Rep | ✓ Yes | task.create | ✅ Working | Own only |
+| Inside Rep | ✓ Yes | task.create | ✅ Working | |
 
 **Checklist:**
 - [ ] **PASS:** Create form shows
@@ -845,9 +845,9 @@
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | Admin | ✓ Yes | target.create | ✅ Working | |
-| Manager | ✓ Yes | target.create | ✅ Working | Assign to team |
-| Sales Rep | ✗ No | target.create | ❌ No Access | |
-| Inside Rep | ✗ No | target.create | ❌ No Access | |
+| Manager | ✓ Yes | target.create | ✅ Working | |
+| Sales Rep | ✓ Yes | target.create | ✅ Working | |
+| Inside Rep | ✓ Yes | target.create | ✅ Working | |
 
 **Checklist:**
 - [ ] **PASS:** Create form displays
@@ -914,7 +914,7 @@
 #### 11.2 Dismiss/Manage Alerts
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
-| Admin | ✗ No | alert.manage | 🟠 Restricted | |
+| Admin | ✓ Yes | alert.manage | ✅ Working | |
 | Manager | ✓ Yes | alert.manage | ✅ Working | |
 | Sales Rep | ✓ Yes | alert.manage | ✅ Working | |
 | Inside Rep | ✓ Yes | alert.manage | ✅ Working | |
@@ -941,8 +941,8 @@
 #### 12.1 View Settings
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
-| Admin | ✓ Yes | setting.view | ✅ Working | All |
-| Manager | ✓ Yes | setting.view | 🟠 Partial | Limited set |
+| Admin | ✓ Yes | setting.view | ✅ Working | Global |
+| Manager | ✗ No | setting.view | ❌ No Access | |
 | Sales Rep | ✗ No | setting.view | ❌ No Access | |
 | Inside Rep | ✗ No | setting.view | ❌ No Access | |
 

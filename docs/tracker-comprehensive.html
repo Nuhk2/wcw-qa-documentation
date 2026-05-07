@@ -1403,9 +1403,9 @@
                         'Hierarchical Access Levels': [
                             'Admin > Manager > Sales Rep hierarchy enforced',
                             'Admin can override all permissions',
-                            'Manager can override sales rep permissions (in own region)',
-                            'Sales rep has leaf-level access only',
-                            'Inside rep has leaf-level access only',
+                            'Manager has Global access (bypasses region filters)',
+                            'Sales rep restricted to own region only',
+                            'Inside rep has Global access (bypasses region filters)',
                         ],
                         'Regional Restrictions': [
                             'North region manager cannot access South region',
@@ -1424,18 +1424,18 @@
                         'Dashboard View Permissions': [
                             'Admin dashboard shows all regions',
                             'Admin can select any sales rep',
-                            'Manager dashboard shows own region',
+                            'Manager dashboard shows all regions (Global scope)',
                             'Manager can select own team reps',
-                            'Sales rep dashboard shows own metrics',
+                            'Sales rep dashboard shows own metrics only',
                             'Sales rep can only select self',
-                            'Inside rep dashboard shows own metrics',
+                            'Inside rep dashboard shows all regions (Global scope)',
                         ],
                         'Editing Restrictions': [
                             'Admin can edit customer created by anyone',
                             'Manager can edit team member customers',
                             'Manager cannot edit other manager customers',
                             'Sales rep can only edit own customers',
-                            'Inside rep can edit assigned customers only',
+                            'Inside rep can edit any customer (Global scope)',
                             'Deleted data attribution preserved by role',
                         ]
                     }
