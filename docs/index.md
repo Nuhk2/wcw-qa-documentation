@@ -46,6 +46,22 @@
 
 ---
 
+### 🔍 [Edge Case Test Tracker](./tracker-edge-cases.html)
+**Deep Dive Testing** - Matrix for 150+ edge cases and boundary conditions
+- ✅ **Every module included** (Auth, Dashboard, Customers, etc.)
+- ✅ **Specific "Test:" scenarios** from master checklist
+- ✅ **Progress bars per module** for granular tracking
+- 💾 Auto-save functionality
+
+### 👥 [Role-Based Access Tracker](./tracker-roles.html)
+**Permission Verification** - Role-specific "Can" vs "Cannot" matrix
+- ✅ **Role-selection UI** (Admin, Manager, Sales Rep, Inside Rep)
+- ✅ **Specific boundary verification** for each role
+- ✅ **Validation checklist** for all major permissions
+- 📊 Progress tracking by role
+
+---
+
 ## �📚 DOCUMENTATION PACKAGES
 
 ### 🎯 [QA Documentation Index](../QA_DOCUMENTATION_INDEX.md)

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCW CRM | Role-Based Access Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --admin-color: #fbbf24;
+            --manager-color: #10b981;
+            --sales-color: #3b82f6;
+            --inside-color: #06b6d4;
+            --text-main: #f1f5f9;
+            --text-dim: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(251, 191, 36, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .title-gradient {
+            background: linear-gradient(to right, #fff, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+
+        /* Role Tabs */
+        .role-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .role-tab {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 1.25rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .role-tab:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .role-tab.active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .role-tab.active.admin::before { background: var(--admin-color); box-shadow: 0 0 15px var(--admin-color); }
+        .role-tab.active.manager::before { background: var(--manager-color); box-shadow: 0 0 15px var(--manager-color); }
+        .role-tab.active.sales::before { background: var(--sales-color); box-shadow: 0 0 15px var(--sales-color); }
+        .role-tab.active.inside::before { background: var(--inside-color); box-shadow: 0 0 15px var(--inside-color); }
+
+        .role-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .role-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            transition: color 0.3s ease;
+        }
+
+        .role-tab.active .role-name {
+            color: #fff;
+        }
+
+        /* Content Area */
+        .content-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            padding: 3rem;
+            min-height: 400px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .role-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .role-description h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-tag {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-admin { background: rgba(251, 191, 36, 0.15); color: var(--admin-color); }
+        .tag-manager { background: rgba(16, 185, 129, 0.15); color: var(--manager-color); }
+        .tag-sales { background: rgba(59, 130, 246, 0.15); color: var(--sales-color); }
+        .tag-inside { background: rgba(6, 182, 212, 0.15); color: var(--inside-color); }
+
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .perm-column h4 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .can-column h4 { color: var(--success); }
+        .cannot-column h4 { color: var(--danger); }
+
+        .perm-list {
+            list-style: none;
+        }
+
+        .perm-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .perm-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .perm-item.verified {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .check-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--glass-border);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .perm-item.verified .check-box {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .check-box svg {
+            width: 12px;
+            height: 12px;
+            color: #fff;
+            display: none;
+        }
+
+        .perm-item.verified .check-box svg {
+            display: block;
+        }
+
+        .perm-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .perm-item.verified .perm-text {
+            color: var(--success);
+            opacity: 0.8;
+        }
+
+        /* Stats in content */
+        .role-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .mini-stat {
+            text-align: right;
+        }
+
+        .mini-stat-val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .mini-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .role-tabs { grid-template-columns: repeat(2, 1fr); }
+            .permission-grid { grid-template-columns: 1fr; }
+            .content-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="title-gradient">Role Access Verification</h1>
+            <p style="color: var(--text-dim)">Select a role to verify its specific permissions and system boundaries.</p>
+        </header>
+
+        <div class="role-tabs">
+            <div class="role-tab admin active" onclick="setRole('admin')">
+                <span class="role-icon">👨‍💼</span>
+                <span class="role-name">Admin</span>
+            </div>
+            <div class="role-tab manager" onclick="setRole('manager')">
+                <span class="role-icon">👔</span>
+                <span class="role-name">Manager</span>
+            </div>
+            <div class="role-tab sales" onclick="setRole('sales')">
+                <span class="role-icon">📱</span>
+                <span class="role-name">Sales Rep</span>
+            </div>
+            <div class="role-tab inside" onclick="setRole('inside')">
+                <span class="role-icon">🏢</span>
+                <span class="role-name">Inside Rep</span>
+            </div>
+        </div>
+
+        <div id="role-content" class="content-card">
+            <!-- Content dynamically injected here -->
+        </div>
+
+        <footer style="margin-top: 4rem; text-align: center; color: var(--text-dim); padding-bottom: 3rem;">
+            <p>&copy; 2026 WCW CRM Quality Assurance Framework</p>
+        </footer>
+    </div>
+
+    <script>
+        const rolesData = {
+            admin: {
+                name: 'Admin',
+                tag: 'Super Access',
+                tagClass: 'tag-admin',
+                description: 'Full system visibility and configuration access across all regions.',
+                can: [
+                    'Manage all users (Create/Edit/Deactivate)',
+                    'Manage global organizational settings',
+                    'View and filter data for ALL regions',
+                    'Manage system regions and territories',
+                    'Impersonate ANY sales representative (Global)',
+                    'View all customer records and details',
+                    'Delete any record (Customers, Opps, Contacts)',
+                    'Manage role-to-permission mapping (PBAC)'
+                ],
+                cannot: [
+                    'View personal Tasks of other users (by design)',
+                    'View personal Schedule of other users',
+                    'Access Daily Alerts of other users',
+                    'Delete own user account'
+                ]
+            },
+            manager: {
+                name: 'Manager',
+                tag: 'Super Access (Team)',
+                tagClass: 'tag-manager',
+                description: 'Team-level oversight with full operational data access.',
+                can: [
+                    'View all data for team members (Global Scope)',
+                    'Assign tasks to any team member',
+                    'Set and manage targets for the team',
+                    'Impersonate ANY sales representative (Global)',
+                    'View team schedules and coordination tools',
+                    'Create and edit customers/opportunities',
+                    'Manage team-specific groups',
+                    'View user list (Team members)'
+                ],
+                cannot: [
+                    'Edit global organizational settings',
+                    'Create or Delete user accounts',
+                    'Modify role-permission structure',
+                    'Delete customers assigned to other teams'
+                ]
+            },
+            sales: {
+                name: 'Sales Rep',
+                tag: 'Standard (Restricted)',
+                tagClass: 'tag-sales',
+                description: 'Operational focus strictly limited to own region and assigned data.',
+                can: [
+                    'Manage own assigned customers and contacts',
+                    'Create and update own opportunities',
+                    'Manage own daily schedule and alerts',
+                    'Impersonate reps WITHIN own region only',
+                    'View dashboard filtered to own region',
+                    'Create targets for own customers',
+                    'Follow full sales flow (Meetings to Conversion)'
+                ],
+                cannot: [
+                    'Access data from other regions',
+                    'View or Manage other user accounts',
+                    'Delete primary records (Admin/Manager only)',
+                    'Access Global Settings module',
+                    'Impersonate reps from other regions'
+                ]
+            },
+            inside: {
+                name: 'Inside Rep',
+                tag: 'Standard (Office)',
+                tagClass: 'tag-inside',
+                description: 'Office-based support with global operational visibility.',
+                can: [
+                    'View and manage any customer (Global Scope)',
+                    'Impersonate ANY sales representative (Global)',
+                    'Create tasks and opportunities for any rep',
+                    'Access all dashboard region metrics',
+                    'Manage contact roles and visit days',
+                    'Follow full flow as any target rep'
+                ],
+                cannot: [
+                    'Access User Management (Users/Roles)',
+                    'Access Global Settings (Organization level)',
+                    'Delete Customers or Opportunities',
+                    'Manage system-wide regions'
+                ]
+            }
+        };
+
+        let activeRole = 'admin';
+        let verificationState = JSON.parse(localStorage.getItem('roleVerificationState')) || {};
+
+        function setRole(roleKey) {
+            activeRole = roleKey;
+            
+            // Update UI tabs
+            document.querySelectorAll('.role-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.classList.contains(roleKey)) tab.classList.add('active');
+            });
+
+            renderContent();
+        }
+
+        function renderContent() {
+            const role = rolesData[activeRole];
+            const container = document.getElementById('role-content');
+            
+            // Calculate progress for this role
+            const totalPerms = role.can.length + role.cannot.length;
+            const verifiedPerms = [
+                ...role.can.map(p => `can-${activeRole}-${p}`),
+                ...role.cannot.map(p => `cannot-${activeRole}-${p}`)
+            ].filter(key => verificationState[key]).length;
+            const percent = Math.round((verifiedPerms / totalPerms) * 100) || 0;
+
+            container.innerHTML = `
+                <div class="role-summary">
+                    <div class="role-description">
+                        <span class="role-tag ${role.tagClass}">${role.tag}</span>
+                        <h2 style="margin-top: 1rem;">${role.name} Profile</h2>
+                        <p style="color: var(--text-dim); max-width: 500px;">${role.description}</p>
+                    </div>
+                    <div class="role-stats">
+                        <div class="mini-stat">
+                            <span class="mini-stat-val" style="color: var(--success)">${percent}%</span>
+                            <span class="mini-stat-label">Verified</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-val">${verifiedPerms}/${totalPerms}</span>
+                            <span class="mini-stat-label">Permissions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="permission-grid">
+                    <div class="perm-column can-column">
+                        <h4><span>✅</span> Allowed Actions</h4>
+                        <div class="perm-list">
+                            ${role.can.map(p => renderItem(p, 'can')).join('')}
+                        </div>
+                    </div>
+                    <div class="perm-column cannot-column">
+                        <h4><span>❌</span> Restrictions</h4>
+                        <div class="perm-list">
+                            ${role.cannot.map(p => renderItem(p, 'cannot')).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderItem(text, type) {
+            const key = `${type}-${activeRole}-${text}`;
+            const isVerified = verificationState[key];
+            return `
+                <div class="perm-item ${isVerified ? 'verified' : ''}" onclick="toggleVerify('${key}')">
+                    <div class="check-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <span class="perm-text">${text}</span>
+                </div>
+            `;
+        }
+
+        function toggleVerify(key) {
+            verificationState[key] = !verificationState[key];
+            localStorage.setItem('roleVerificationState', JSON.stringify(verificationState));
+            renderContent();
+        }
+
+        // Initial render
+        setRole('admin');
+    </script>
+</body>
+</html>

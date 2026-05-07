@@ -177,6 +177,21 @@ This comprehensive QA package includes **4 detailed documents** for testing the 
 
 ---
 
+### 5. **INTERACTIVE SPECIALIZED TRACKERS** - Browser-Based Tools
+**Dynamic Verification Tools**
+
+**What they contain:**
+- **[Edge Case Tracker](./docs/tracker-edge-cases.html)**: 150+ granular test scenarios
+- **[Role Access Tracker](./docs/tracker-roles.html)**: Permission verification by role
+- **[Workflow Tracker](./docs/tracker-comprehensive.html)**: End-to-end user journeys
+
+**Use this when:**
+- Performing deep-dive testing
+- Verifying complex role boundaries
+- Tracking individual edge case success rates
+
+---
+
 ## 🎯 HOW TO USE THESE DOCUMENTS
 
 ### Quick Start (5 minutes)
