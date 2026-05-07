@@ -11,10 +11,10 @@
 
 | Role ID | Role Name | Access Level | Type | Description |
 |---------|-----------|--------------|------|-------------|
-| 1 | **Admin** | Super | Administrative | Full system access, all features, user/permission management |
-| 2 | **Sales Rep** | Standard | Operational | Field sales operations, own customer/activity data, read-only reports |
-| 3 | **Inside Rep** | Standard | Operational | Office-based sales, customer management, order processing |
-| 4 | **Manager** | Super | Administrative | Team oversight, approval workflows, region management, reporting |
+| 1 | **Admin** | Super | Administrative | Full system access, all modules, global region access |
+| 2 | **Sales Rep** | Standard | Operational | Field sales, restricted to own region and own customers |
+| 3 | **Inside Rep** | Standard | Operational | Office sales, broad regional access, manages all customers |
+| 4 | **Manager** | Super | Administrative | Team oversight, broad regional access, reporting |
 
 **Super Access Roles:** Admin, Manager  
 **Standard Roles:** Sales Rep, Inside Rep
@@ -139,9 +139,9 @@
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | Admin | ✓ Yes | dashboard.view | ✅ Working | Global view |
-| Manager | ✓ Yes | dashboard.view | ✅ Working | Team filtered |
+| Manager | ✓ Yes | dashboard.view | ✅ Working | Broad view |
 | Sales Rep | ✓ Yes | dashboard.view | ✅ Working | Region filtered |
-| Inside Rep | ✓ Yes | dashboard.view | ✅ Working | Region filtered |
+| Inside Rep | ✓ Yes | dashboard.view | ✅ Working | Broad view |
 
 **Checklist:**
 - [ ] **PASS:** Admin sees all metrics

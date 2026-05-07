@@ -567,7 +567,7 @@
                             'Admin can access all levels (regions/cities/reps)',
                             'Manager can filter by own region',
                             'Sales rep sees only own dashboard',
-                            'Inside rep sees own dashboard only',
+                            'Inside rep can access all regions dashboard',
                         ]
                     }
                 },
@@ -667,6 +667,12 @@
                             'View commitments associated with contact',
                             'View meetings with contact',
                             'Contact activity timeline',
+                        ],
+                        'Contacts Role Permissions': [
+                            'Admin: Can associate contact with any Target',
+                            'Manager: Can associate contact with Team Targets',
+                            'Sales Rep: Can associate contact with Own Targets',
+                            'Inside Rep: Can associate contact with Any Target'
                         ]
                     }
                 },
@@ -712,6 +718,12 @@
                             'Verify Import upload error text is clear',
                             'Verify Import download button is hidden',
                             'Verify permissions across all 4 roles',
+                        ],
+                        'Import Prospects Role Permissions': [
+                            'Admin: Can import prospects globally',
+                            'Manager: Can import prospects for Team',
+                            'Sales Rep: Can import prospects to Own list',
+                            'Inside Rep: Can import prospects globally'
                         ]
                     }
                 },
@@ -935,8 +947,13 @@
                             'Stop recording and save audio',
                             'Playback controls for recorded audio (play/pause)',
                             'Show audio timeline and duration',
+                        ],
+                        'Meeting Conflict Role Permissions': [
+                            'Admin: Can view conflicts across all regions',
+                            'Manager: Can view schedule conflicts for Team',
+                            'Sales Rep: Receives conflict warnings for own schedule',
+                            'Inside Rep: Can view conflicts across all regions'
                         ]
-                        
                     }
                 },
                 {

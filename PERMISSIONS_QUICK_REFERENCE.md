@@ -22,11 +22,11 @@
 
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
-| View Dashboard | ✅ All Data | ✅ Team Data | ✅ Own Region | ✅ Own Region | ✅ |
-| Filter Dashboard | ✅ All Regions | ✅ Team | 🟠 Own Only | 🟠 Own Only | ✅ |
-| Access Settings | ✅ All | 🟠 Limited | ❌ | ❌ | 🟠 |
+| View Dashboard | ✅ All Data | ✅ Team Data | 🟠 Own Region | ✅ All Regions | ✅ |
+| Filter Dashboard | ✅ All Regions | ✅ Team | 🟠 Own Only | ✅ All Regions | ✅ |
+| Access Settings | ✅ All | ❌ | ❌ | ❌ | 🟠 |
 | View Navigation Menu | ✅ All Items | ✅ Most Items | 🟠 Filtered | 🟠 Filtered | ✅ |
-| Manage Global Settings | ✅ Yes | 🟠 Team Only | ❌ | ❌ | 🟠 |
+| Manage Global Settings | ✅ Yes | ❌ | ❌ | ❌ | 🟠 |
 
 ---
 
@@ -35,13 +35,12 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **View Customers** |
-| - List View | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| - Detail View | ✅ Any | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Create Customer** | ✅ | ✅ Assign to Team | ✅ Assign to Self | ✅ Assign to Self | ✅ |
-| **Edit Customer** | ✅ Any | ✅ Team Only | 🟠 Own Only | 🟠 Own Only | 🟠 |
-| **Delete Customer** | ✅ | 🟠 Team Only | ❌ | ❌ | 🟠 |
-| **Search/Filter** | ✅ All Data | ✅ Team Data | 🟠 Own Data | 🟠 Own Data | ✅ |
-| **Export Customers** | ✅ | ✅ | ✅ | ✅ | 🟠 |
+| - List View | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| - Detail View | ✅ Any | ✅ Team | ✅ Own | ✅ All | ✅ |
+| **Create Customer** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Customer** | ✅ Any | ✅ Any | ✅ Own Only | ✅ Any | ✅ |
+| **Delete Customer** | ✅ | ✅ | ✅ Own Only | ✅ | ✅ |
+| **Search/Filter** | ✅ All Data | ✅ Team Data | 🟠 Own Data | ✅ All Data | ✅ |
 
 ---
 
@@ -50,11 +49,11 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **View Contacts** |
-| - List View | ✅ All | ✅ Team | ✅ Customer's/Target's | ✅ Customer's/Target's | ✅ |
-| - Detail View | ✅ Any | ✅ Team | ✅ Own Customer/Target | ✅ Own Customer/Target | ✅ |
-| **Create Contact** | ✅ | ✅ Team Cust/Targets | ✅ Own Cust/Target | ✅ Own Cust/Target | ✅ |
-| **Edit Contact** | ✅ Any | ✅ Team's | ✅ Own Cust's/Target's | ✅ Own Cust's/Target's | ✅ |
-| **Delete Contact** | ✅ | 🟠 Team Only | ❌ | ❌ | 🟠 |
+| - List View | ✅ All | ✅ Team | ✅ Customer's/Target's | ✅ All | ✅ |
+| - Detail View | ✅ Any | ✅ Team | ✅ Own Customer/Target | ✅ All | ✅ |
+| **Create Contact** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Contact** | ✅ Any | ✅ Any | ✅ Own | ✅ Any | ✅ |
+| **Delete Contact** | ✅ | ✅ | ✅ Own | ✅ | ✅ |
 
 ---
 
@@ -63,12 +62,12 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **View Opportunities** |
-| - List View | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| - Pipeline View | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Create Opportunity** | ✅ | ✅ Assign to Team | ✅ Own | ✅ Own | ✅ |
-| **Edit Opportunity** | ✅ Any | ✅ Team Only | 🟠 Own Only | 🟠 Own Only | ✅ |
-| **Mark Won/Lost** | ✅ | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Delete Opportunity** | ✅ | 🟠 Team Only | ❌ | ❌ | 🟠 |
+| - List View | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| - Pipeline View | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| **Create Opportunity** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Opportunity** | ✅ Any | ✅ Any | ✅ Own Only | ✅ Any | ✅ |
+| **Mark Won/Lost** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Delete Opportunity** | ✅ | ✅ | ✅ Own | ✅ | ✅ |
 
 ---
 
@@ -76,11 +75,11 @@
 
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
-| **View Tasks** | ❌ Restricted | ✅ Team + Own | ✅ Own | ✅ Own | 🟠 |
-| **Create Task** | ❌ Restricted | ✅ Assign to Team | ✅ Own | ✅ Own | 🟠 |
-| **Edit Task** | ❌ Restricted | ✅ Team + Own | ✅ Own | ✅ Own | 🟠 |
-| **Complete Task** | ❌ Restricted | ✅ | ✅ | ✅ | 🟠 |
-| **Delete Task** | ❌ Restricted | 🟠 Team Only | ❌ | ❌ | 🟠 |
+| **View Tasks** | ✅ All | ✅ Team + Own | ✅ Own | ✅ All | ✅ |
+| **Create Task** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Task** | ✅ Any | ✅ Team + Own | ✅ Own | ✅ Any | ✅ |
+| **Complete Task** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Delete Task** | ✅ | ✅ | ✅ Own | ✅ | ✅ |
 
 ---
 
@@ -88,9 +87,9 @@
 
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
-| **View Commitments** | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Create Commitment** | ✅ | ✅ Assign to Team | ✅ Own | ✅ Own | ✅ |
-| **Edit Commitment** | ✅ Any | ✅ Team | ✅ Own | ✅ Own | ✅ |
+| **View Commitments** | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| **Create Commitment** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Commitment** | ✅ Any | ✅ Team | ✅ Own | ✅ Any | ✅ |
 | **Mark Completed** | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ---
@@ -100,9 +99,9 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **View Calendar** | 🟠 Mock Data | 🟠 Mock Data | 🟠 Mock Data | 🟠 Mock Data | 🔴 |
-| **Create Meeting** | 🟠 | 🟠 | 🟠 | 🟠 | 🔴 |
-| **View Schedule** | ❌ Restricted | ✅ Team + Own | ✅ Own | ✅ Own | 🟠 |
-| **Create Schedule Entry** | ❌ Restricted | ✅ Team | ✅ Own | ✅ Own | 🟠 |
+| **Create Meeting** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **View Schedule** | ✅ All | ✅ Team + Own | ✅ Own | ✅ All | ✅ |
+| **Create Schedule Entry** | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ---
 
@@ -110,11 +109,11 @@
 
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
-| **View Targets** | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Create/Edit Target** | ✅ | ✅ Team | ❌ | ❌ | ✅ |
-| **Import Prospects** | ✅ | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **View Daily Alerts** | ❌ Restricted | ✅ Team | ✅ Own | ✅ Own | ✅ |
-| **Manage Alerts** | ❌ Restricted | ✅ | ✅ | ✅ | ✅ |
+| **View Targets** | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| **Create/Edit Target** | ✅ | ✅ | ✅ Own | ✅ | ✅ |
+| **Import Prospects** | ✅ | ✅ | ✅ Own | ✅ | ✅ |
+| **View Daily Alerts** | ✅ All | ✅ Team | ✅ Own | ✅ All | ✅ |
+| **Manage Alerts** | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ---
 
@@ -123,18 +122,18 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **User Management** |
-| - View Users | ✅ All | 🟠 Team | ❌ | ❌ | ✅ |
+| - View Users | ✅ All | ✅ Team | ❌ | ❌ | ✅ |
 | - Create User | ✅ | ❌ | ❌ | ❌ | ✅ |
-| - Edit User | ✅ All | 🟠 Team | ❌ | ❌ | ✅ |
+| - Edit User | ✅ All | ✅ Team | ❌ | ❌ | ✅ |
 | - Deactivate User | ✅ | ❌ | ❌ | ❌ | ✅ |
-| **Permission Management** | 🔴 Not Impl | 🔴 Not Impl | ❌ | ❌ | 🔴 |
+| **Permission Management** | ✅ | ❌ | ❌ | ❌ | 🟠 |
 | **Region Management** |
-| - View Regions | ✅ All | 🟠 Own | 🟠 Own | 🟠 Own | ✅ |
-| - Manage Regions | ✅ | 🟠 Own | ❌ | ❌ | 🟠 |
+| - View Regions | ✅ All | ✅ Own | 🟠 Own | ✅ All | ✅ |
+| - Manage Regions | ✅ | ❌ | ❌ | ❌ | 🟠 |
 | **Group Management** |
-| - View Groups | ✅ All | 🟠 Team | ❌ | ❌ | ✅ |
-| - Create/Edit Groups | ✅ | 🟠 Team | ❌ | ❌ | 🟠 |
-| **Global Settings** | ✅ | 🟠 | ❌ | ❌ | 🟠 |
+| - View Groups | ✅ All | ✅ Team | ❌ | ❌ | ✅ |
+| - Create/Edit Groups | ✅ | ✅ Team | ❌ | ❌ | 🟠 |
+| **Global Settings** | ✅ | ❌ | ❌ | ❌ | 🟠 |
 
 ---
 
