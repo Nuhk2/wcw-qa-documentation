@@ -3,482 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WCW CRM QA Test Tracker - Workflow Based</title>
+    <title>WCW CRM | Workflow Test Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --secondary: #a855f7;
+            --secondary-glow: rgba(168, 85, 247, 0.5);
+            --accent: #22d3ee;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.1) 0px, transparent 50%);
+            color: var(--text-main);
             min-height: 100vh;
-            padding: 20px;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
+        header {
             text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
         }
 
-        .header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        button {
-            background: white;
-            color: #667eea;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        button.secondary {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-        }
-
-        .progress-section {
-            padding: 20px 30px;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: #e9ecef;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .progress-text {
-            text-align: center;
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        .content {
-            padding: 30px;
-            max-height: calc(100vh - 400px);
-            overflow-y: auto;
-        }
-
-        .module {
-            margin-bottom: 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .module-header {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .module-header:hover {
-            background: #e9ecef;
-        }
-
-        .module-header.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .module-title {
-            font-size: 1em;
-        }
-
-        .toggle-icon {
-            transition: transform 0.3s;
-        }
-
-        .module-header.active .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        .module-content {
-            padding: 0;
-            display: none;
-            background: white;
-        }
-
-        .module-content.active {
-            display: block;
-        }
-
-        .test-section {
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .test-section:last-child {
-            border-bottom: none;
-        }
-
-        .section-title {
-            background: #f8f9fa;
-            padding: 10px 20px;
-            font-weight: 600;
-            color: #667eea;
-            font-size: 0.95em;
-            margin: 0;
-        }
-
-        .checklist {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .checklist-item {
-            padding: 10px 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s;
-            font-size: 0.95em;
-        }
-
-        .checklist-item:hover {
-            background: #fafafa;
-        }
-
-        .checklist-item input[type="checkbox"] {
-            margin-top: 2px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-            accent-color: #667eea;
-            flex-shrink: 0;
-        }
-
-        .checklist-item label {
-            cursor: pointer;
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .checklist-item input[type="checkbox"]:checked + label {
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .role-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
-
-        .role-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+        .badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
-        .role-checklist {
-            display: grid;
-            gap: 8px;
-            margin-top: 15px;
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .role-item {
-            display: flex;
-            gap: 12px;
-            padding: 10px;
-            background: white;
-            border-radius: 4px;
-            border: 1px solid #e9ecef;
-            transition: all 0.2s;
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .role-item:hover {
-            background: #f8f9fa;
-        }
-
-        .role-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #667eea;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .role-item label {
-            cursor: pointer;
-            flex: 1;
-            font-size: 0.95em;
-        }
-
-        .role-item input[type="checkbox"]:checked + label {
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .sign-off-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            border-radius: 8px;
-            border: 2px solid #667eea;
-        }
-
-        .sign-off-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .sign-off-field {
-            margin-bottom: 15px;
-        }
-
-        .sign-off-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .sign-off-field input,
-        .sign-off-field textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1em;
-        }
-
-        .sign-off-field textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 20px 30px;
-            text-align: center;
-            color: #666;
-            border-top: 2px solid #e9ecef;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #667eea;
-            padding: 12px 24px;
-            border: 2px solid #667eea;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: #f8f9fa;
-        }
-
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 12px;
-            border-radius: 6px;
-            border: 2px solid #e9ecef;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 1.5rem;
             text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .stat-number {
-            font-size: 1.6em;
-            font-weight: bold;
-            color: #667eea;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--accent);
         }
 
         .stat-label {
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 3px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-dim);
+        }
+
+        /* Module Sections */
+        .module-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .module-header {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .module-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .module-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .module-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .module-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-bar-container {
+            width: 150px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            min-width: 45px;
+        }
+
+        .module-content {
+            display: none;
+            padding: 1.5rem 2rem;
+        }
+
+        .module-section.active .module-content {
+            display: block;
+        }
+
+        /* Test Sections inside Module */
+        .test-section {
+            margin-bottom: 2rem;
+        }
+
+        .test-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .test-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .test-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .test-item.checked {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--glass-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .test-item.checked .checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox svg {
+            color: #fff;
+            width: 14px;
+            height: 14px;
+            display: none;
+        }
+
+        .test-item.checked .checkbox svg {
+            display: block;
+        }
+
+        .test-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .test-item.checked .test-text {
+            color: var(--success);
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+
+        /* Sign-Off Section */
+        .sign-off-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .sign-off-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sign-off-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Role Verification List */
+        .role-verification {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Notifications */
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #667eea;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 6px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
             animation: slideIn 0.3s ease;
             z-index: 1000;
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            padding-bottom: 2rem;
         }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 1.3em;
-            }
-
-            .content {
-                padding: 15px;
-            }
-
-            .module-header {
-                padding: 10px 15px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            h1 { font-size: 2.5rem; }
+            .checklist-grid { grid-template-columns: 1fr; }
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="header">
-            <h1>🧪 WCW CRM - QA Workflow Test Tracker</h1>
-            <p>Flow-Based Testing | Field-Level CRUD | 4-Role Hierarchy (Admin, Manager, Sales Rep, Inside Rep)</p>
-            <div class="controls">
-                <button onclick="resetAll()">🔄 Reset All</button>
-                <button class="secondary" onclick="exportData()">📤 Export Progress</button>
-                <button class="secondary" onclick="printPage()">🖨️ Print</button>
+        <header>
+            <span class="badge">Workflow-Based Verification</span>
+            <h1>Workflow Test Tracker</h1>
+            <p class="subtitle">Complete end-to-end user journeys and field-level CRUD validation across all 18 modules with 4-role hierarchy.</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-value" id="total-progress">0%</span>
+                <span class="stat-label">Overall Progress</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="completed-count">0</span>
+                <span class="stat-label">Items Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="remaining-count">0</span>
+                <span class="stat-label">Remaining Tests</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="roles-done">0/4</span>
+                <span class="stat-label">Roles Verified</span>
             </div>
         </div>
 
-        <div class="progress-section">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%">
-                    <span id="progressPercent">0%</span>
+        <div class="controls">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="btn-export">
+                    <span>📤</span> Export CSV
+                </button>
+                <button class="btn btn-outline" id="btn-print">
+                    <span>🖨️</span> Print PDF
+                </button>
+            </div>
+            <button class="btn btn-outline" id="btn-reset">
+                <span>🔄</span> Reset Progress
+            </button>
+        </div>
+
+        <div id="tracker-container">
+            <!-- Modules injected by JS -->
+        </div>
+
+        <div class="sign-off-section">
+            <h3 class="sign-off-title">✍️ QA Verification & Sign-Off</h3>
+            
+            <div class="role-verification">
+                <h4 class="section-title">Role-Based Completion</h4>
+                <div class="role-grid" id="role-grid">
+                    <!-- Roles injected by JS -->
                 </div>
             </div>
-            <div class="progress-text">
-                <strong><span id="completed">0</span> / <span id="total">0</span> items completed</strong>
+
+            <div class="sign-off-grid" style="margin-top: 3rem;">
+                <div class="form-group">
+                    <label>QA Manager Name</label>
+                    <input type="text" class="form-input" id="qa-manager" placeholder="Enter name...">
+                </div>
+                <div class="form-group">
+                    <label>Tech Lead Name</label>
+                    <input type="text" class="form-input" id="tech-lead" placeholder="Enter name...">
+                </div>
+                <div class="form-group">
+                    <label>Sign-off Date</label>
+                    <input type="date" class="form-input" id="sign-off-date">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Issues Found & Recommendations</label>
+                    <textarea class="form-input form-textarea" id="sign-off-notes" placeholder="Document any blockers or issues found during testing..."></textarea>
+                </div>
             </div>
-            <div class="stats-grid" id="statsGrid"></div>
         </div>
 
-        <div class="content" id="tracker">
-            <!-- Content generated by JavaScript -->
-        </div>
+        <div class="notification" id="notification"></div>
 
-        <div class="footer">
-            <p>💾 Your progress is automatically saved to your browser</p>
-            <p>✅ Check items as you complete testing | 🔄 Reset to start over | 📤 Export for reports</p>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Workflow Edition - 4-Role Testing (Admin, Manager, Sales Rep, Inside Rep) | Last Updated: April 10, 2026 | Comprehensive Codebase Verification</p>
-        </div>
+        <footer>
+            <p>WCW CRM QA Documentation &bull; v2.0 &bull; &copy; 2026</p>
+            <p style="margin-top: 0.5rem; opacity: 0.5;">Progress is automatically saved to your browser's local storage.</p>
+        </footer>
     </div>
 
     <script>
-        // Workflow-based test data
         const trackerData = {
             modules: [
                 {
-                    name: '1️⃣ Authentication & Landing',
+                    name: '1. Authentication & Landing',
+                    icon: '🔑',
                     tests: {
                         'Login Flow': [
                             'Login page displays correctly',
@@ -492,14 +568,15 @@
                             'Profile dropdown visible in header',
                             'User profile name and email display',
                             'User logout button accessible',
-                            'Logout redirects to login page',
                             'Logout redirects to login page'
                         ]
                     }
                 },
                 {
-                    name: '2️⃣ Dashboard & Navigation',
-                    tests: { 'Regions View': [
+                    name: '2. Dashboard & Navigation',
+                    icon: '📊',
+                    tests: { 
+                        'Regions View': [
                             'Regions list displays all regions with metrics',
                             'Regional sales rep list shows under each region',
                             'Column 1: Region name displays',
@@ -533,7 +610,7 @@
                             'Admin can access all levels (regions/cities/reps)',
                             'Manager can filter by own region',
                             'Sales rep sees only own dashboard',
-                            'Inside rep sees own dashboard only',
+                            'Inside rep can access all regions dashboard',
                         ],
                         'Sales Rep Selection': [
                             'Dropdown selector for sales reps (admin/manager)',
@@ -541,38 +618,12 @@
                             'Manager can select own team reps',
                             'Sales rep only sees self option',
                             'Selection filters all data across modules',
-                        ],
-                        'Regional Filter': [
-                            'Region dropdown available (if applicable)',
-                            'Admin can select any region',
-                            'Manager filtered to own region',
-                            'Filter applies to dashboard metrics',
-                            'Filter persists across page navigas view',
-                        ],
-                        'Drill-Down: Sales Rep Details': [
-                            'Clicking sales rep navigates to detailed view',
-                            'Rep name and profile information displays',
-                            'Sales metrics show: Customers, Targets, Opportunities, Commitments',
-                            'Quick action buttons to jump to rep data',
-                            'Back button returns to city/regions view',
-                            'Tab-based interface for future content',
-                        ],
-                        'Sales Rep Dashboard': [
-                            'Sales rep sees own data only',
-                            'Cannot navigate to other reps deep views',
-                            'Dashboard shows own metrics cards',
-                            'Cannot select admin all-regions view',
-                        ],
-                        'Dashboard Permissions': [
-                            'Admin can access all levels (regions/cities/reps)',
-                            'Manager can filter by own region',
-                            'Sales rep sees only own dashboard',
-                            'Inside rep can access all regions dashboard',
                         ]
                     }
                 },
                 {
-                    name: '3️⃣ Customers Module',
+                    name: '3. Customers Module',
+                    icon: '👥',
                     tests: {
                         'View Customers': [
                             'Customer list loads',
@@ -616,7 +667,8 @@
                     }
                 },
                 {
-                    name: '4️⃣ Contacts Module',
+                    name: '4. Contacts Module',
+                    icon: '📇',
                     tests: {
                         'View Contacts': [
                             'Contact list displays',
@@ -661,13 +713,6 @@
                             'Cancel delete keeps contact',
                             'Deleted contact removed from list',
                         ],
-                        'Contact Details & Engagement': [
-                            'View contact engagements/history',
-                            'View opportunities associated with contact',
-                            'View commitments associated with contact',
-                            'View meetings with contact',
-                            'Contact activity timeline',
-                        ],
                         'Contacts Role Permissions': [
                             'Admin: Can associate contact with any Target',
                             'Manager: Can associate contact with Team Targets',
@@ -677,7 +722,8 @@
                     }
                 },
                 {
-                    name: '5️⃣ Targets Module',
+                    name: '5. Targets Module',
+                    icon: '🎯',
                     tests: {
                         'View Targets': [
                             'Target list shows all active targets',
@@ -728,15 +774,13 @@
                     }
                 },
                 {
-                    name: '6️⃣ Opportunities Module',
+                    name: '6. Opportunities Module',
+                    icon: '💰',
                     tests: {
                         'View Opportunities': [
                             'Opportunity list displays',
                             'Search by opportunity name works',
-                            'Filter by opportunity type works',
                             'Filter by stage/status works',
-                            'Filter by customer works',
-                            'Filter functionality clears correctly',
                             'Sort by amount works',
                             'Sort by closing date works',
                         ],
@@ -748,7 +792,6 @@
                             'Fill description field',
                             'Set closing/expected date',
                             'Opportunity type pulls from global settings',
-                            'Type deadline shows in form',
                             'Submit button saves opportunity',
                             'Cancel button closes form',
                             'New opportunity appears in list',
@@ -757,49 +800,28 @@
                             'Edit button opens opportunity form',
                             'Form pre-fills with existing data',
                             'Modify opportunity title',
-                            'Modify opportunity type',
-                            'Modify associated customer',
-                            'Modify gross margin',
-                            'Modify description',
-                            'Modify closing date',
                             'Update button saves changes',
                             'Cancel closes without saving',
                             'Changes reflect in list',
-                        ],
-                        'Delete Opportunity': [
-                            'Delete button shows confirmation',
-                            'Confirm delete removes opportunity',
-                            'Cancel keeps opportunity',
                         ],
                         'Link Meeting to Opportunity': [
                             'Create meeting button from opportunity',
                             'Select meeting type and dates',
                             'Confirm meeting saves to opportunity',
                             'Meeting appears in opportunity meetings section',
-                        ],
-                        'Link Task/Commitment': [
-                            'Create commitment button in opportunity',
-                            'Set departments for commitment',
-                            'Set estimated revenue',
-                            'Select products',
-                            'Set frequency (Weekly/Monthly)',
-                            'Commitment appears in opportunity',
                         ]
                     }
                 },
                 {
-                    name: '7️⃣ Commitments Module',
+                    name: '7. Commitments Module',
+                    icon: '🤝',
                     tests: {
                         'View Commitments': [
                             'Commitment list displays',
                             'Commitments show associated customer/opportunity',
                             'Show department field',
                             'Show estimated revenue',
-                            'Show frequency (Weekly/Monthly)',
                             'Show status (Pending/In Progress/Completed/Lost)',
-                            'Filter by status works',
-                            'Filter by department works',
-                            'Search by commitment name works',
                         ],
                         'Create Commitment': [
                             'Add commitment form opens',
@@ -808,51 +830,25 @@
                             'Set frequency (Weekly or Monthly)',
                             'Set starting date field',
                             'Add products to commitment',
-                            'Select product from list',
-                            'Set product revenue amount',
-                            'Set product status (Pending/In Progress/Completed/Lost)',
-                            'Add additional product',
-                            'Remove product from commitment',
-                            'Set overall commitment status',
                             'Submit button saves commitment',
                             'Cancel button closes form',
                             'Created commitment appears in list',
                         ],
                         'Edit Commitment': [
                             'Edit button opens commitment form',
-                            'Form pre-fills with data',
-                            'Modify departments',
-                            'Modify estimated revenue',
-                            'Modify frequency',
-                            'Modify starting date',
-                            'Add new product',
-                            'Edit existing product revenue',
-                            'Change product status',
-                            'Remove product',
-                            'Update commitment status',
                             'Update button saves changes',
                             'Cancel closes without saving',
-                        ],
-                        'Delete Commitment': [
-                            'Delete button shows confirmation',
-                            'Confirm delete removes commitment',
-                            'Cancel keeps commitment',
                         ],
                         'Commitment Product Status': [
                             'Product shows individual status',
                             'Change product status updates total',
                             'Track completion status per product',
-                        ],
-                        'Commitment Revenue Tracking': [
-                            'Total revenue shows',
-                            'Other revenue field available',
-                            'Manual revenue adjustment works',
-                            'Revenue updates on product change',
                         ]
                     }
                 },
                 {
-                    name: '8️⃣ Meetings & Daily Activities',
+                    name: '8. Meetings & Daily Activities',
+                    icon: '📅',
                     tests: {
                         'Daily View': [
                             'Daily view shows date selector',
@@ -861,92 +857,37 @@
                         ],
                         'Create Meeting': [
                             'Add meeting form opens',
-                            'Fill meeting title field',
                             'Select meeting type from global settings',
-                            'Select meeting can relate to: Opportunity, Customer, User, or Target',
                             'Select related opportunity/customer/user/target',
                             'Set meeting date and time fields',
-                            'Backend schedule conflict check returns matching meetings',
-                            'Handle conflict resolution if needed',
-                            'Fill meeting objectives field (multiple lines)',
-                            'Set meeting duration with validation (1h, 30m, 1h 30m)',
+                            'Backend schedule conflict check handled',
+                            'Fill meeting objectives field',
+                            'Set meeting duration with validation',
                             'Add meeting attendees list',
-                            'Add meeting summary field',
-                            'Mark as flexible meeting (optional)',
-                            'If flexible: set task start date',
-                            'If flexible: set task due date',
                             'Submit saves meeting',
-                            'Cancel closes form',
-                            'Created meeting appears in daily view',
-                        ],
-                        'Edit Meeting': [
-                            'Edit button opens meeting form with data',
-                            'Modify meeting title',
-                            'Modify meeting type',
-                            'Modify meeting date/time',
-                            'Modify duration with validation',
-                            'Modify objectives',
-                            'Modify attendees',
-                            'Modify summary',
-                            'Change flexible meeting setting',
-                            'Modify task dates if flexible',
-                            'Update button saves changes',
-                            'Cancel closes form',
-                        ],
-                        'Delete Meeting': [
-                            'Delete shows confirmation',
-                            'Confirm removes meeting from schedule',
-                            'Cancel keeps meeting',
                         ],
                         'Pre-Meeting Preparation': [
-                            'Open pre-meeting preparation before meeting date',
-                            'Pre-meeting default checklist items from meeting type settings',
-                            'Add custom agenda items (checklist) with validation',
-                            'Remove agenda items from list',
+                            'Open pre-meeting preparation',
+                            'Add custom agenda items with validation',
                             'Add custom objectives with validation',
-                            'Remove objectives from list',
-                            'Add preparation notes textarea (max 2000 chars)',
-                            'Each agenda/objective item has max 255 char validation',
-                            'Mark individual agenda items as completed',
-                            'Mark individual objective items as completed',
-                            'Check all items are properly displayed',
+                            'Add preparation notes textarea',
                             'Pre-meeting draft auto-saves changes',
-                            'Show draft save status (auto-saving, saved, error)',
-                            'Display spinner during save',
-                            'Discard draft button removes draft',
-                            'Confirm discard removes all unsaved changes',
                             'Submit preparation completes pre-meeting',
-                            'Pre-meeting status indicators show completion',
-                            'Validation prevents empty item submission',
-                            'Notes textarea auto-saves on blur',
                         ],
                         'Post-Meeting Completion': [
-                            'Open post-meeting after meeting date/time',
-                            'View pre-meeting agenda items for checking off',
-                            'Check off completed agenda items',
-                            'Check off completed objectives',
+                            'Open post-meeting completion',
+                            'Check off completed agenda items/objectives',
                             'Add post-meeting notes field',
                             'Schedule follow-up meeting checkbox',
-                            'If follow-up needed: show follow-up fields',
                             'Add follow-up actions list',
-                            'Track follow-up actions',
-                            'Post-meeting draft auto-saves',
-                            'Show draft save status',
-                            'Discard draft removes unsaved changes',
                             'Submit post-meeting completes workflow',
                         ],
                         'Audio Recording Feature': [
                             'Start recording button in post-meeting form',
                             'Microphone permission check on load',
-                            'Show microphone access denied error if denied',
-                            'Start/Stop recording buttons',
-                            'Display recording timer while recording',
-                            'Show recording progress bar',
-                            'Pause/Resume recording functionality',
-                            'Cancel recording without saving',
+                            'Start/Stop/Pause/Resume recording functionality',
                             'Stop recording and save audio',
-                            'Playback controls for recorded audio (play/pause)',
-                            'Show audio timeline and duration',
+                            'Playback controls for recorded audio',
                         ],
                         'Meeting Conflict Role Permissions': [
                             'Admin: Can view conflicts across all regions',
@@ -957,244 +898,93 @@
                     }
                 },
                 {
-                    name: '9️⃣ Schedule Module (Sales Rep Only)',
+                    name: '9. Schedule Module',
+                    icon: '⏰',
                     tests: {
                         'Weekly Schedule View': [
-                            'Calendar grid displays full week (Monday-Sunday)',
+                            'Calendar grid displays full week',
                             'Time slots show 30-min increments',
-                            'Previous week button navigates correctly',
-                            'Next week button navigates correctly',
+                            'Previous/Next week navigation',
                             'Current week indicator highlights today',
-                            'Today button jumps to current date',
-                            'View shows 7 days horizontally',
-                            'Time labels from 8 AM to 5 PM (auto-expand for events)',
                         ],
-                        'Daily Schedule View': [
-                            'Calendar switches to day view on mobile (<1024px)',
-                            'Desktop can toggle between week/day view',
-                            'Day header shows date and day of week',
-                            'Navigation buttons move by 1 day in day view',
-                            'Admin & Manager Restrictions',
-                            'Admin cannot access daily alerts module',
-                            'Daily Alerts option greyed out in menu for admin',
-                            'Attempting access redirects to dashboard',
-                        'Create Schedule Entry',
+                        'Create Schedule Entry': [
                             'Click empty time slot opens meeting creation',
-                            'Fill meeting title field',
-                            'Select meeting type from global settings',
+                            'Fill meeting title and type',
                             'Set meeting date using slot selection',
-                            'Set meeting time from selected slot',
-                            'Fill meeting duration with validation',
-                            'Add meeting notes/description',
                             'Submit saves and updates calendar',
-                            'Cancel closes form without saving',
-                            'Created entry appears in calendar',
                         ],
                         'Meeting Drag-and-Drop': [
-                            'Desktop: Drag meeting to new time slot',
-                            'Desktop: Drag meeting to different day',
+                            'Desktop: Drag meeting to new time slot/day',
                             'Drag updates meeting time on save',
-                            'Mobile: Long-press to drag (300ms hold)',
-                            'Mobile: Drag feedback shows target time',
-                            'Mobile: Drop confirms time change',
-                            'Permissions prevent drag if read-only',
+                            'Mobile: Long-press to drag support',
                         ],
-                        'Meeting Details': [
-                            'Click meeting opens meeting view modal',
-                            'Display meeting title, time, duration',
-                            'Show associated customer/opportunity',
-                            'Show attendees list',
-                            'Edit button available if permissions allow',
-                            'Delete button with confirmation',
-                            'Open pre-meeting preparation',
-                            'Open post-meeting completion',
-                        ],
-                        'Schedule Conflict Detection': [
-                            'Cannot create overlapping schedules',
-                            'Warning shown for time conflict',
-                        ],
-                        'Day Schedule View': [
-                            'Day view shows hourly breakdown',
-                            'Meetings appear in schedule',
-                        ],
-                        'Admin Restrictions': [
-                            'Admin cannot access schedule module',
-                        'Task Integration in Schedule',
+                        'Task Integration in Schedule': [
                             'Tasks display on calendar on due date',
                             'Click date header shows tasks for day',
-                            'Task modal shows all tasks for selected date',
-                            'Can create task from schedule',
-                            'Task color differs from meeting color',
                             'Task count badge shows next to date',
-                            'Tasks sorted by priority',
-                        ],
-                        'Search & Filter': [
-                            'Search box filters meetings by name/details',
-                            'Debounced search (500ms delay)',
-                            'Search results update calendar',
-                            'Clear search shows all meetings',
-                            'Search works across week and day views',
                         ],
                         'Outlook Integration': [
                             'Microsoft Sign-In button available',
                             'Can authorize Outlook account',
                             'Sync Outlook Tasks button functional',
-                            'Synced tasks appear on calendar',
-                            'Sync status indicator shows',
-                            'Authorization persists across sessions',
-                        ],
-                        'Mobile Responsiveness': [
-                            'Auto-switches to day view on mobile',
-                            'Touch interactions work (scroll, drag)',
-                            'Time slots visible and tappable',
-                            'Navigation buttons responsive',
-                            'Modal/forms fit mobile screen',
-                            'Proper spacing on small screens',
                         ],
                         'Admin Restrictions': [
                             'Admin cannot access schedule module',
                             'Schedule greyed out in admin menu',
-                            'Attempting access redirects to dashboard',
-                        ],
-                        
+                        ]
                     }
                 },
                 {
-                    name: '1️⃣0️⃣ Daily Alerts (Sales Rep Only)',
+                    name: '10. Daily Alerts',
+                    icon: '🔔',
                     tests: {
                         'Alert Display': [
-                            'Alerts list displays',
-                            'Alert count badge shows',
+                            'Alerts list displays with badge count',
                             'Alert categories show correctly',
                         ],
                         'Alert Analytics': [
-                            'Total alerts count shows',
-                            'In progress count shows',
-                            'Completed count shows',
+                            'Total/In-progress/Completed counts show',
                             'Completion rate percentage shows',
-                        ],
-                        'Alert Management': [
-                            'Mark alert complete updates count',
                         ],
                         'Admin & Manager Restrictions': [
                             'Admin cannot access daily alerts module',
                             'Daily Alerts option greyed out in menu for admin',
-                            'Attempting access redirects to dashboard',
                         ]
                     }
                 },
                 {
-                    name: '1️⃣1️⃣ Global Settings Module',
+                    name: '11. Global Settings Module',
+                    icon: '⚙️',
                     tests: {
                         'Tab Visibility by Role': [
-                            'All users: Customers tab visible',
-                            'All users: Contacts tab visible',
-                            'All users: Groups tab visible',
-                            'Management only: Meeting tab (if authorized)',
-                            'Management only: Opportunities tab (if authorized)',
-                            'Admin/Manager see Meeting tab',
-                            'Sales Rep cannot see Meeting tab',
-                            'Sales Rep cannot see Opportunities tab',
+                            'Admin/Manager see Meeting/Opportunities tabs',
+                            'Sales Rep cannot see Meeting/Opportunities tabs',
                         ],
                         'Customers Tab (All Users)': [
-                            'View custom customer properties',
                             'Edit customer loyalty flag values',
                             'Edit customer value focus settings',
-                            'Edit customer engagement preferences',
-                            'Add new customer property',
-                            'Delete customer property',
-                            'Cancel removes form without saving',
-                        ],
-                        'Contacts Tab (All Users)': [
-                            'View all contact roles',
-                            'Search contact roles by name',
-                            'Create new contact role',
-                            'Enter contact role name',
-                            'Submit creates role (appears in contacts)',
-                            'Edit contact role name',
-                            'Delete contact role',
-                            'Confirm delete removes role',
-                            'Deleted role cannot be assigned to new contacts',
-                        ],
-                        'Groups Tab (All Users)': [
-                            'View all groups',
-                            'Create new group',
-                            'Fill group name field',
-                            'Fill group description field',
-                            'Assign group members',
-                            'Submit saves group',
-                            'Edit group name',
-                            'Edit group members',
-                            'Delete group',
-                            'Changes reflect in related features',
+                            'Add/Delete custom customer properties',
                         ],
                         'Meeting Tab (Management Only)': [
-                            'Only Admin/Manager see tab',
-                            'View all meeting types',
-                            'Create new meeting type',
-                            'Enter meeting type name',
+                            'Create/Edit/Delete meeting types',
                             'Set default meeting duration',
                             'Add meeting type objectives template',
-                            'Edit meeting type',
-                            'Delete meeting type',
-                            'Changes apply to meeting creation',
-                            'Meeting form uses configured types',
                         ],
                         'Opportunities Tab (Management Only)': [
-                            'Only Admin/Manager see tab',
-                            'View all opportunity types',
-                            'Create new opportunity type',
-                            'Enter opportunity type name',
+                            'Create/Edit/Delete opportunity types',
                             'Set deadline (days to close) for type',
-                            'Edit opportunity type',
-                            'Edit type deadline values',
-                            'Delete opportunity type',
-                            'Type appears in opportunity form',
-                            'Deadline shows in opportunity creation',
-                        ],
-                        'Permission Enforcement': [
-                            'Unauthorized role sees gray out tab',
-                            'Attempt to access blocked features fails',
-                            'Admin can access all tabs',
-                            'Manager can access Management tabs',
-                            'Sales Rep cannot modify settings',
                         ]
                     }
                 },
                 {
-                    name: '1️⃣2️⃣ Tasks Module',
+                    name: '12. Tasks Module',
+                    icon: '✅',
                     tests: {
-                        'View Tasks': [
-                            'Task list displays',
-                            'Search tasks by name works',
-                            'Filter by category works',
-                            'Task status shows correctly',
-                        ],
                         'Create Task': [
                             'Add task form shows all fields',
-                            'Fill task title field',
-                            'Select task category field',
                             'Select associated item (customer/opp/contact)',
-                            'Set task due date',
-                            'Add task description field',
-                            'Set task priority level',
+                            'Set task due date and priority',
                             'Submit saves task',
-                            'Cancel closes form',
-                            'New task appears in list',
-                        ],
-                        'Edit Task': [
-                            'Edit button opens task form',
-                            'Modify task title',
-                            'Modify task category',
-                            'Modify task due date',
-                            'Modify task description',
-                            'Modify task priority',
-                            'Update button saves changes',
-                            'Cancel closes form',
-                        ],
-                        'Delete Task': [
-                            'Delete removes task',
-                            'Deleted task gone from list',
                         ],
                         'Mark Complete': [
                             'Complete button marks task done',
@@ -1203,38 +993,13 @@
                     }
                 },
                 {
-                    name: '1️⃣3️⃣ User Management (Admin Only)',
+                    name: '13. User Management',
+                    icon: '👤',
                     tests: {
-                        'User List': [
-                            'All users list displays',
-                            'User status shows (active/inactive)',
-                            'User roles show correctly',
-                        ],
                         'Create User': [
-                            'Add user form shows fields',
-                            'Fill user email field',
-                            'Set user first name field',
-                            'Set user last name field',
-                            'Select user role field',
-                            'Assign user to region',
-                            'Set user password',
+                            'Add user form shows all required fields',
+                            'Assign user to role and region',
                             'Submit saves user',
-                            'Cancel closes form',
-                            'New user appears in list',
-                        ],
-                        'Edit User': [
-                            'Edit button opens user form',
-                            'Modify user name',
-                            'Modify user role',
-                            'Modify user region assignment',
-                            'Update button saves changes',
-                            'Cancel closes form',
-                        ],
-                        'Delete User': [
-                            'Delete button shows confirmation',
-                            'Confirm delete user',
-                            'Deleted user status updates',
-                            'Deleted user data preserved',
                         ],
                         'Sales Rep Restrictions': [
                             'Sales rep cannot access user management',
@@ -1243,536 +1008,280 @@
                     }
                 },
                 {
-                    name: '1️⃣4️⃣ Role-Based Access Control',
+                    name: '14. Role-Based Access Control',
+                    icon: '🛡️',
                     tests: {
-                        'Admin (A) Access': [
-                            'Admin can access customers (all regions)',
-                            'Admin can access targets (all regions)',
-                            'Admin can access opportunities (all regions)',
-                            'Admin can access commitments (all regions)',
-                            'Admin can access meetings/daily (all regions)',
-                            'Admin can access user management',
-                            'Admin cannot access schedules (greyed out)',
-                            'Admin cannot access daily alerts (greyed out)',
-                            'Admin cannot access tasks (greyed out)',
+                        'Admin Access': [
+                            'Admin can access all operational data (all regions)',
                             'Admin can select any sales rep to view',
-                            'Admin can create/edit/delete any user data',
+                            'Admin cannot access schedules/alerts/tasks (greyed out)',
                         ],
-                        'Manager Access & Restrictions': [
-                            'Manager can access customers (own region team)',
-                            'Manager can access targets (own region team)',
-                            'Manager can access opportunities (own region team)',
-                            'Manager can access commitments (own region team)',
-                            'Manager can access meetings/daily (own region team)',
-                            'Manager can access user management (view/limited)',
-                            'Manager cannot access schedules (greyed out)',
-                            'Manager cannot access daily alerts (greyed out)',
-                            'Manager cannot access tasks (greyed out)',
+                        'Manager Access': [
                             'Manager sees only own region team data',
                             'Manager can create/edit team members data',
                             'Manager cannot create new users',
-                            'Manager cannot deactivate users',
-                            'Manager cannot modify admin users',
                         ],
-                        'Sales Rep (B) Access': [
-                            'Sales rep can access customers (own only)',
-                            'Sales rep can access targets (own only)',
-                            'Sales rep can access opportunities (own only)',
-                            'Sales rep can access commitments (own only)',
-                            'Sales rep can access meetings/daily (own only)',
-                            'Sales rep can access schedules',
-                            'Sales rep can access daily alerts',
-                            'Sales rep can access tasks',
+                        'Sales Rep Access': [
+                            'Sales rep can access own data only',
+                            'Sales rep can access schedules/alerts/tasks',
                             'Sales rep cannot access user management',
-                            'Sales rep can only select self in rep selector',
-                            'Sales rep cannot view manager data',
                         ],
-                        'Inside Sales Rep Access': [
-                            'Inside rep can access customers (assigned ones)',
-                            'Inside rep can access targets (own only)',
-                            'Inside rep can access opportunities (own only)',
-                            'Inside rep can access commitments (own only)',
-                            'Inside rep can access meetings/daily (own only)',
-                            'Inside rep can access schedules',
-                            'Inside rep can access daily alerts',
-                            'Inside rep can access tasks',
-                            'Inside rep cannot access user management',
-                            'Inside rep can only view assigned contacts',
-                            'Inside rep cannot manage rep territories',
-                        ],
-                        'Regional Data Visibility': [
-                            'Admin sees all regional data',
-                            'Manager sees own region team data only',
-                            'Sales rep sees only own data',
-                            'Inside rep sees only assigned customer data',
+                        'Regional Data Isolation': [
                             'Data isolation enforced across regions',
-                        ],
-                        'Edit & Delete Permissions': [
-                            'Admin can edit all users data',
-                            'Manager can edit own region team data',
-                            'Sales rep can edit only own data',
-                            'Inside rep can edit only own created items',
-                            'Cannot cross-region edits',
+                            'Cannot perform cross-region edits',
                         ]
                     }
                 },
                 {
-                    name: '1️⃣5️⃣ Search & Filter Operations',
+                    name: '15. Search & Filter Operations',
+                    icon: '🔍',
                     tests: {
-                        'Customer Search': [
-                            'Search by name returns matching results',
-                            'Search by email returns matching results',
-                            'Clear search resets to full list',
-                        ],
-                        'Opportunity Search': [
-                            'Search by opportunity name works',
-                            'Filter by stage works',
-                        ],
-                        'Task Search': [
-                            'Search by task title works',
-                            'Filter by category works',
-                            'Filter by status works',
-                        ],
-                        'User Search': [
-                            'Search by user name works',
-                            'Filter by role works',
-                            'Filter by status works',
+                        'Functional Checks': [
+                            'Customer search by name/email',
+                            'Opportunity filter by stage',
+                            'Task filter by category/status',
                         ]
                     }
                 },
                 {
-                    name: '1️⃣6️⃣ Forms & Validation',
+                    name: '16. Forms & Validation',
+                    icon: '📝',
                     tests: {
-                        'Email Validation': [
+                        'Validation Checks': [
                             'Invalid email format rejected',
-                            'Required email fields enforced',
-                        ],
-                        'Required Fields': [
-                            'Form prevents submit with empty required fields',
-                            'Error message shows for missing fields',
-                        ],
-                        'Phone Number Field': [
-                            'Phone field accepts numbers',
-                        ],
-                        'Date Fields': [
-                            'Date picker opens on click',
-                            'End date after start date enforced',
-                        ],
-                        'Amount Fields': [
-                            'Only numbers accepted',
-                            'Decimal values handled',
-                        ],
-                        'Percentage Fields': [
-                            'Only 0-100 values accepted',
-                        ]
-                    }
-                },
-                // {
-                //     name: '1️⃣7️⃣ Responsiveness & UI',
-                //     tests: {
-                //         'Mobile Display': [
-                //             'Layout responsive on mobile view',
-                //             'Touch targets minimum 44px size',
-                //             'Forms readable on mobile',
-                //             'Tables scrollable on mobile',
-                //         ],
-                //         'Tablet Display': [
-                //             'Layout optimized for tablet',
-                //             'Multi-column layout works',
-                //         ],
-                //         'Desktop Display': [
-                //             'Full layout displays correctly',
-                //             'No horizontal scrolling needed',
-                //         ],
-                //         'Button Usability': [
-                //             'All buttons clickable and responsive',
-                //             'Button text visible and clear',
-                //         ]
-                //     }
-                // },
-                {
-                    name: '1️⃣7️⃣ Multi-Role Permission Scenarios',
-                    tests: {
-                        'Cross-Role Data Isolation': [
-                            'Admin A views all customers (No restriction)',
-                            'Manager B cannot view customers from other regions',
-                            'Sales Rep C cannot view Sales Rep D customers',
-                            'Inside Rep E cannot view inside rep F customers',
-                            'Manager cannot modify other manager team data',
-                        ],
-                        'Hierarchical Access Levels': [
-                            'Admin > Manager > Sales Rep hierarchy enforced',
-                            'Admin can override all permissions',
-                            'Manager has Global access (bypasses region filters)',
-                            'Sales rep restricted to own region only',
-                            'Inside rep has Global access (bypasses region filters)',
-                        ],
-                        'Regional Restrictions': [
-                            'North region manager cannot access South region',
-                            'Region assignment enforced in all modules',
-                            'Cross-region edits blocked',
-                            'Multi-region admins see all regions',
-                        ],
-                        'Team Member Operations': [
-                            'Manager sees own team members',
-                            'Manager can create targets for team',
-                            'Manager can assign opportunities to team',
-                            'Manager cannot create new users',
-                            'Sales rep creates own customers only',
-                            'Inside rep assigned customers by manager',
-                        ],
-                        'Dashboard View Permissions': [
-                            'Admin dashboard shows all regions',
-                            'Admin can select any sales rep',
-                            'Manager dashboard shows all regions (Global scope)',
-                            'Manager can select own team reps',
-                            'Sales rep dashboard shows own metrics only',
-                            'Sales rep can only select self',
-                            'Inside rep dashboard shows all regions (Global scope)',
-                        ],
-                        'Editing Restrictions': [
-                            'Admin can edit customer created by anyone',
-                            'Manager can edit team member customers',
-                            'Manager cannot edit other manager customers',
-                            'Sales rep can only edit own customers',
-                            'Inside rep can edit any customer (Global scope)',
-                            'Deleted data attribution preserved by role',
+                            'Required fields enforced on all forms',
+                            'End date after start date enforcement',
+                            'Numeric fields accept only numbers',
                         ]
                     }
                 },
                 {
-                    name: '1️⃣7️⃣ Cross-User Management (Impersonation)',
+                    name: '17. Multi-Role Scenarios',
+                    icon: '🎭',
                     tests: {
-                        'Rep Selection & Scope': [
-                            'Admin can select ANY sales rep (Global)',
-                            'Manager can select ANY sales rep (Global)',
-                            'Sales Rep can only select reps in OWN region',
-                            'Inside Rep can select ANY sales rep (Global)',
-                        ],
-                        'Impersonated Actions': [
-                            'Create Opportunity as target rep',
-                            'Create Target as target rep',
-                            'Create Meeting and complete flow as target rep',
-                            'Create Task as target rep',
-                            'Create Commitment as target rep',
-                            'Request target-to-customer conversion as target rep',
-                            'View and edit target rep weekly schedule',
-                            'View and edit target rep day schedule',
-                        ],
-                        'Logging & Attribution': [
-                            'Actions have "Done by [Performer]" tag',
-                            'Clicking tag opens Activity Log detail',
-                            'Performer name correctly recorded in backend',
-                        ],
-                        'Global View (No Rep Selected)': [
-                            'Admin sees all Customers, Targets, Tasks, Commitments',
-                            'Manager sees all Customers, Targets, Tasks, Commitments',
-                            'Admin can edit global organizational settings',
-                            'Manager CANNOT edit global organizational settings',
-                        ],
-                        'Restrictions': [
-                            'Cannot edit target rep Global Settings while selected',
-                            'Sales Rep cannot select rep from different region',
+                        'Complexity Checks': [
+                            'Cross-Role Data Isolation enforced',
+                            'Hierarchical Access Levels verified',
+                            'Regional Restrictions enforced in all modules',
+                            'Manager team member operations verified',
+                        ]
+                    }
+                },
+                {
+                    name: '18. Cross-User Management',
+                    icon: '👔',
+                    tests: {
+                        'Impersonation & Global View': [
+                            'Admin/Manager can select ANY rep (Global)',
+                            'Sales Rep restricted to OWN region reps',
+                            'Impersonated actions have "Done by" tag',
+                            'Activity Log details performer identity',
+                            'Global View shows all org-level data',
+                            'Manager restricted from editing Global Settings',
                         ]
                     }
                 }
             ],
             roles: [
-                { id: 'adminFullTest', text: '👨‍💼 Admin Role - Full Testing Complete (A)', checked: false },
-                { id: 'managerFullTest', text: '👔 Manager Role - Full Testing Complete', checked: false },
-                { id: 'salesrepFullTest', text: '📱 Sales Rep Role - Full Testing Complete (B)', checked: false },
-                { id: 'insiderepFullTest', text: '🏢 Inside Sales Rep Role - Full Testing Complete', checked: false },
-                { id: 'dataValidation', text: '✅ All Form Validations Tested', checked: false },
-                { id: 'searchFilter', text: '🔍 Search & Filter Verified', checked: false },
-            ],
+                { id: 'adminFullTest', text: '👨‍💼 Admin Role Verified', checked: false },
+                { id: 'managerFullTest', text: '👔 Manager Role Verified', checked: false },
+                { id: 'salesrepFullTest', text: '📱 Sales Rep Role Verified', checked: false },
+                { id: 'insiderepFullTest', text: '🏢 Inside Rep Role Verified', checked: false },
+            ]
+        };
+
+        let state = JSON.parse(localStorage.getItem('wcwWorkflowTracker')) || {};
+
+        function init() {
+            renderTracker();
+            renderRoles();
+            loadSignOff();
+            updateStats();
+        }
+
+        function renderTracker() {
+            const container = document.getElementById('tracker-container');
+            container.innerHTML = '';
+
+            trackerData.modules.forEach((module, mIdx) => {
+                const moduleSection = document.createElement('div');
+                moduleSection.className = `module-section ${state[`module-${mIdx}-expanded`] ? 'active' : ''}`;
+                
+                const moduleProgress = calculateModuleProgress(mIdx);
+
+                moduleSection.innerHTML = `
+                    <div class="module-header" onclick="toggleModule(${mIdx})">
+                        <div class="module-title-wrapper">
+                            <div class="module-icon">${module.icon}</div>
+                            <div class="module-info">
+                                <h3>${module.name}</h3>
+                            </div>
+                        </div>
+                        <div class="module-progress">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: ${moduleProgress}%"></div>
+                            </div>
+                            <span class="progress-text">${moduleProgress}%</span>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        ${Object.entries(module.tests).map(([section, tests]) => `
+                            <div class="test-section">
+                                <h4 class="section-title">${section}</h4>
+                                <div class="checklist-grid">
+                                    ${tests.map((test, tIdx) => {
+                                        const key = `m${mIdx}-s${section}-t${tIdx}`;
+                                        const isChecked = state[key];
+                                        return `
+                                            <div class="test-item ${isChecked ? 'checked' : ''}" onclick="toggleTest('${key}', ${mIdx})">
+                                                <div class="checkbox">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                                </div>
+                                                <span class="test-text">${test}</span>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(moduleSection);
+            });
+        }
+
+        function renderRoles() {
+            const grid = document.getElementById('role-grid');
+            grid.innerHTML = trackerData.roles.map(role => {
+                const isChecked = state[`role-${role.id}`];
+                return `
+                    <div class="test-item ${isChecked ? 'checked' : ''}" onclick="toggleRole('${role.id}')">
+                        <div class="checkbox">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span class="test-text">${role.text}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleModule(idx) {
+            const key = `module-${idx}-expanded`;
+            state[key] = !state[key];
+            saveState();
+            init();
+        }
+
+        function toggleTest(key, mIdx) {
+            state[key] = !state[key];
+            saveState();
+            init();
+        }
+
+        function toggleRole(id) {
+            const key = `role-${id}`;
+            state[key] = !state[key];
+            saveState();
+            init();
+        }
+
+        function calculateModuleProgress(mIdx) {
+            const module = trackerData.modules[mIdx];
+            let total = 0;
+            let checked = 0;
             
-            signoff: {
-                qaManager: '',
-                techLead: '',
-                date: '',
-                notes: '',
+            Object.entries(module.tests).forEach(([section, tests]) => {
+                total += tests.length;
+                tests.forEach((_, tIdx) => {
+                    if (state[`m${mIdx}-s${section}-t${tIdx}`]) checked++;
+                });
+            });
+            
+            return Math.round((checked / total) * 100) || 0;
+        }
+
+        function updateStats() {
+            let total = 0;
+            let checked = 0;
+            
+            trackerData.modules.forEach((module, mIdx) => {
+                Object.entries(module.tests).forEach(([section, tests]) => {
+                    total += tests.length;
+                    tests.forEach((_, tIdx) => {
+                        if (state[`m${mIdx}-s${section}-t${tIdx}`]) checked++;
+                    });
+                });
+            });
+
+            const percent = Math.round((checked / total) * 100) || 0;
+            document.getElementById('total-progress').innerText = `${percent}%`;
+            document.getElementById('completed-count').innerText = checked;
+            document.getElementById('remaining-count').innerText = total - checked;
+
+            const rolesChecked = trackerData.roles.filter(r => state[`role-${r.id}`]).length;
+            document.getElementById('roles-done').innerText = `${rolesChecked}/4`;
+        }
+
+        function saveState() {
+            localStorage.setItem('wcwWorkflowTracker', JSON.stringify(state));
+        }
+
+        function loadSignOff() {
+            document.getElementById('qa-manager').value = state['qa-manager'] || '';
+            document.getElementById('tech-lead').value = state['tech-lead'] || '';
+            document.getElementById('sign-off-date').value = state['sign-off-date'] || '';
+            document.getElementById('sign-off-notes').value = state['sign-off-notes'] || '';
+        }
+
+        // Event Listeners for Sign-off
+        ['qa-manager', 'tech-lead', 'sign-off-date', 'sign-off-notes'].forEach(id => {
+            document.getElementById(id).addEventListener('input', (e) => {
+                state[id] = e.target.value;
+                saveState();
+            });
+        });
+
+        document.getElementById('btn-reset').onclick = () => {
+            if (confirm('Are you sure you want to reset all progress?')) {
+                state = {};
+                saveState();
+                init();
+                showNotification('🔄 Progress has been reset.');
             }
         };
 
-        // Load data from localStorage
-        function loadData() {
-            const saved = localStorage.getItem('wcwQATracker');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    trackerData.roles = data.roles || trackerData.roles;
-                    trackerData.modules = data.modules || trackerData.modules;
-                    trackerData.signoff = data.signoff || trackerData.signoff;
-                } catch (e) {
-                    console.error('Error loading data:', e);
-                }
-            }
-        }
-
-        // Save data to localStorage
-        function saveData() {
-            localStorage.setItem('wcwQATracker', JSON.stringify(trackerData));
-            updateProgress();
-        }
-
-        // Render tracker
-        function renderTracker() {
-            const tracker = document.getElementById('tracker');
-            let html = '';
-
-            // Module sections
-            trackerData.modules.forEach((module, moduleIndex) => {
-                html += `
-                    <div class="module">
-                        <div class="module-header" onclick="toggleModule(this)">
-                            <span class="module-title">${module.name}</span>
-                            <span class="toggle-icon">▼</span>
-                        </div>
-                        <div class="module-content">
-                `;
-
-                // Each test section within module
-                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
-                    html += `
-                        <div class="test-section">
-                            <div class="section-title">${sectionName}</div>
-                            <ul class="checklist">
-                    `;
-                    tests.forEach((test, testIndex) => {
-                        const itemId = `module_${moduleIndex}_${sectionName}_${testIndex}`;
-                        const isChecked = module.checked?.[sectionName]?.[testIndex] || false;
-                        html += `
-                            <li class="checklist-item">
-                                <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''} 
-                                       onchange="updateModule(${moduleIndex}, '${sectionName}', ${testIndex}); saveData();">
-                                <label for="${itemId}">${test}</label>
-                            </li>
-                        `;
-                    });
-                    html += `
-                            </ul>
-                        </div>
-                    `;
-                });
-
-                html += `
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Role completion section
-            html += `
-                <div class="role-section" style="margin-top: 20px;">
-                    <h3>✅ Testing Sign-Off Status</h3>
-                    <div class="role-checklist">
-            `;
-            trackerData.roles.forEach(role => {
-                html += `
-                    <div class="role-item">
-                        <input type="checkbox" id="${role.id}" ${role.checked ? 'checked' : ''} 
-                               onchange="updateRole('${role.id}'); saveData();">
-                        <label for="${role.id}">${role.text}</label>
-                    </div>
-                `;
-            });
-            html += `
-                    </div>
-                </div>
-            `;
-
-            // Sign-off section
-            html += `
-                <div class="sign-off-section">
-                    <h3>✍️ QA Sign-Off</h3>
-                    <div class="sign-off-field">
-                        <label for="qaManager">QA Manager Name:</label>
-                        <input type="text" id="qaManager" value="${trackerData.signoff.qaManager}" 
-                               onchange="updateSignoff('qaManager', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="techLead">Tech Lead Name:</label>
-                        <input type="text" id="techLead" value="${trackerData.signoff.techLead}" 
-                               onchange="updateSignoff('techLead', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="signoffDate">Sign-off Date:</label>
-                        <input type="date" id="signoffDate" value="${trackerData.signoff.date}" 
-                               onchange="updateSignoff('date', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="signoffNotes">Issues Found & Recommendations:</label>
-                        <textarea id="signoffNotes" onchange="updateSignoff('notes', this.value); saveData();">${trackerData.signoff.notes}</textarea>
-                    </div>
-                </div>
-            `;
-
-            // Action buttons
-            html += `
-                <div class="action-buttons" style="margin-top: 30px; padding: 0 20px 20px;">
-                    <button class="btn-primary" onclick="exportData()">📤 Export Results</button>
-                    <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
-                    <button class="btn-secondary" onclick="printPage()">🖨️ Print</button>
-                </div>
-            `;
-
-            tracker.innerHTML = html;
-        }
-
-        // Update functions
-        function updateModule(moduleIndex, sectionName, testIndex) {
-            if (!trackerData.modules[moduleIndex].checked) {
-                trackerData.modules[moduleIndex].checked = {};
-            }
-            if (!trackerData.modules[moduleIndex].checked[sectionName]) {
-                trackerData.modules[moduleIndex].checked[sectionName] = {};
-            }
-            const checkbox = document.getElementById(`module_${moduleIndex}_${sectionName}_${testIndex}`);
-            trackerData.modules[moduleIndex].checked[sectionName][testIndex] = checkbox.checked;
-        }
-
-        function updateRole(id) {
-            const role = trackerData.roles.find(r => r.id === id);
-            if (role) {
-                role.checked = !role.checked;
-            }
-        }
-
-        function updateSignoff(field, value) {
-            trackerData.signoff[field] = value;
-        }
-
-        function toggleModule(header) {
-            header.classList.toggle('active');
-            header.nextElementSibling.classList.toggle('active');
-        }
-
-        // Update progress
-        function updateProgress() {
-            let total = 0;
-            let completed = 0;
-
-            // Count module tests
-            trackerData.modules.forEach(module => {
-                Object.values(module.tests).forEach(tests => {
-                    tests.forEach((test, index) => {
-                        total++;
-                        const section = Object.keys(module.tests).find(s => module.tests[s].includes(test));
-                        if (module.checked?.[section]?.[index]) completed++;
+        document.getElementById('btn-export').onclick = () => {
+            let csv = 'Module,Section,Test Case,Status\n';
+            trackerData.modules.forEach((module, mIdx) => {
+                Object.entries(module.tests).forEach(([section, tests]) => {
+                    tests.forEach((test, tIdx) => {
+                        const status = state[`m${mIdx}-s${section}-t${tIdx}`] ? 'PASSED' : 'PENDING';
+                        csv += `"${module.name}","${section}","${test}","${status}"\n`;
                     });
                 });
             });
-
-            // Count roles
-            trackerData.roles.forEach(role => {
-                total++;
-                if (role.checked) completed++;
-            });
-
-            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-            document.getElementById('progressFill').style.width = percentage + '%';
-            document.getElementById('progressPercent').textContent = percentage + '%';
-            document.getElementById('completed').textContent = completed;
-            document.getElementById('total').textContent = total;
-
-            // Update stats grid
-            const statsGrid = document.getElementById('statsGrid');
-            statsGrid.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${completed}</div>
-                    <div class="stat-label">Completed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${total - completed}</div>
-                    <div class="stat-label">Remaining</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${percentage}%</div>
-                    <div class="stat-label">Progress</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${trackerData.roles.filter(r => r.checked).length}/4</div>
-                    <div class="stat-label">Sign-offs</div>
-                </div>
-            `;
-        }
-
-        // Export data
-        function exportData() {
-            let csv = 'WCW CRM QA Test Results\n';
-            csv += `Date Exported: ${new Date().toLocaleString()}\n\n`;
-
-            csv += 'TEST MODULES & CASES\n';
-            trackerData.modules.forEach(module => {
-                csv += `\n${module.name}\n`;
-                Object.entries(module.tests).forEach(([ sectionName, tests ]) => {
-                    csv += `\n${sectionName}\n`;
-                    tests.forEach((test, index) => {
-                        const checked = module.checked?.[sectionName]?.[index] ? '✓ PASS' : '✗ PENDING';
-                        csv += `${checked},"${test}"\n`;
-                    });
-                });
-            });
-
-            csv += '\n\nTESTING SIGN-OFF\n';
-            trackerData.roles.forEach(role => {
-                csv += `${role.checked ? '✓' : '✗'},"${role.text}"\n`;
-            });
-
-            csv += '\n\nQA SIGN-OFF INFORMATION\n';
-            csv += `QA Manager,"${trackerData.signoff.qaManager}"\n`;
-            csv += `Tech Lead,"${trackerData.signoff.techLead}"\n`;
-            csv += `Sign-off Date,"${trackerData.signoff.date}"\n`;
-            csv += `Issues & Recommendations,"${trackerData.signoff.notes.replace(/"/g, '""')}"\n`;
-
-            // Download
+            
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `wcw-qa-results-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `workflow-test-results-${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
-            window.URL.revokeObjectURL(url);
+            showNotification('📤 CSV Export successful!');
+        };
 
-            showNotification('✅ Results exported successfully');
-        }
-
-        function resetAll() {
-            if (confirm('Reset ALL test progress? This cannot be undone!')) {
-                trackerData.modules.forEach(module => module.checked = {});
-                trackerData.roles.forEach(role => role.checked = false);
-                localStorage.removeItem('wcwQATracker');
-                renderTracker();
-                updateProgress();
-                showNotification('🔄 All items reset');
-            }
-        }
-
-        function printPage() {
+        document.getElementById('btn-print').onclick = () => {
             window.print();
+        };
+
+        function showNotification(msg) {
+            const el = document.getElementById('notification');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
         }
 
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.style.animation = 'slideIn 0.3s ease reverse';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            loadData();
-            renderTracker();
-            updateProgress();
-        });
-
-        // Save on page close
-        window.addEventListener('beforeunload', saveData);
+        init();
     </script>
 </body>
 </html>

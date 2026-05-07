@@ -3,985 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WCW CRM QA Test Execution Tracker - Interactive</title>
+    <title>WCW CRM | QA Execution Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --secondary: #a855f7;
+            --secondary-glow: rgba(168, 85, 247, 0.5);
+            --accent: #22d3ee;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
             min-height: 100vh;
-            padding: 20px;
+            padding: 2rem;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
+        .badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 1.25rem;
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
         }
 
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
+        .stat-label { color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; }
 
+        /* Controls */
         .controls {
             display: flex;
-            gap: 10px;
-            justify-content: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 20px;
         }
 
-        button {
-            background: white;
-            color: #667eea;
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { box-shadow: 0 0 15px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 1px solid var(--glass-border); color: #fff; }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
 
-        button.secondary {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-        }
-
-        .progress-section {
-            padding: 20px 30px;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: #e9ecef;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .progress-text {
-            text-align: center;
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        .content {
-            padding: 30px;
-        }
-
-        .module {
-            margin-bottom: 30px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+        /* Module */
+        .module-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.25rem;
+            margin-bottom: 1.5rem;
             overflow: hidden;
         }
 
         .module-header {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            cursor: pointer;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255,255,255,0.02);
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            transition: all 0.3s;
-        }
-
-        .module-header:hover {
-            background: #e9ecef;
-        }
-
-        .module-header.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .module-title {
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .module-stats {
-            font-size: 0.9em;
-            opacity: 0.7;
-            margin-left: 10px;
-        }
-
-        .toggle-icon {
-            transition: transform 0.3s;
-        }
-
-        .module-header.active .toggle-icon {
-            transform: rotate(180deg);
+            cursor: pointer;
         }
 
         .module-content {
-            padding: 20px;
             display: none;
+            padding: 1.5rem;
+            border-top: 1px solid var(--glass-border);
         }
 
-        .module-content.active {
-            display: block;
-        }
+        .module-card.active .module-content { display: block; }
 
-        .checklist {
-            list-style: none;
-        }
+        .checklist { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; }
 
-        .checklist-item {
-            padding: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            border-bottom: 1px solid #e9ecef;
-            transition: background 0.2s;
-        }
-
-        .checklist-item:last-child {
-            border-bottom: none;
-        }
-
-        .checklist-item:hover {
-            background: #f8f9fa;
-        }
-
-        .checklist-item input[type="checkbox"] {
-            margin-top: 3px;
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            accent-color: #667eea;
-        }
-
-        .checklist-item label {
-            cursor: pointer;
-            flex: 1;
+        .check-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            padding: 1rem;
+            border-radius: 0.75rem;
             display: flex;
             align-items: center;
-        }
-
-        .checklist-item input[type="checkbox"]:checked + label {
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .role-section {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #e9ecef;
-        }
-
-        .role-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-            display: inline-block;
-        }
-
-        .role-checklist {
-            display: grid;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .role-item {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
+            gap: 1rem;
+            cursor: pointer;
             transition: all 0.2s;
         }
 
-        .role-item:hover {
-            background: #e9ecef;
-        }
+        .check-item:hover { border-color: var(--primary); background: rgba(255,255,255,0.05); }
+        .check-item.checked { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
 
-        .role-item input[type="checkbox"] {
+        .checkbox {
             width: 20px;
             height: 20px;
-            accent-color: #667eea;
-            cursor: pointer;
-        }
-
-        .role-item label {
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .role-item input[type="checkbox"]:checked + label {
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .sign-off-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            border-radius: 8px;
-            border: 2px solid #667eea;
-        }
-
-        .sign-off-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .sign-off-field {
-            margin-bottom: 15px;
-        }
-
-        .sign-off-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .sign-off-field input,
-        .sign-off-field textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1em;
-        }
-
-        .sign-off-field textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 20px 30px;
-            text-align: center;
-            color: #666;
-            border-top: 2px solid #e9ecef;
-        }
-
-        .action-buttons {
+            border: 2px solid var(--glass-border);
+            border-radius: 5px;
             display: flex;
-            gap: 10px;
+            align-items: center;
             justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1em;
-            transition: all 0.3s;
+        .check-item.checked .checkbox { background: var(--success); border-color: var(--success); }
+        .checkbox svg { width: 12px; height: 12px; color: #fff; display: none; }
+        .check-item.checked .checkbox svg { display: block; }
+
+        .item-text { font-size: 0.9rem; font-weight: 500; }
+        .check-item.checked .item-text { color: var(--success); text-decoration: line-through; opacity: 0.7; }
+
+        /* Sign-off */
+        .sign-off {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 1.25rem;
+            margin-top: 3rem;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .sign-off h3 { margin-bottom: 1.5rem; font-family: 'Outfit'; }
+
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+
+        .field { display: flex; flex-direction: column; gap: 0.5rem; }
+        .field label { font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
+        .field input, .field textarea {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            padding: 0.85rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            outline: none;
         }
 
-        .btn-secondary {
-            background: white;
-            color: #667eea;
-            padding: 12px 24px;
-            border: 2px solid #667eea;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
+        .field input:focus { border-color: var(--primary); }
 
-        .btn-secondary:hover {
-            background: #f8f9fa;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #e9ecef;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
-        }
+        footer { text-align: center; margin-top: 4rem; color: var(--text-dim); font-size: 0.85rem; padding-bottom: 2rem; }
 
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #667eea;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 6px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease;
-            z-index: 1000;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .notification.success {
-            background: #28a745;
-        }
-
-        .notification.error {
-            background: #dc3545;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 1.5em;
-            }
-
-            .content {
-                padding: 15px;
-            }
-
-            .module-header {
-                padding: 12px 15px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            display: none;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="header">
-            <h1>🧪 WCW CRM QA Test Execution Tracker</h1>
-            <p>Interactive Testing Checklist - Your Progress is Auto-Saved</p>
-            <div class="controls">
-                <button onclick="resetAll()">🔄 Reset All</button>
-                <button class="secondary" onclick="exportData()">📤 Export Progress</button>
-                <button class="secondary" onclick="printPage()">🖨️ Print</button>
+        <header>
+            <span class="badge">Standard QA Checklist</span>
+            <h1>QA Execution Tracker</h1>
+            <p class="subtitle">Core functional verification and system role audit checklist.</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" id="percent">0%</span><span class="stat-label">Completion</span></div>
+            <div class="stat-card"><span class="stat-value" id="done-count">0</span><span class="stat-label">Verified</span></div>
+            <div class="stat-card"><span class="stat-value" id="todo-count">0</span><span class="stat-label">Pending</span></div>
+            <div class="stat-card"><span class="stat-value" id="roles-count">0/4</span><span class="stat-label">Roles</span></div>
+        </div>
+
+        <div class="controls">
+            <div style="display:flex; gap:0.5rem">
+                <button class="btn btn-primary" id="export-csv">Export CSV</button>
+                <button class="btn btn-outline" id="print-pdf">Print PDF</button>
+            </div>
+            <button class="btn btn-outline" id="reset-all">Reset All</button>
+        </div>
+
+        <div id="tracker-body"></div>
+
+        <div class="sign-off">
+            <h3>✍️ Sign-Off & Roles</h3>
+            <div class="checklist" id="roles-body" style="margin-bottom: 2rem;"></div>
+            
+            <div class="form-grid">
+                <div class="field"><label>QA Manager</label><input type="text" id="qa-mgr"></div>
+                <div class="field"><label>Tech Lead</label><input type="text" id="tech-lead"></div>
+                <div class="field"><label>Date</label><input type="date" id="so-date"></div>
+                <div class="field" style="grid-column: 1/-1;"><label>Notes</label><textarea id="so-notes"></textarea></div>
             </div>
         </div>
 
-        <div class="progress-section">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%">
-                    <span id="progressPercent">0%</span>
-                </div>
-            </div>
-            <div class="progress-text">
-                <strong><span id="completed">0</span> / <span id="total">0</span> items completed</strong>
-            </div>
-            <div class="stats-grid" id="statsGrid"></div>
-        </div>
+        <div class="notification" id="notif"></div>
 
-        <div class="content" id="tracker">
-            <!-- Content will be generated by JavaScript -->
-        </div>
-
-        <div class="footer">
-            <p>💾 Your progress is automatically saved to your browser</p>
-            <p>✅ Check items as you complete testing | 🔄 Reset to start over</p>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">Last Updated: April 8, 2026</p>
-        </div>
+        <footer>
+            <p>WCW CRM QA Documentation &bull; &copy; 2026</p>
+        </footer>
     </div>
 
     <script>
-        // Data structure for tracker
         const trackerData = {
             credentials: [
-                { id: 'cred1', text: 'Create Admin test user', checked: false },
-                { id: 'cred2', text: 'Create Manager test user', checked: false },
-                { id: 'cred3', text: 'Create Sales Rep test user', checked: false },
-                { id: 'cred4', text: 'Create Inside Rep test user', checked: false },
-                { id: 'cred5', text: 'Verify all logins work', checked: false },
+                { id: 'cred1', text: 'Create Admin test user' },
+                { id: 'cred2', text: 'Create Manager test user' },
+                { id: 'cred3', text: 'Create Sales Rep test user' },
+                { id: 'cred4', text: 'Create Inside Rep test user' },
+                { id: 'cred5', text: 'Verify all logins work' },
             ],
             modules: [
-                {
-                    name: '0️⃣ System Roles Audit',
-                    items: [
-                        'Admin: Global Scope (Bypasses all regional filters)',
-                        'Manager: Global Scope (Bypasses all regional filters)',
-                        'Inside Rep: Global Scope (Bypasses all regional filters)',
-                        'Sales Rep: Restricted Scope (Own Region/Data ONLY)',
-                        'Admin: Full CRUD on Users & Roles',
-                        'Manager: View Users ONLY (No Create/Edit)',
-                        'Inside Rep: No User Management Access',
-                        'Sales Rep: No User Management Access',
-                    ]
-                },
-                {
-                    name: '1️⃣ Authentication',
-                    items: [
-                        'Login form displays correctly',
-                        'All 4 roles can login',
-                        'Session persists on refresh',
-                        'Logout clears data',
-                        'Invalid login rejected',
-                    ]
-                },
-                {
-                    name: '2️⃣ Dashboard',
-                    items: [
-                        'Admin sees all data',
-                        'Manager sees all team data',
-                        'Sales Rep sees own region',
-                        'Inside Rep sees all regions',
-                        'Filters work correctly',
-                        'Refresh updates data',
-                    ]
-                },
-                {
-                    name: '3️⃣ Customers',
-                    items: [
-                        'View list by role',
-                        'Create customer works',
-                        'Edit customer works',
-                        'Delete permissions enforced',
-                        'Search/filter works',
-                    ]
-                },
-                {
-                    name: '4️⃣ Contacts',
-                    items: [
-                        'View list by role',
-                        'Create contact works',
-                        'Edit works by ownership',
-                        'Delete restricted properly',
-                        'Duplicate email per customer/target',
-                        'Associate with Target works',
-                        'Role Perms: Contact-Target Association verified',
-                    ]
-                },
-                {
-                    name: '5️⃣ Opportunities',
-                    items: [
-                        'View pipeline by role',
-                        'Create opportunity works',
-                        'Edit works by ownership',
-                        'Mark won/lost works',
-                        'Delete restricted',
-                    ]
-                },
-                {
-                    name: '6️⃣ Tasks',
-                    items: [
-                        'Admin sees all tasks',
-                        'Manager sees team tasks',
-                        'Sales Rep sees own only',
-                        'Inside Rep sees all tasks',
-                        'Create/complete works',
-                        'Delete restricted',
-                    ]
-                },
-                {
-                    name: '7️⃣ Commitments',
-                    items: [
-                        'View by role correct',
-                        'Create works',
-                        'Edit works',
-                        'Mark complete works',
-                        'Type field funcional',
-                    ]
-                },
-                {
-                    name: '8️⃣ Calendar',
-                    items: [
-                        '🔴 BLOCKER: Hardcoded mock data',
-                        'Navigate months works',
-                        'Create meeting accessible',
-                        'Mobile calendar works',
-                        'Issue documented in tracker',
-                    ]
-                },
-                {
-                    name: '9️⃣ Schedule',
-                    items: [
-                        'Admin sees all schedules',
-                        'Manager sees/edits team',
-                        'Sales Rep sees own only',
-                        'Inside Rep sees all schedules',
-                        'Backend schedule conflict check',
-                        'Role Perms: Conflict warnings verified',
-                        'Recurring events work',
-                    ]
-                },
-                {
-                    name: '🔟 Targets',
-                    items: [
-                        'View targets by role',
-                        'Create/edit restricted',
-                        'Progress tracking works',
-                        'Over/under target handled',
-                        'Historical targets visible',
-                        'Import Prospects flow works',
-                        'Role Perms: Import Prospects verified',
-                    ]
-                },
-                {
-                    name: '1️⃣1️⃣ Daily Alerts',
-                    items: [
-                        'Admin sees all alerts',
-                        'Manager sees team alerts',
-                        'Sales Rep sees own only',
-                        'Inside Rep sees all alerts',
-                        'Dismiss/snooze works',
-                        'Badge count accurate',
-                    ]
-                },
-                {
-                    name: '1️⃣2️⃣ Global Settings',
-                    items: [
-                        'Admin sees full settings',
-                        'Manager sees limited',
-                        'Sales Rep cannot access',
-                        'Changes apply immediately',
-                        'Invalid values rejected',
-                    ]
-                },
-                {
-                    name: '1️⃣3️⃣ Regions',
-                    items: [
-                        'All data filtered by region',
-                        'Manager can only modify own',
-                        'Cross-region data hidden',
-                        'Team member count correct',
-                        'Region assignments work',
-                    ]
-                },
-                {
-                    name: '1️⃣4️⃣ Groups',
-                    items: [
-                        'Manager can create groups',
-                        'Add members works',
-                        'Remove members works',
-                        'Delete group works',
-                        'Sales rep cannot manage',
-                    ]
-                },
-                {
-                    name: '1️⃣5️⃣ User Management',
-                    items: [
-                        'Admin can view all users',
-                        'Admin can create users',
-                        'Manager cannot create',
-                        'Manager can edit team',
-                        '🔴 PBAC not implemented',
-                    ]
-                },
-                {
-                    name: '1️⃣6️⃣ Layout',
-                    items: [
-                        'Navigation menu correct',
-                        'Role-based filtering works',
-                        'Mobile responsive',
-                        'Breadcrumbs navigate',
-                        'No horizontal scroll',
-                    ]
-                },
-                {
-                    name: '1️⃣7️⃣ Cross-User Management (Impersonation)',
-                    items: [
-                        'Rep Selection: Sales Rep (Region Only)',
-                        'Rep Selection: Inside/Manager/Admin (Global)',
-                        'Actions: Create Opps/Targets/Meetings as Rep',
-                        'Actions: Manage Schedule (Weekly/Daily) as Rep',
-                        'Actions: Request Conversions as Rep',
-                        'Logging: "Done by [Name]" tag visible',
-                        'Activity Log: Tag click shows performer',
-                        'Restriction: Cannot edit Rep Global Settings',
-                    ]
-                },
-                {
-                    name: '1️⃣8️⃣ Global View (No Rep Selected)',
-                    items: [
-                        'Manager: See ALL Customers/Targets/Tasks',
-                        'Manager: See ALL Commitments',
-                        'Manager: CANNOT edit Org Global Settings',
-                        'Admin: See ALL Customers/Targets/Tasks',
-                        'Admin: See ALL Commitments',
-                        'Admin: CAN edit Org Global Settings',
-                    ]
-                },
+                { name: '0. System Roles Audit', items: ['Admin: Global Scope', 'Manager: Global Scope', 'Inside Rep: Global Scope', 'Sales Rep: Restricted Scope', 'Admin: User CRUD', 'Manager: View Users Only'] },
+                { name: '1. Authentication', items: ['Login form displays', 'All 4 roles login', 'Session persists', 'Logout clears data', 'Invalid login rejected'] },
+                { name: '2. Dashboard', items: ['Admin sees all', 'Manager sees team', 'Sales Rep sees own', 'Inside Rep sees all', 'Filters work'] },
+                { name: '3. Customers', items: ['View list', 'Create customer', 'Edit customer', 'Delete permissions', 'Search/filter'] },
+                { name: '4. Contacts', items: ['View list', 'Create contact', 'Edit by ownership', 'Delete restricted', 'Target association'] },
+                { name: '5. Opportunities', items: ['Pipeline view', 'Create opp', 'Edit by ownership', 'Won/Lost status', 'Delete restricted'] },
+                { name: '6. Tasks', items: ['Admin all tasks', 'Manager team tasks', 'Sales Rep own only', 'Create/complete', 'Delete restricted'] },
+                { name: '7. Commitments', items: ['View by role', 'Create works', 'Edit works', 'Mark complete', 'Type field'] },
+                { name: '8. Calendar', items: ['BLOCKER: Mock data', 'Navigate months', 'Create meeting', 'Mobile view'] },
+                { name: '9. Schedule', items: ['Conflict check', 'Conflict warnings', 'Recurring events', 'Sales Rep own only'] },
+                { name: '10. Targets', items: ['View by role', 'Create/edit restricted', 'Import Prospects flow'] },
+                { name: '11. Daily Alerts', items: ['View by role', 'Dismiss/snooze', 'Badge count'] },
+                { name: '12. Global Settings', items: ['Admin full access', 'Manager limited', 'Sales Rep blocked'] },
+                { name: '13. Regions', items: ['Regional filtering', 'Manager restricted', 'Cross-region hidden'] },
+                { name: '14. Groups', items: ['Manager create', 'Add/Remove members', 'Delete group'] },
+                { name: '15. User Management', items: ['Admin view all', 'Admin create users', 'Manager view only'] },
+                { name: '16. Layout', items: ['Navigation menu', 'Role filtering', 'Mobile responsive'] },
+                { name: '17. Impersonation', items: ['Rep Selection scope', 'Actions as Rep', 'Done by tag logging'] },
+                { name: '18. Global View', items: ['Org-level visibility', 'Global settings restriction'] }
             ],
             roles: [
-                { id: 'admin', text: '👨‍💼 Admin Role Testing Complete', checked: false },
-                { id: 'manager', text: '👔 Manager Role Testing Complete', checked: false },
-                { id: 'salesrep', text: '📱 Sales Rep Role Testing Complete', checked: false },
-                { id: 'insiderep', text: '🏢 Inside Rep Role Testing Complete', checked: false },
-            ],
-            signoff: {
-                qaManager: '',
-                techLead: '',
-                date: '',
-                notes: '',
-            }
+                { id: 'admin', text: '👨‍💼 Admin Verified' },
+                { id: 'manager', text: '👔 Manager Verified' },
+                { id: 'salesrep', text: '📱 Sales Rep Verified' },
+                { id: 'insiderep', text: '🏢 Inside Rep Verified' }
+            ]
         };
 
-        // Load data from localStorage
-        function loadData() {
-            const saved = localStorage.getItem('wcwTrackerData');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    trackerData.credentials = data.credentials || trackerData.credentials;
-                    trackerData.roles = data.roles || trackerData.roles;
-                    trackerData.modules = data.modules || trackerData.modules;
-                    trackerData.signoff = data.signoff || trackerData.signoff;
-                } catch (e) {
-                    console.error('Error loading data:', e);
-                }
-            }
+        let state = JSON.parse(localStorage.getItem('wcwInteractiveTracker')) || {};
+
+        function init() {
+            render();
+            updateStats();
         }
 
-        // Save data to localStorage
-        function saveData() {
-            localStorage.setItem('wcwTrackerData', JSON.stringify(trackerData));
-            updateProgress();
-            showNotification('✅ Progress saved automatically');
-        }
+        function render() {
+            const body = document.getElementById('tracker-body');
+            body.innerHTML = '';
 
-        // Render tracker
-        function renderTracker() {
-            const tracker = document.getElementById('tracker');
-            let html = '';
+            // Credentials
+            const credCard = createModule('🔑 Test Credentials', trackerData.credentials.map(c => c.text), 'cred');
+            body.appendChild(credCard);
 
-            // Credentials section
-            html += `
-                <div class="module">
-                    <div class="module-header active" onclick="toggleModule(this)">
-                        <span class="module-title">🔑 Test Credentials Setup</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="module-content active">
-                        <ul class="checklist">
-                            ${trackerData.credentials.map(item => `
-                                <li class="checklist-item">
-                                    <input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''} 
-                                           onchange="updateCredential('${item.id}'); saveData();">
-                                    <label for="${item.id}">${item.text}</label>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                </div>
-            `;
-
-            // Module sections
-            trackerData.modules.forEach((module, index) => {
-                html += `
-                    <div class="module">
-                        <div class="module-header" onclick="toggleModule(this)">
-                            <span class="module-title">${module.name}</span>
-                            <span class="toggle-icon">▼</span>
-                        </div>
-                        <div class="module-content">
-                            <ul class="checklist">
-                                ${module.items.map((item, itemIndex) => {
-                                    const itemId = `module_${index}_${itemIndex}`;
-                                    const isChecked = module.checked?.[itemIndex] || false;
-                                    return `
-                                        <li class="checklist-item">
-                                            <input type="checkbox" id="${itemId}" ${isChecked ? 'checked' : ''} 
-                                                   onchange="updateModule(${index}, ${itemIndex}); saveData();">
-                                            <label for="${itemId}">${item}</label>
-                                        </li>
-                                    `;
-                                }).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                `;
+            // Modules
+            trackerData.modules.forEach((m, i) => {
+                body.appendChild(createModule(m.name, m.items, `m${i}`));
             });
 
-            // Roles section
-            html += `
-                <div class="role-section">
-                    <h3>👥 Role Testing Completion</h3>
-                    <div class="role-checklist">
-                        ${trackerData.roles.map(role => `
-                            <div class="role-item">
-                                <input type="checkbox" id="${role.id}" ${role.checked ? 'checked' : ''} 
-                                       onchange="updateRole('${role.id}'); saveData();">
-                                <label for="${role.id}">${role.text}</label>
-                            </div>
-                        `).join('')}
-                    </div>
+            // Roles
+            const rolesBody = document.getElementById('roles-body');
+            rolesBody.innerHTML = trackerData.roles.map(r => `
+                <div class="check-item ${state[`role-${r.id}`] ? 'checked' : ''}" onclick="toggle('role-${r.id}')">
+                    <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <span class="item-text">${r.text}</span>
                 </div>
-            `;
+            `).join('');
 
-            // Sign-off section
-            html += `
-                <div class="sign-off-section">
-                    <h3>✍️ QA Sign-Off</h3>
-                    <div class="sign-off-field">
-                        <label for="qaManager">QA Manager Name:</label>
-                        <input type="text" id="qaManager" value="${trackerData.signoff.qaManager}" 
-                               onchange="updateSignoff('qaManager', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="techLead">Tech Lead Name:</label>
-                        <input type="text" id="techLead" value="${trackerData.signoff.techLead}" 
-                               onchange="updateSignoff('techLead', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="signoffDate">Sign-off Date:</label>
-                        <input type="date" id="signoffDate" value="${trackerData.signoff.date}" 
-                               onchange="updateSignoff('date', this.value); saveData();">
-                    </div>
-                    <div class="sign-off-field">
-                        <label for="signoffNotes">Sign-off Notes:</label>
-                        <textarea id="signoffNotes" onchange="updateSignoff('notes', this.value); saveData();">${trackerData.signoff.notes}</textarea>
-                    </div>
-                </div>
-            `;
-
-            // Action buttons
-            html += `
-                <div class="action-buttons" style="margin-top: 30px; padding: 0 20px 20px;">
-                    <button class="btn-primary" onclick="exportData()">📤 Export Results</button>
-                    <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
-                    <button class="btn-secondary" onclick="printPage()">🖨️ Print</button>
-                </div>
-            `;
-
-            tracker.innerHTML = html;
-        }
-
-        // Update functions
-        function updateModule(moduleIndex, itemIndex) {
-            if (!trackerData.modules[moduleIndex].checked) {
-                trackerData.modules[moduleIndex].checked = {};
-            }
-            const checkbox = document.getElementById(`module_${moduleIndex}_${itemIndex}`);
-            trackerData.modules[moduleIndex].checked[itemIndex] = checkbox.checked;
-        }
-
-        function updateCredential(id) {
-            const item = trackerData.credentials.find(c => c.id === id);
-            if (item) {
-                item.checked = !item.checked;
-            }
-        }
-
-        function updateRole(id) {
-            const role = trackerData.roles.find(r => r.id === id);
-            if (role) {
-                role.checked = !role.checked;
-            }
-        }
-
-        function updateSignoff(field, value) {
-            trackerData.signoff[field] = value;
-        }
-
-        function toggleModule(header) {
-            header.classList.toggle('active');
-            header.nextElementSibling.classList.toggle('active');
-        }
-
-        // Update progress
-        function updateProgress() {
-            let total = 0;
-            let completed = 0;
-
-            // Count credentials
-            trackerData.credentials.forEach(item => {
-                total++;
-                if (item.checked) completed++;
+            // Fields
+            ['qa-mgr', 'tech-lead', 'so-date', 'so-notes'].forEach(id => {
+                document.getElementById(id).value = state[id] || '';
             });
+        }
 
-            // Count modules
-            trackerData.modules.forEach(module => {
-                module.items.forEach((item, index) => {
-                    total++;
-                    if (module.checked?.[index]) completed++;
+        function createModule(name, items, prefix) {
+            const div = document.createElement('div');
+            div.className = `module-card ${state[`${prefix}-exp`] ? 'active' : ''}`;
+            div.innerHTML = `
+                <div class="module-header" onclick="toggleExp('${prefix}')">
+                    <span style="font-weight:700">${name}</span>
+                    <span>${state[`${prefix}-exp`] ? '▲' : '▼'}</span>
+                </div>
+                <div class="module-content">
+                    <div class="checklist">
+                        ${items.map((item, i) => {
+                            const key = `${prefix}-i${i}`;
+                            return `
+                                <div class="check-item ${state[key] ? 'checked' : ''}" onclick="toggle('${key}')">
+                                    <div class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                                    <span class="item-text">${item}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+            return div;
+        }
+
+        function toggle(key) { state[key] = !state[key]; save(); init(); }
+        function toggleExp(prefix) { state[`${prefix}-exp`] = !state[`${prefix}-exp`]; save(); init(); }
+        function save() { localStorage.setItem('wcwInteractiveTracker', JSON.stringify(state)); }
+
+        function updateStats() {
+            let total = 0, checked = 0;
+            trackerData.credentials.forEach((_, i) => { total++; if(state[`cred-i${i}`]) checked++; });
+            trackerData.modules.forEach((m, mi) => {
+                m.items.forEach((_, ii) => { total++; if(state[`m${mi}-i${ii}`]) checked++; });
+            });
+            const percent = Math.round((checked / total) * 100) || 0;
+            document.getElementById('percent').innerText = percent + '%';
+            document.getElementById('done-count').innerText = checked;
+            document.getElementById('todo-count').innerText = total - checked;
+            const roles = trackerData.roles.filter(r => state[`role-${r.id}`]).length;
+            document.getElementById('roles-count').innerText = `${roles}/4`;
+        }
+
+        ['qa-mgr', 'tech-lead', 'so-date', 'so-notes'].forEach(id => {
+            document.getElementById(id).oninput = (e) => { state[id] = e.target.value; save(); };
+        });
+
+        document.getElementById('export-csv').onclick = () => {
+            let csv = 'Module,Item,Status\n';
+            trackerData.modules.forEach((m, mi) => {
+                m.items.forEach((item, ii) => {
+                    csv += `"${m.name}","${item}","${state[`m${mi}-i${ii}`] ? 'DONE' : 'PENDING'}"\n`;
                 });
             });
-
-            // Count roles
-            trackerData.roles.forEach(role => {
-                total++;
-                if (role.checked) completed++;
-            });
-
-            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-            document.getElementById('progressFill').style.width = percentage + '%';
-            document.getElementById('progressPercent').textContent = percentage + '%';
-            document.getElementById('completed').textContent = completed;
-            document.getElementById('total').textContent = total;
-
-            // Update stats grid
-            const statsGrid = document.getElementById('statsGrid');
-            statsGrid.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${completed}</div>
-                    <div class="stat-label">Completed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${total - completed}</div>
-                    <div class="stat-label">Remaining</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${percentage}%</div>
-                    <div class="stat-label">Progress</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${trackerData.roles.filter(r => r.checked).length}/4</div>
-                    <div class="stat-label">Roles Done</div>
-                </div>
-            `;
-        }
-
-        // Export data
-        function exportData() {
-            let csv = 'WCW CRM QA Tracker Export\n';
-            csv += `Date: ${new Date().toLocaleString()}\n\n`;
-
-            csv += 'CREDENTIALS\n';
-            trackerData.credentials.forEach(item => {
-                csv += `${item.checked ? '✓' : '✗'},${item.text}\n`;
-            });
-
-            csv += '\nMODULES\n';
-            trackerData.modules.forEach(module => {
-                csv += `\n${module.name}\n`;
-                module.items.forEach((item, index) => {
-                    const checked = module.checked?.[index] ? '✓' : '✗';
-                    csv += `${checked},${item}\n`;
-                });
-            });
-
-            csv += '\nROLES\n';
-            trackerData.roles.forEach(role => {
-                csv += `${role.checked ? '✓' : '✗'},${role.text}\n`;
-            });
-
-            // Download
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `wcw-qa-tracker-${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = 'qa-tracker-results.csv';
             a.click();
-            window.URL.revokeObjectURL(url);
+        };
 
-            showNotification('✅ Data exported successfully');
-        }
+        document.getElementById('print-pdf').onclick = () => window.print();
+        document.getElementById('reset-all').onclick = () => { if(confirm('Reset all?')) { state = {}; save(); init(); } };
 
-        function resetAll() {
-            if (confirm('Are you sure? This will reset all checkboxes.')) {
-                trackerData.credentials.forEach(item => item.checked = false);
-                trackerData.modules.forEach(module => module.checked = {});
-                trackerData.roles.forEach(role => role.checked = false);
-                localStorage.removeItem('wcwTrackerData');
-                renderTracker();
-                updateProgress();
-                showNotification('🔄 All items reset');
-            }
-        }
-
-        function printPage() {
-            window.print();
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.style.animation = 'slideIn 0.3s ease reverse';
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            loadData();
-            renderTracker();
-            updateProgress();
-        });
-
-        // Save on page close
-        window.addEventListener('beforeunload', saveData);
+        init();
     </script>
 </body>
 </html>
