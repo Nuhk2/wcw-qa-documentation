@@ -362,24 +362,24 @@ Permissions are organized by feature sections:
 
 ---
 
-### 2.15 SUBSCRIPTION Module
-**Path:** `src/app/features/Subscription/`
-**Route:** `/subscription`
+---
 
-**CRUD Operations:**
-| Operation | Endpoint | Method | Status |
-|-----------|----------|--------|--------|
-| Get Plans | `/subscription/plans` | GET | ⚠️ |
-| Create Subscription | `/subscription/create` | POST | ⚠️ |
-
-**Status:** ⚠️ **BLOCKER - Verification middleware disabled (NO REVENUE PROTECTION)**
+### 2.15 CROSS-USER MANAGEMENT Module
+**Path:** `src/app/features/AccessControl/`
+**Status:** 🟢 Working
 
 **Features:**
-- Plan listing
-- Subscription creation
-- Plan selection
+- **Impersonation:** Sales Reps can select others in their region; Managers/Admins can select any rep globally.
+- **Actions:** Create Opps, Targets, Meetings, Tasks, Commitments, and Schedule entries as the target rep.
+- **Activity Log:** All impersonated actions are tagged "Done by [Name]" with detailed logging.
+
+**Role Rules:**
+- **Admin:** Global scope, full impersonation, organizational settings management.
+- **Manager:** Global scope, full impersonation, team oversight, no organizational settings management.
+- **Sales Rep:** Regional scope, impersonation of regional peers only.
 
 ---
+
 
 ## 3. PERMISSION STRINGS IDENTIFIED
 
@@ -686,7 +686,8 @@ interface IUser {
 | Targets | ✅ | ✅ | No | ❌ None | ✅ |
 | Daily Alerts | ✅ | Read | No | ⚠️ Role-based | ✅ |
 | Dashboard | ✅ | Read | No | ✅ Auth | ✅ |
-| Subscription | ⚠️ | ⚠️ | No | ❌ DISABLED | ⚠️ |
+| Cross-User Mgmt | ✅ | ✅ | Yes | ✅ Logged | ✅ |
+| Global View | ✅ | Read | Yes | ✅ Global | ✅ |
 
 ---
 

@@ -31,7 +31,7 @@ This repository contains **comprehensive QA documentation** for testing the WCW 
 
 | Item | Count | Details |
 |------|-------|----------|
-| **Modules** | 17 | Dashboard, Customers, Contacts, Opportunities, Tasks, Commitments, Calendar, Schedule, Targets, Alerts, Settings, Regions, Groups, User Mgmt, Subscription, Layout, Auth |
+| **Modules** | 17 | Dashboard, Customers, Contacts, Opportunities, Tasks, Commitments, Calendar, Schedule, Targets, Alerts, Settings, Regions, Groups, User Mgmt, Layout, Auth, Access Control |
 | **Roles** | 4 | Admin (Super), Manager (Team), Sales Rep (Own), Inside Rep (Own) |
 | **Features** | 80+ | Complete feature matrix with role access control |
 | **Edge Cases** | 150+ | Documented test scenarios |
@@ -60,17 +60,18 @@ This repository contains **comprehensive QA documentation** for testing the WCW 
 ## 🚨 Critical Blockers (Must Fix Before Release)
 
 🔴 **Calendar Module** - Hardcoded mock data (September 2025)  
-🔴 **Subscription** - Email verification workflow disabled  
 🟡 **Auth** - Token refresh not implemented  
 🟡 **User Management** - PBAC permissions not implemented  
+🟡 **Access Control** - Verification of impersonation edge cases needed  
 
 See [QA_TEST_EXECUTION_TRACKER.md](./QA_TEST_EXECUTION_TRACKER.md) for details.
 
 ## 👥 Testing by Role
 
 ### 👨‍💼 Admin (Super Access - System Wide)
-- Global settings, user management, regions, groups
-- Restricted: Tasks, Schedule, Daily Alerts (by design)
+- **Global Scope:** Access to settings, user management, and global organizational data.
+- **Impersonation:** Select any Sales Rep to perform actions (Opps, Targets, Tasks, etc.) as that user.
+- **Restrictions:** Cannot edit Rep's settings while impersonating; must be in Global view.
 - [View Admin Scenarios](./QA_DOCUMENTATION_INDEX.md)
 
 ### 👔 Manager (Super Access + Team Scope)

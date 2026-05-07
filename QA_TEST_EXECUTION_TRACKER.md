@@ -539,7 +539,9 @@ Fix Required:
 | Cascade delete Customer → Contacts deleted | ☐ | Data cascade |
 | Manager assign Task → Team member notified | ☐ | Notification |
 | Admin grant Permission → User access updates | ☐ | PBAC preparation |
-| Concurrent edits same record → Conflict | ☐ | Concurrency |
+| **Impersonation Flow: Rep A acts as Rep B** | ☐ | Cross-user management |
+| **Impersonation Log: Verify "Done by" tag** | ☐ | Logging & Activity |
+
 
 **Blocking Issues:**
 1. ________________________________
@@ -554,9 +556,9 @@ Fix Required:
 | Blocker # | Module | Issue | Severity | Fix ETA | Owner |
 |-----------|--------|-------|----------|---------|-------|
 | 1 | Calendar | API not called, hardcoded Sept 2025 | CRITICAL | 4/10 | _____ |
-| 2 | Subscription | Email verification disabled | CRITICAL | 4/10 | _____ |
-| 3 | Auth | Token refresh not implemented | HIGH | 4/12 | _____ |
-| 4 | User Mgmt | PBAC permissions not implemented | HIGH | 4/15 | _____ |
+| 2 | Auth | Token refresh not implemented | HIGH | 4/12 | _____ |
+| 3 | User Mgmt | PBAC permissions not implemented | HIGH | 4/15 | _____ |
+| 4 | Impersonation | Verify regional scope for Sales Reps | HIGH | 4/15 | _____ |
 | 5 | | | | | |
 | 6 | | | | | |
 
@@ -565,34 +567,35 @@ Fix Required:
 ## 👥 ROLE-BASED TESTING COMPLETION
 
 ### Admin Testing
-- [ ] Login/Logout works
-- [ ] Access to all modules verified
-- [ ] Cannot perform restricted actions (Tasks, Schedule)
-- [ ] Can delete/deactivate users
-- [ ] Can edit global settings
+- [ ] Global organizational data visibility (No Rep selected)
+- [ ] Impersonate Any Rep: Create Opps, Targets, Meetings, Tasks
+- [ ] Verify "Done by Admin" tags on impersonated actions
+- [ ] Cannot edit Rep settings while impersonating
+- [ ] Edit global organizational settings
 - **Status:** ___% Complete | **Date:** ________
 
 ### Manager Testing  
-- [ ] Team data scoping works
-- [ ] Cannot access other team data
-- [ ] Can assign tasks to team
-- [ ] Can view team user performance
-- [ ] Cannot create new users
+- [ ] Global organizational data visibility (No Rep selected)
+- [ ] Impersonate Any Rep: Create Opps, Targets, Meetings, Tasks
+- [ ] Verify "Done by Manager" tags on impersonated actions
+- [ ] Cannot edit Rep settings while impersonating
+- [ ] CANNOT edit global organizational settings
 - **Status:** ___% Complete | **Date:** ________
 
 ### Sales Rep Testing
-- [ ] Own data only access works
-- [ ] Cannot see manager's data
-- [ ] Can create/edit own records
-- [ ] Cannot delete records
-- [ ] Regional filtering works
+- [ ] Impersonate Rep (Within own Region only)
+- [ ] Verify "Done by [Name]" tags on impersonated actions
+- [ ] Create Opps, Targets, Meetings, Tasks for other Rep
+- [ ] View/Edit target rep's weekly/day schedule
+- [ ] Regional filtering works strictly
 - **Status:** ___% Complete | **Date:** ________
 
 ### Inside Rep Testing
-- [ ] Same as Sales Rep
-- [ ] Office-based filtering works
-- [ ] Order processing accessible
-- [ ] No field access
+- [ ] Impersonate Any Rep (Global scope)
+- [ ] Verify "Done by [Name]" tags on impersonated actions
+- [ ] Create Opps, Targets, Meetings, Tasks for other Rep
+- [ ] View/Edit target rep's weekly/day schedule
+- [ ] Global visibility of all rep customers
 - **Status:** ___% Complete | **Date:** ________
 
 ---

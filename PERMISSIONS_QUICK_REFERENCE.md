@@ -133,7 +133,25 @@
 | **Group Management** |
 | - View Groups | ✅ All | ✅ Team | ❌ | ❌ | ✅ |
 | - Create/Edit Groups | ✅ | ✅ Team | ❌ | ❌ | 🟠 |
-| **Global Settings** | ✅ | ❌ | ❌ | ❌ | 🟠 |
+| **Global Settings** | ✅ Organization Level | ❌ | ❌ | ❌ | 🟠 |
+| **Impersonation** | ✅ Any Rep | ✅ Any Rep | 🟠 Region Reps | ✅ Any Rep | 🟢 |
+
+---
+
+### IMPERSONATION & CROSS-USER MANAGEMENT
+
+| Action (when selecting another Rep) | Admin | Manager | Sales Rep | Inside Rep | Tagged/Logged |
+|-------------------------------------|-------|---------|-----------|------------|---------------|
+| **Select Rep (Scope)** | ✅ Global | ✅ Global | 🟠 Region Only | ✅ Global | N/A |
+| **View Customers** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Manage Meetings** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Create Opportunities** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Create Commitments** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Create Tasks** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Manage Schedule** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Create Targets** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Conversion Requests** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Edit Target's Global Settings** | ❌ | ❌ | ❌ | ❌ | N/A |
 
 ---
 
@@ -147,6 +165,9 @@
 - ✅ **Regional Data:** Bypasses all regional filters in `UserAccessPolicy.php`.
 - ✅ **Modules:** Dashboard, Customers, Contacts, Opportunities, Meetings, Tasks, Team Requests, Calendar, Commitments, Targets, Users.
 - ✅ **Permissions:** Managed via `ADMIN_PERMISSIONS` in `rolePermissions.config.ts`.
+- ✅ **Impersonation:** Can select **Any Rep** (Global) and perform all operational actions.
+- ✅ **Global View:** When no rep is selected, sees ALL customers, targets, tasks, and commitments.
+- ✅ **Org Settings:** Can edit global settings only in Global View (No Rep selected).
 
 ---
 
@@ -159,6 +180,9 @@
 - ✅ **Regional Data:** Bypasses regional filters in `UserAccessPolicy.php` (Global scope).
 - ✅ **Modules:** All operational modules except User CRUD.
 - ✅ **Team Coordination:** Can assign tasks and view team schedules.
+- ✅ **Impersonation:** Can select **Any Rep** (Global) and perform all operational actions.
+- ✅ **Global View:** When no rep is selected, sees ALL customers, targets, tasks, and commitments.
+- ❌ **Org Settings:** CANNOT edit global organizational settings.
 
 ---
 
@@ -171,28 +195,19 @@
 - ✅ **Operational Modules:** Customers, Contacts, Opportunities, Meetings, Tasks, Commitments, Targets.
 - ✅ **Personal Tools:** Weekly/Daily Schedule, Daily Alerts (Own data only).
 - 🟠 **Targets:** View own targets; create/edit limited to own customer associations.
-
-**Can Manage:**
-- Own Customers (create, edit, not delete)
-- Own Contacts (create, edit, not delete)
-- Own Opportunities (create, edit, close)
-- Own Tasks (create, edit, complete, not delete)
-- Own Commitments (create, edit, mark complete)
+- ✅ **Impersonation:** Can select **Other Reps (Within Own Region Only)**.
+- ✅ **Actions:** Can perform all operational actions for the selected rep (logged with tag).
+- ❌ **Org Settings:** No access to global settings.
 
 ---
 
 ### 🏢 INSIDE REP (Role ID: 3)
 **Type:** Standard | **Primary:** Office-based Sales Operations
 
-**Same as Sales Rep + Office Scope:**
-- ✅ All Sales Rep features
-- ✅ Customer order processing
-- ✅ Office-based customer management
-
-**Differences from Sales Rep:**
-- Can create customers for office-based operations
-- Can manage customer billing
-- Limited travel/field access
+- ✅ **Office-based customer management:** Global scope in `UserAccessPolicy.php`.
+- ✅ **Impersonation:** Can select **Any Rep** (Global) and perform all operational actions.
+- ✅ **Actions:** Can perform all operational actions for the selected rep (logged with tag).
+- ❌ **Org Settings:** No access to global settings.
 
 ---
 

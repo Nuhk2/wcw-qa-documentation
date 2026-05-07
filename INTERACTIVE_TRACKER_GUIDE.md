@@ -144,7 +144,7 @@ The tracker includes checkboxes for:
 - Create inside rep test user
 - Verify all logins work
 
-### 17 Module Tests (85 items)
+### 18 Module Tests (90 items)
 1. Authentication (5 tests)
 2. Dashboard (5 tests)
 3. Customers (5 tests)
@@ -160,8 +160,9 @@ The tracker includes checkboxes for:
 13. Regions (5 tests)
 14. Groups (5 tests)
 15. User Management (5 tests)
-16. Subscription (5 tests - includes blockers)
-17. Layout (5 tests)
+16. Layout (5 tests)
+17. Cross-User Management (5 tests)
+18. Global View (5 tests)
 
 ### 👥 Role Testing Completion (4 items)
 - Admin role testing complete

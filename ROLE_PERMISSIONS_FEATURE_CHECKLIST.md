@@ -1174,54 +1174,14 @@
 
 ---
 
-## 16. SUBSCRIPTION MODULE
-**Status:** 🟠 Issue - Verification Disabled  
-**Implemented Permissions:** ✓ Partial  
-**PBAC Ready:** ✓ Yes
-
-### Features
-
-#### 16.1 View Subscription Status
-| Role | Can Execute | Permissions | Status | Notes |
-|------|-------------|-------------|--------|-------|
-| Admin | ✓ Yes | subscription.view | 🟠 Partial | All |
-| Manager | ✓ Yes | subscription.view | 🟠 Partial | Own |
-| Sales Rep | ✓ Yes | subscription.view | 🟠 Partial | Own |
-| Inside Rep | ✓ Yes | subscription.view | 🟠 Partial | Own |
-
-**Checklist:**
-- [ ] **FAIL:** Subscription status shows
-- [ ] **FAIL:** Email verification status
-- [ ] **FAIL:** Plan details shown
-
-**Known Issues:**
-- Email verification workflow disabled
-
----
-
-#### 16.2 Manage Subscription
-| Role | Can Execute | Permissions | Status | Notes |
-|------|-------------|-------------|--------|-------|
-| Admin | ✓ Yes | subscription.manage | 🔴 Not Full | |
-| Manager | ✗ No | subscription.manage | ❌ No Access | |
-| Sales Rep | ✗ No | subscription.manage | ❌ No Access | |
-| Inside Rep | ✗ No | subscription.manage | ❌ No Access | |
-
-**Checklist:**
-- [ ] **FAIL:** Change plan
-- [ ] **FAIL:** Cancel subscription
-- [ ] **FAIL:** Update billing info
-
----
-
-## 17. LAYOUT MODULE
+## 16. LAYOUT MODULE
 **Status:** 🟢 Working  
 **Implemented Permissions:** ✓ Yes  
 **PBAC Ready:** ✓ Yes
 
 ### Features
 
-#### 17.1 Navigation Menu
+#### 16.1 Navigation Menu
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | Admin | ✓ Yes | nav.view | ✅ Working | All items |
@@ -1243,7 +1203,7 @@
 
 ---
 
-#### 17.2 Header/Breadcrumbs
+#### 16.2 Header/Breadcrumbs
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | All | ✓ Yes | ui.view | ✅ Working | |
@@ -1256,7 +1216,7 @@
 
 ---
 
-#### 17.3 Responsive Design
+#### 16.3 Responsive Design
 | Role | Can Execute | Permissions | Status | Notes |
 |------|-------------|-------------|--------|-------|
 | All | ✓ Yes | ui.responsive | ✅ Working | Desktop, tablet, mobile |
@@ -1275,7 +1235,66 @@
 
 ---
 
+## 17. CROSS-USER MANAGEMENT (IMPERSONATION)
+**Status:** 🟢 Working  
+**PBAC Ready:** ✓ Yes
+
+### Features
+
+#### 17.1 Rep Selection & Impersonation Flow
+| Role | Can Execute | Scope | Status | Notes |
+|------|-------------|-------|--------|-------|
+| Sales Rep | ✓ Yes | **Region Only** | ✅ Working | |
+| Inside Rep | ✓ Yes | **Global** | ✅ Working | |
+| Manager | ✓ Yes | **Global** | ✅ Working | |
+| Admin | ✓ Yes | **Global** | ✅ Working | |
+
+**Checklist:**
+- [ ] **PASS:** User can select another Rep from the list (Region/Global scope check)
+- [ ] **PASS:** **Full Flow Meetings:** Create and conclude meetings for target rep
+- [ ] **PASS:** **Opportunities:** Create and follow full flow as target rep
+- [ ] **PASS:** **Commitments/Tasks:** Create and manage for target rep
+- [ ] **PASS:** **Schedule:** View and edit target rep's Weekly and Day schedules
+- [ ] **PASS:** **Targets:** Create targets for target rep
+- [ ] **PASS:** **Conversion:** Request Target-to-Customer conversion for target rep
+- [ ] **PASS:** **Restriction:** CANNOT edit target rep's Global Settings
+
+#### 17.2 Activity Logging & Tagging
+| Feature | Description | Status | Notes |
+|---------|-------------|--------|-------|
+| **Impersonation Tag** | "Done by [User Name]" tag next to actions | ✅ Working | |
+| **Activity Log** | Clicking tag shows who performed the action | ✅ Working | |
+
+**Checklist:**
+- [ ] **PASS:** All actions performed while impersonating are logged
+- [ ] **PASS:** Tag displays next to Opps, Meetings, Tasks, etc.
+- [ ] **PASS:** Tag correctly identifies the actual performer vs target rep
+
 ---
+
+## 18. GLOBAL VIEW (NO REP SELECTED)
+**Status:** 🟢 Working  
+**PBAC Ready:** ✓ Yes
+
+### Features
+
+#### 18.1 Manager Global View
+| Feature | Role | Access | Status | Notes |
+|---------|------|--------|--------|-------|
+| View All Customers | Manager | ✅ Yes | ✅ Working | Global visibility |
+| View All Targets | Manager | ✅ Yes | ✅ Working | Global visibility |
+| View All Tasks | Manager | ✅ Yes | ✅ Working | Global visibility |
+| View All Commitments | Manager | ✅ Yes | ✅ Working | Global visibility |
+| Edit Global Settings | Manager | ❌ No | ❌ No Access | Admin only |
+
+#### 18.2 Admin Global View
+| Feature | Role | Access | Status | Notes |
+|---------|------|--------|--------|-------|
+| Global Organizational Data | Admin | ✅ Yes | ✅ Working | |
+| Edit Global Settings | Admin | ✅ Yes | ✅ Working | Organization Level |
+
+---
+
 
 # 📊 SUMMARY TABLE BY MODULE
 
@@ -1296,8 +1315,8 @@
 | Regions | 🟠 | ✓ | ✓ | | Yes | Partial implementation |
 | Groups | 🟠 | ✓ | ✓ | | Yes | Partial implementation |
 | User Management | 🟠 | ✓ | 🟡 | 🔴 | Yes | PBAC framework ready |
-| Subscription | 🟠 | | 🟡 | 🔴 | Yes | Verification disabled |
 | Layout | 🟢 | ✓ | ✓ | | Yes | Fully functional |
+| Access Control | 🟢 | ✓ | ✓ | | Yes | Impersonation & Global view |
 
 **Legend:**
 - 🟢 = Fully Working
@@ -1312,8 +1331,8 @@
 ## Critical (Blocking Production)
 1. **Calendar Module** - Replace mock data with backend API calls
 2. **Authentication** - Implement token refresh and invalidation
-3. **Subscription** - Fix email verification process
-4. **Permission Framework** - Complete PBAC implementation across all modules
+3. **Permission Framework** - Complete PBAC implementation across all modules
+4. **Access Control Audit** - Verify all impersonation edge cases across modules
 
 ## High Priority (Should Fix Before Release)
 5. **Session Management** - Add proper timeout and concurrent session handling

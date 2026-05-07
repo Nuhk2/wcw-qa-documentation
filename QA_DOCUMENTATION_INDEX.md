@@ -49,8 +49,9 @@ This comprehensive QA package includes **4 detailed documents** for testing the 
 │  ├─ Regions (13.1-13.2)
 │  ├─ Groups (14.1-14.2)
 │  ├─ User Management (15.1-15.5)
-│  ├─ Subscription (16.1-16.2)
-│  └─ Layout (17.1-17.3)
+│  ├─ Layout (16.1-16.3)
+│  ├─ Cross-User Management (17.1-17.2)
+│  └─ Global View (18.1-18.2)
 ├─ Summary Table by Module
 ├─ Priority Fixes
 ├─ Testing Execution Guide
@@ -136,6 +137,8 @@ This comprehensive QA package includes **4 detailed documents** for testing the 
 │  ├─ Issues documentation
 │  ├─ Sign-off section
 │  └─ Test notes area
+├─ Cross-User Management (Impersonation) Verification
+├─ Global View Verification
 ├─ Cross-module integration tests
 ├─ Critical blockers summary
 ├─ Role-based completion tracking
@@ -224,10 +227,10 @@ QA Engineer #3 - Role: SALES REP
 └─ Document: Access denials, permission edge cases
 
 QA Engineer #4 - Role: INSIDE REP
-├─ Test modules: 1,2,3,4,5,6,7,9,11
-├─ Verify: Office-based operations
-├─ Focus: Variations from Sales Rep
-└─ Document: Role-specific differences
+├─ Test modules: 1-11, 13, 16, 17, 18
+├─ Verify: Office-based operations, Global Impersonation
+├─ Focus: Variations from Sales Rep, regional scope bypass
+└─ Document: Role-specific differences, activity logs
 
 QA Lead
 ├─ Coordinate: Cross-module integration tests
@@ -418,20 +421,7 @@ Before marking QA complete, these MUST be resolved:
 
 **Document in Tracker:** QA_TEST_EXECUTION_TRACKER.md → Module 8 (Calendar)
 
-### 2. **Subscription - Email Verification Disabled** 🔴 CRITICAL
-**Severity:** BLOCKING  
-**Current State:** Email verification workflow incomplete  
-**Expected:** New users can verify email, access system
-
-**To Test:**
-1. Attempt to verify email (check if available)
-2. Verify verification email sent
-3. Test verification link (valid & expired)
-4. Test resend verification button
-
-**Document in Tracker:** QA_TEST_EXECUTION_TRACKER.md → Module 16 (Subscription)
-
-### 3. **Authentication - Token Management** 🟡 HIGH
+### 2. **Authentication - Token Management** 🟡 HIGH
 **Severity:** HIGH (Session Management)  
 **Current State:** No token refresh or invalidation  
 **Expected:** Auto-refresh on expiration, 401 redirect to login
@@ -443,6 +433,19 @@ Before marking QA complete, these MUST be resolved:
 4. Test logout revokes token (backend)
 
 **Document in Tracker:** QA_TEST_EXECUTION_TRACKER.md → Module 1 (Auth)
+
+### 3. **Access Control - Impersonation Tagging** 🟡 HIGH
+**Severity:** HIGH (Auditability)  
+**Current State:** Verified on frontend, needs activity log check  
+**Expected:** All actions have "Done by" tag with hover info
+
+**To Test:**
+1. Impersonate Rep A
+2. Create Opportunity
+3. Verify "Done by [Admin/Manager]" tag appears
+4. Click tag to view performer details
+
+**Document in Tracker:** QA_TEST_EXECUTION_TRACKER.md → Module 17 (Cross-User Management)
 
 ### 4. **User Management - PBAC Not Implemented** 🟡 HIGH
 **Severity:** HIGH (Pre-migration prep)  

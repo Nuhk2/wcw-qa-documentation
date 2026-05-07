@@ -1439,6 +1439,42 @@
                             'Deleted data attribution preserved by role',
                         ]
                     }
+                },
+                {
+                    name: '1️⃣7️⃣ Cross-User Management (Impersonation)',
+                    tests: {
+                        'Rep Selection & Scope': [
+                            'Admin can select ANY sales rep (Global)',
+                            'Manager can select ANY sales rep (Global)',
+                            'Sales Rep can only select reps in OWN region',
+                            'Inside Rep can select ANY sales rep (Global)',
+                        ],
+                        'Impersonated Actions': [
+                            'Create Opportunity as target rep',
+                            'Create Target as target rep',
+                            'Create Meeting and complete flow as target rep',
+                            'Create Task as target rep',
+                            'Create Commitment as target rep',
+                            'Request target-to-customer conversion as target rep',
+                            'View and edit target rep weekly schedule',
+                            'View and edit target rep day schedule',
+                        ],
+                        'Logging & Attribution': [
+                            'Actions have "Done by [Performer]" tag',
+                            'Clicking tag opens Activity Log detail',
+                            'Performer name correctly recorded in backend',
+                        ],
+                        'Global View (No Rep Selected)': [
+                            'Admin sees all Customers, Targets, Tasks, Commitments',
+                            'Manager sees all Customers, Targets, Tasks, Commitments',
+                            'Admin can edit global organizational settings',
+                            'Manager CANNOT edit global organizational settings',
+                        ],
+                        'Restrictions': [
+                            'Cannot edit target rep Global Settings while selected',
+                            'Sales Rep cannot select rep from different region',
+                        ]
+                    }
                 }
             ],
             roles: [
