@@ -136,9 +136,12 @@ Frontend: http://localhost:5173
 **Test Notes:**
 - [ ] Contact without email works
 - [ ] Contact without phone works
-- [ ] Duplicate email per customer rejected
+- [ ] Duplicate email per customer/target rejected
 - [ ] Primary contact enforced
 - [ ] Deleted customer contacts handled
+- [ ] Can associate with Target (Prospect)
+- [ ] Tabbed selection UI works (Customer vs Target)
+- [ ] Preferred Visit Days saves correctly
 
 **Blocking Issues:** None
 
@@ -245,6 +248,7 @@ Frontend: http://localhost:5173
 | Calendar displays | ☐ FAIL | 🔴 Mock | Shows sept 2025 only |
 | Navigate months | ☐ FAIL | 🔴 Mock | Locked to sept |
 | Create meeting | ☐ FAIL | 🔴 Not impl | No backend call |
+| Schedule Conflict Check | ☐ | 🟢 Working | Backend returns matching |
 | View meetings | ☐ FAIL | 🔴 Mock | Mock data only |
 | Mobile view | ☐ FAIL | 🔴 Issue | Separate component? |
 
@@ -311,12 +315,15 @@ Fix Required:
 | Create | ☐ | ☐ | ❌ | ❌ | 🟢 | Access correct |
 | Edit | ☐ | ☐ | ❌ | ❌ | 🟢 | Access correct |
 | Progress Tracking | ☐ | ☐ | ☐ | ☐ | 🟡 | Updates delayed? |
+| Import Prospects | ☐ | ☐ | ☐ | ☐ | 🟢 | UI/error handled |
 
 **Edge Cases Tested:**
 - [ ] Target = $0
 - [ ] Over target (200% achieved)
 - [ ] Historical targets
 - [ ] Period overlap handling
+- [ ] Verify Import upload error text is clear
+- [ ] Verify Import download button is hidden
 
 **Blocking Issues:** None
 

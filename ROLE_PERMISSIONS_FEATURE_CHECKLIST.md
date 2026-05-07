@@ -409,8 +409,11 @@
 - [ ] **PASS:** Required fields validated
 - [ ] **PASS:** Email format validated
 - [ ] **PASS:** Phone format validated
-- [ ] **PASS:** Cannot create duplicate email per customer
-- [ ] **PASS:** Primary contact only once per customer
+- [ ] **PASS:** Cannot create duplicate email per customer/target
+- [ ] **PASS:** Primary contact only once per customer/target
+- [ ] **PASS:** Can associate contact with a Target (Prospect)
+- [ ] **PASS:** Tabbed selection UI works (Customer vs Target)
+- [ ] **PASS:** Preferred Visit Days can be selected and saved
 
 **Edge Cases:**
 - [ ] **Test:** Create contact for non-existent customer
@@ -431,7 +434,8 @@
 **Checklist:**
 - [ ] **PASS:** Edit form pre-populates
 - [ ] **PASS:** Can change primary contact status
-- [ ] **PASS:** Can update all fields
+- [ ] **PASS:** Can update all fields including Preferred Visit Days
+- [ ] **PASS:** Can change association between Customer and Target
 - [ ] **PASS:** Cannot edit other rep's contact
 
 **Edge Cases:**
@@ -753,6 +757,7 @@
 - [ ] **FAIL:** Create meeting form
 - [ ] **FAIL:** Set date and time
 - [ ] **FAIL:** Associate with customer
+- [ ] **PASS:** Schedule conflict check returns matching meetings (Backend)
 - [ ] **FAIL:** Meeting saved to backend
 
 **Edge Cases:**
@@ -854,6 +859,28 @@
 - [ ] **Test:** Overlapping target periods
 - [ ] **Test:** Target editing during active period
 - [ ] **Test:** Retroactive target changes
+
+---
+
+#### 10.3 Import Prospects
+| Role | Can Execute | Permissions | Status | Notes |
+|------|-------------|-------------|--------|-------|
+| Admin | ✓ Yes | target.import | ✅ Working | Any target |
+| Manager | ✓ Yes | target.import | ✅ Working | Team targets |
+| Sales Rep | ✓ Yes | target.import | ✅ Working | Own targets |
+| Inside Rep | ✓ Yes | target.import | ✅ Working | Own targets |
+
+**Checklist:**
+- [ ] **PASS:** Import modal displays correctly
+- [ ] **PASS:** Upload error text is clear and readable
+- [ ] **PASS:** File upload parses correctly
+- [ ] **PASS:** Download button is hidden (removed as per new requirements)
+- [ ] **PASS:** Success notification on complete import
+
+**Edge Cases:**
+- [ ] **Test:** Import file with invalid formats
+- [ ] **Test:** Import very large prospect lists
+- [ ] **Test:** Network interruption during upload
 
 ---
 

@@ -407,14 +407,14 @@ Before marking QA complete, these MUST be resolved:
 
 ### 1. **Calendar Module - Mock Data Issue** 🔴 CRITICAL
 **Severity:** BLOCKING  
-**Current State:** Hardcoded September 2025 data only  
-**Expected:** Show current month with backend data
+**Current State:** Hardcoded September 2025 data only (Note: Backend schedule conflict checks are now implemented and ready)
+**Expected:** Show current month with backend data and test new backend conflict resolution
 
 **To Test:**
 1. Open calendar module
 2. Verify month/year displayed (should be current)
 3. Verify meetings show current/real data
-4. Verify API is being called (check network tab)
+4. Verify API is being called and conflict checks are handled correctly
 
 **Document in Tracker:** QA_TEST_EXECUTION_TRACKER.md → Module 8 (Calendar)
 

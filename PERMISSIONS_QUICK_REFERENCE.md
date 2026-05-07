@@ -50,10 +50,10 @@
 | Feature | Admin | Manager | Sales Rep | Inside Rep | Status |
 |---------|-------|---------|-----------|-----------|--------|
 | **View Contacts** |
-| - List View | ✅ All | ✅ Team | ✅ Customer's | ✅ Customer's | ✅ |
-| - Detail View | ✅ Any | ✅ Team | ✅ Own Customer | ✅ Own Customer | ✅ |
-| **Create Contact** | ✅ | ✅ Team Customers | ✅ Own Customer | ✅ Own Customer | ✅ |
-| **Edit Contact** | ✅ Any | ✅ Team's | ✅ Own Customer's | ✅ Own Customer's | ✅ |
+| - List View | ✅ All | ✅ Team | ✅ Customer's/Target's | ✅ Customer's/Target's | ✅ |
+| - Detail View | ✅ Any | ✅ Team | ✅ Own Customer/Target | ✅ Own Customer/Target | ✅ |
+| **Create Contact** | ✅ | ✅ Team Cust/Targets | ✅ Own Cust/Target | ✅ Own Cust/Target | ✅ |
+| **Edit Contact** | ✅ Any | ✅ Team's | ✅ Own Cust's/Target's | ✅ Own Cust's/Target's | ✅ |
 | **Delete Contact** | ✅ | 🟠 Team Only | ❌ | ❌ | 🟠 |
 
 ---
@@ -112,6 +112,7 @@
 |---------|-------|---------|-----------|-----------|--------|
 | **View Targets** | ✅ All | ✅ Team | ✅ Own | ✅ Own | ✅ |
 | **Create/Edit Target** | ✅ | ✅ Team | ❌ | ❌ | ✅ |
+| **Import Prospects** | ✅ | ✅ Team | ✅ Own | ✅ Own | ✅ |
 | **View Daily Alerts** | ❌ Restricted | ✅ Team | ✅ Own | ✅ Own | ✅ |
 | **Manage Alerts** | ❌ Restricted | ✅ | ✅ | ✅ | ✅ |
 
