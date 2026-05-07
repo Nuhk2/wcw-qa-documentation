@@ -35,8 +35,8 @@ This repository contains **comprehensive QA documentation** for testing the WCW 
 | **Roles** | 4 | Admin (Super), Manager (Team), Sales Rep (Own), Inside Rep (Own) |
 | **Features** | 80+ | Complete feature matrix with role access control |
 | **Edge Cases** | 150+ | Documented test scenarios |
-| **Tests** | 756 | Playwright automation tests |
-| **Permissions** | 40+ | Current (7 implemented) + Planned (33 for PBAC) |
+| **Tests** | 500+
+| **Permissions** | 40+  |
 
 ## 🚀 Quick Start
 
@@ -56,15 +56,6 @@ This repository contains **comprehensive QA documentation** for testing the WCW 
 3. Plan: PBAC migration using permission strings
 4. Implement: 40+ permission strings across 17 modules
 ```
-
-## 🚨 Critical Blockers (Must Fix Before Release)
-
-🔴 **Calendar Module** - Hardcoded mock data (September 2025)  
-🟡 **Auth** - Token refresh not implemented  
-🟡 **User Management** - PBAC permissions not implemented  
-🟡 **Access Control** - Verification of impersonation edge cases needed  
-
-See [QA_TEST_EXECUTION_TRACKER.md](./QA_TEST_EXECUTION_TRACKER.md) for details.
 
 ## 👥 Testing by Role
 
@@ -92,27 +83,11 @@ See [QA_TEST_EXECUTION_TRACKER.md](./QA_TEST_EXECUTION_TRACKER.md) for details.
 ## ✅ Testing Success Criteria
 
 - [ ] All 17 modules tested with each of 4 roles
-- [ ] 756 Playwright tests passing
-- [ ] All critical blockers resolved
 - [ ] All edge cases documented
 - [ ] No unauthorized access found
 - [ ] Performance < 3s per page load
-- [ ] PBAC structure validated
 - [ ] QA team sign-off obtained
 - [ ] Tech lead review completed
-
-## 🧪 Automated Testing
-
-```bash
-# Run all 756 tests
-npm run test:playwright
-
-# View results
-npx playwright show-report
-
-# Run specific module
-npm run test:playwright tests/modules/customers.spec.ts
-```
 
 ## 🗂️ Repository Structure
 
